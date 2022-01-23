@@ -55,7 +55,7 @@ function reAuthorize(){
     res.on('data', (d) => {
       console.log('on va lancer getActivities !')
       console.log('d :',d)
-      getActivities(d);
+      getActivities(d.json());
     })
   })
 
