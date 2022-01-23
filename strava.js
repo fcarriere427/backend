@@ -53,7 +53,8 @@ function reAuthorize(){
   // lance la requête, et enchaine sur getActivities
   const req = https.request(options, (res) => {
     res.on('data', (chunk) => {
-        var token = chunk.access_token
+        console.log('on récupère access token');
+        var token = chunk.access_token;
         console.log('on va lancer getActivities avec :', token);
         getActivities(token);
       });
