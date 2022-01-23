@@ -47,22 +47,22 @@ function reAuthorize(){
       'Content-Length': body.length
     }
   }
-  const req = https.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`)
 
-    res.on('data', d => {
+  const req = https.request(options, (res) => {
+    console.log('statusCode:',res.statusCode);
+    console.log('headers: ',res.headers);
+    res.on('data', (d) => {
       process.stdout.write(d)
 //      .then(res => getActivities(res))
-
     })
   })
 
-  req.on('error', error => {
-    console.error(error)
-  })
+  req.on('error',(e) => {
+    console.error(e)
+  });
 
-  req.write(data)
-  req.end()
+  req.write(body);
+  req.end();
 }
 
 reAuthorize()
