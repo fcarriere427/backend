@@ -65,9 +65,10 @@ function reAuthorize(){
   });
 
   req.write(body);
+  console.log('body juste avant la fin de requête  :',body)
   req.end();
 
-  console.log('body à la fin :',body)
+  console.log('body après la fin de requête  :',body)
 
 // console.log('on va lancer getActivities !')
 //  getActivities(d);
