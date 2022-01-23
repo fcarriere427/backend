@@ -1,6 +1,7 @@
-const path = require('path')
+const fs = require('fs')
 
-products_path = '/data/products/products.json'
-products_file = path.basename(products_path)
+const data = 'This is my Hello World file'
 
-console.log(products_file) // products.json
+fs.writeFile('info.txt', data, 'utf-8', (err) => {
+    console.log('File created')
+})
