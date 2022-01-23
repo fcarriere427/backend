@@ -24,11 +24,12 @@ function reAuthorize(){
     var id = myObj.id;
     var secret = myObj.secret;
     var token = myObj.token;
-    console.log(id);
   } catch (err) {
     console.log('There has been an error reading the keys file :-(')
     console.error(err)
   }
+
+  console.log(id);
 
   const auth_link = "https://www.strava.com/oauth/token"
 
