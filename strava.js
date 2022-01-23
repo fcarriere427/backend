@@ -64,6 +64,7 @@ function reAuthorize(){
     console.error(e)
   });
 
+  console.log('body justeavant écriture de la requête  :',body)
   req.write(body);
   console.log('body juste avant la fin de requête  :',body)
   req.end();
