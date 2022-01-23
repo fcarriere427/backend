@@ -22,14 +22,28 @@ function reAuthorize(){
   var secret;
   var token;
   try {
-    const keys = fs.readFileSync('strava_keys.json', 'utf8')
-    id = keys.client_id;
-    secret = keys.client_secret;
-    token = keys.refresh_token;
+    var data = fs.readFileSync('./strava_keys.json'), keys;
+    id = keys.id;
+    secret = keys.secret;
+    token = keys.token;
     console.log(id);
   } catch (err) {
     console.error(err)
   }
+
+
+  try {
+    myObj = JSON.parse(data);
+    console.dir(myObj);
+  }
+  catch (err) {
+    console.log('There has been an error parsing your JSON.')
+    console.log(err);
+  }
+
+
+
+
 
   const auth_link = "https://www.strava.com/oauth/token"
 
