@@ -49,11 +49,10 @@ function reAuthorize(){
   }
 
   const req = https.request(options, (res) => {
-    console.log('statusCode:',res.statusCode);
-    console.log('headers: ',res.headers);
+    //console.log('statusCode:',res.statusCode);
     res.on('data', (d) => {
-      process.stdout.write(d)
-//      .then(res => getActivities(res))
+      //process.stdout.write(d)
+      getActivities(d);
     })
   })
 
