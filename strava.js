@@ -1,4 +1,5 @@
-const fs = require('fs')
+const fs = require('fs');
+const https = require('https');
 
 function getActivities(res){
   // appelle API strava avec l'access token qu'on vient de renouveller
@@ -48,22 +49,6 @@ function reAuthorize(){
 
   const auth_link = "https://www.strava.com/oauth/token"
 
-
-  fetch(auth_link,{
-    method: 'post',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      client_id: id,
-      client_secret: secret,
-      refresh_token: token,
-      grant_type: 'refresh_token'
-    })
-  })
-    .then(res => res.json())
-    .then(res => getActivities(res))
 }
 
 reAuthorize()
