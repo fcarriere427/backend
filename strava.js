@@ -54,8 +54,6 @@ function reAuthorize(){
   const req = https.request(options, (res) => {
     res.on('data', (d) => {
       console.log('on va lancer getActivities !')
-      console.log('d :',d)
-      getActivities(d.json());
     })
   })
 
@@ -65,6 +63,12 @@ function reAuthorize(){
 
   req.write(body);
   req.end();
-}
+
+  console.log('body :',body)
+
+
+//  console.log('d :',d)
+//  getActivities(d);
+  }
 
 reAuthorize()
