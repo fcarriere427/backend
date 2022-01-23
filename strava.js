@@ -3,7 +3,7 @@ const https = require('https');
 
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
-  const activities_link = 'https://www.strava.com/api/v3/athlete/activities?access_token=', token;
+  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   console.log('URL for get request:',activities_link);
   https.get(activities_link, (res) => {
     console.log('statusCode:',res.statusCode);
