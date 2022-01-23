@@ -52,9 +52,12 @@ function reAuthorize(){
   }
 
   const req = https.request(options, (res) => {
-    res.on('data', (d) => {
-      console.log('on va lancer getActivities !')
-    })
+    res.on('data', (chunk) => {
+        console.log(`BODY: ${chunk}`);
+      });
+    res.on('end', () => {
+        console.log('No more data in response.');
+    });
   })
 
   req.on('error',(e) => {
@@ -66,8 +69,7 @@ function reAuthorize(){
 
   console.log('body :',body)
 
-
-//  console.log('d :',d)
+// console.log('on va lancer getActivities !')
 //  getActivities(d);
   }
 
