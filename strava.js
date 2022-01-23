@@ -39,7 +39,7 @@ function reAuthorize(){
 
   try {
     const keys = fs.readFileSync('strava_keys.json', 'utf8')
-    console.log(data)
+    console.log(keys)
     id = keys.client_id;
     secret = keys.client_secret;
     token = keys.refresh_token;
