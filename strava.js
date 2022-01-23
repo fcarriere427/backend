@@ -56,6 +56,7 @@ function reAuthorize(){
         console.log(`BODY pendant : ${chunk}`);
       });
     res.on('end', () => {
+        console.log(`BODY on end:`, body);
         console.log('No more data in response.');
     });
   })
@@ -64,12 +65,8 @@ function reAuthorize(){
     console.error(e)
   });
 
-  console.log('body justeavant écriture de la requête  :',body)
   req.write(body);
-  console.log('body juste avant la fin de requête  :',body)
   req.end();
-
-  console.log('body après la fin de requête  :',body)
 
 // console.log('on va lancer getActivities !')
 //  getActivities(d);
