@@ -54,6 +54,7 @@ function reAuthorize(){
     //console.log('statusCode:',res.statusCode);
     res.on('data', (d) => {
       //process.stdout.write(d)
+      console.log('on va lancer getActivities !')
       getActivities(d);
     })
   })
