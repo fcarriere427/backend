@@ -12,6 +12,7 @@ function getActivities(res){
 //    .then(function (data) {saveData(data);})
 //    .catch(function (err) {console.log('error: ' + err);})
   })
+}
 
 function saveData(data) {
   fs.writeFile('strava_data.txt', data, 'utf-8', (err) => {
