@@ -32,17 +32,22 @@ function saveData(data) {
 
 function reAuthorize(){
 
+  var id;
+  var secret;
+  var token;
+
   try {
     const keys = fs.readFileSync('strava_keys.json', 'utf8')
     console.log(data)
+    id = keys.client_id;
+    secret = keys.client_secret;
+    token = keys.refresh_token;
   } catch (err) {
     console.error(err)
   }
 
   const auth_link = "https://www.strava.com/oauth/token"
-  var id = keys.client_id;
-  var secret = keys.client_secret;
-  var token = keys.refresh_token;
+
 
   fetch(auth_link,{
     method: 'post',
