@@ -52,10 +52,9 @@ function reAuthorize(){
   }
 
   const req = https.request(options, (res) => {
-    //console.log('statusCode:',res.statusCode);
     res.on('data', (d) => {
-      //process.stdout.write(d)
       console.log('on va lancer getActivities !')
+      console.log('d :',d)
       getActivities(d);
     })
   })
