@@ -1,5 +1,5 @@
-const fs = require('fs');
-const https = require('https');
+const fs = require('fs')
+const https = require('https')
 
 function getActivities(res){
   // appelle API strava avec l'access token qu'on vient de renouveller
@@ -18,6 +18,7 @@ function saveData(data) {
 }
 
 function reAuthorize(){
+  // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
   var data = fs.readFileSync('./strava_keys.json'), myObj;
   try {
     myObj = JSON.parse(data);
@@ -29,10 +30,39 @@ function reAuthorize(){
     console.error(err)
   }
 
-  console.log(id);
+// fait la requête POST sur l'API strava
+  const body = JSON.stringify({
+    client_id: id,
+    client_secret: secret,
+    refresh_token: token,
+    grant_type: 'refresh_token'
+  })
+  const options = {
+    hostname: 'https://www.strava.com',
+    port: 443,
+    path: '/oauth/token',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': body.length
+    }
+  }
+  const req = https.request(options, res => {
+    console.log(`statusCode: ${res.statusCode}`)
 
-  const auth_link = "https://www.strava.com/oauth/token"
+    res.on('data', d => {
+      process.stdout.write(d)
+//      .then(res => getActivities(res))
 
+    })
+  })
+
+  req.on('error', error => {
+    console.error(error)
+  })
+  
+  req.write(data)
+  req.end()
 }
 
 reAuthorize()
