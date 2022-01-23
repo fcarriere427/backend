@@ -53,7 +53,7 @@ function reAuthorize(){
 
   const req = https.request(options, (res) => {
     res.on('data', (chunk) => {
-        console.log(`BODY: ${chunk}`);
+        console.log(`BODY pendant : ${chunk}`);
       });
     res.on('end', () => {
         console.log('No more data in response.');
@@ -67,7 +67,7 @@ function reAuthorize(){
   req.write(body);
   req.end();
 
-  console.log('body :',body)
+  console.log('body à la fin :',body)
 
 // console.log('on va lancer getActivities !')
 //  getActivities(d);
