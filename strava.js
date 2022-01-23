@@ -1,9 +1,9 @@
 const fs = require('fs');
 const https = require('https');
 
-function getActivities(res){
+function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
-  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`
+  const activities_link = 'https://www.strava.com/api/v3/athlete/activities?access_token=', token;
   console.log('URL for get request:',activities_link);
   https.get(activities_link, (res) => {
     console.log('statusCode:',res.statusCode);
@@ -50,26 +50,18 @@ function reAuthorize(){
       'Content-Length': body.length
     }
   }
-
+  // lance la requête, et enchaine sur getActivities
   const req = https.request(options, (res) => {
     res.on('data', (chunk) => {
-        console.log(`BODY pendant : ${chunk}`);
+        var token = chunk.access_token
+        console.log('on va lancer getActivities avec :', token);
+        getActivities(token);
       });
-    res.on('end', () => {
-        console.log(`BODY on end:`, body);
-        console.log('No more data in response.');
-    });
-  })
-
+    })
   req.on('error',(e) => {
     console.error(e)
   });
-
-  req.write(body);
   req.end();
-
-// console.log('on va lancer getActivities !')
-//  getActivities(d);
   }
 
 reAuthorize()
