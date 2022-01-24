@@ -49,6 +49,7 @@ function reAuthorize(){
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+  console.log('on va lancer la requete GET');
   const req = https.get(activities_link, (res) => {
     res.on('end', d => {
       const data = JSON.parse(d);
