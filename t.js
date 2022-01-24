@@ -51,6 +51,9 @@ function getActivities(token){
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   const req = https.get(activities_link, (res) => {
     res.on('end', d => {
+      const data = JSON.parse(d);
+      console.log('res: ', res);
+      console.log('data: ', data);
       saveData(res);
     })
   })
@@ -60,7 +63,7 @@ function getActivities(token){
 }
 
 function saveData(data) {
-  fs.writeFile('strava_data.txt', data, 'utf-8', (err) => {
+  fs.writeFile('out', data, 'utf-8', (err) => {
       console.log('File created')
   })
 }
