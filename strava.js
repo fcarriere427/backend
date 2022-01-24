@@ -4,9 +4,14 @@ const https = require('https');
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  console.log('URL for get request:',activities_link);
   https.get(activities_link, (res) => {
+
+//***  CA PLANTE ICI : on ne récupère rien, juste "undefined"...
+
+
+
     console.log('statusCode:',res.statusCode);
+
 //    .then(function (response) {return response.json();})
 //    .then(function (data) {appendData(data);})
 //    .then(function (data) {saveData(data);})
@@ -51,12 +56,10 @@ function reAuthorize(){
     }
   }
   // lance la requête, et enchaine sur getActivities
-  const req = https.request(options, (res) => {
+  var req = https.request(options, (res) => {
     res.on('data', (chunk) => {
         const data = JSON.parse(chunk);
         const token = data.access_token;
-//***  CA PLANTE ICI : on ne récupère rien, juste "undefined"...
-        console.log('on va lancer getActivities avec :', token);
         getActivities(token);
       });
     })
