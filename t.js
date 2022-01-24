@@ -33,7 +33,7 @@ function reAuthorize(){
   }
   // lance la requête, et enchaine sur getActivities
   const req = https.request(options, (res) => {
-    res.on('end', d => {
+    res.on('data', d => {
         const data = JSON.parse(d);
         const token = data.access_token;
         console.log('on va lancer getActivities');
