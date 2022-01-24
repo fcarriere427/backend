@@ -31,8 +31,10 @@ function reAuthorize(){
       'Content-Length': body.length
     }
   }
+
   var str = '';
   callback = function(res) {
+    console.log('on lance le callback');
     res.on('data', function(chunk){
       str += chunk;
       console.log('on reçoit un chunk');
