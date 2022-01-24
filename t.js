@@ -1,25 +1,6 @@
 const fs = require('fs');
 const https = require('https');
 
-function getActivities(token){
-  // appelle API strava avec l'access token qu'on vient de renouveller
-  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  console.log('URL for get request:',activities_link);
-  https.get(activities_link, (res) => {
-    console.log('statusCode:',res.statusCode);
-//    .then(function (response) {return response.json();})
-//    .then(function (data) {appendData(data);})
-//    .then(function (data) {saveData(data);})
-//    .catch(function (err) {console.log('error: ' + err);})
-  })
-}
-
-function saveData(data) {
-  fs.writeFile('strava_data.txt', data, 'utf-8', (err) => {
-      console.log('File created')
-  })
-}
-
 function reAuthorize(){
   // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
   var data = fs.readFileSync('./strava_keys.json'), myObj;
@@ -52,12 +33,12 @@ function reAuthorize(){
   }
   // lance la requête, et enchaine sur getActivities
   const req = https.request(options, (res) => {
-    res.on('data', (chunk) => {
+    res.on('data', d => {
         console.log('on récupère access token');
 //***  CA PLANTE ICI : on ne récupère rien, juste "undefined"...
-        var token = chunk.access_token;
-        console.log('on va lancer getActivities avec :', token);
-        getActivities(token);
+//        var token = d.access_token;
+        console.log('on va lancer getActivities avec d = ', d);
+//        getActivities(token);
       });
     })
   req.on('error',(e) => {
@@ -66,5 +47,18 @@ function reAuthorize(){
   req.write(body);
   req.end();
   }
+
+function getActivities(token){
+  // appelle API strava avec l'access token qu'on vient de renouveller
+  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+  console.log('URL for get request:',activities_link);
+  https.get(activities_link, (res) => {
+    console.log('statusCode:',res.statusCode);
+//    .then(function (response) {return response.json();})
+//    .then(function (data) {appendData(data);})
+//    .then(function (data) {saveData(data);})
+//    .catch(function (err) {console.log('error: ' + err);})
+  })
+}
 
 reAuthorize()
