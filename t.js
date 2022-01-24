@@ -35,6 +35,7 @@ function reAuthorize(){
   callback = function(res) {
     res.on('data', function(chunk){
       str += chunk;
+      console.log('on reçoit un chunk');
     });
     res.on('end', function(){
       console.log('str:', str);
@@ -46,7 +47,6 @@ function reAuthorize(){
     });
   }
   // lance la requête, et enchaine sur getActivities
-  console.log('on lance la requete POST');
   var req = https.request(options, callback).end();
 }
 
