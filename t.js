@@ -32,21 +32,21 @@ function reAuthorize(){
     }
   }
   var str = '';
-  callback = function(res){
+  callback = function(res) {
     res.on('data', function(chunk){
       str += chunk;
     });
     res.on('end', function(){
       console.log('str:', str);
       console.log('req.data:', req.data);
-      const data = JSON.parse(d);
+      const data = JSON.parse(str);
       const token = data.access_token;
       console.log('on va lancer getActivities');
       getActivities(token);
     });
   }
   // lance la requête, et enchaine sur getActivities
-  const req = https.request(options, callback).end();
+  var req = https.request(options, callback).end();
 
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
