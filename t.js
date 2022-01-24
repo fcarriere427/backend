@@ -53,10 +53,8 @@ function getActivities(token){
   console.log('on va lancer la requete GET');
   const req = https.get(activities_link, (res) => {
     res.on('data', d => {
-      const data = JSON.parse(d);
-      console.log('res: ', res);
-      console.log('data: ', data);
-      saveData(res);
+      console.log('d: ', d);
+      saveData(d);
     })
   })
   req.on('error',(e) => {
