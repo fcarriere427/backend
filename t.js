@@ -34,10 +34,8 @@ function reAuthorize(){
   // lance la requête, et enchaine sur getActivities
   const req = https.request(options, (res) => {
     res.on('data', d => {
-        console.log('on récupère access token');
         const data = JSON.parse(d);
         const token = data.access_token;
-        console.log('on va lancer getActivities avec token = ', token);
         getActivities(token);
       });
     })
@@ -54,6 +52,8 @@ function getActivities(token){
   console.log('URL for get request:',activities_link);
   https.get(activities_link, (res) => {
     console.log('statusCode:',res.statusCode);
+    console.log('res:',res);
+
 //    .then(function (response) {return response.json();})
 //    .then(function (data) {appendData(data);})
 //    .then(function (data) {saveData(data);})
