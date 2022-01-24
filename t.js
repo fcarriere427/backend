@@ -46,6 +46,7 @@ function reAuthorize(){
     });
   }
   // lance la requête, et enchaine sur getActivities
+  console.log('on lance la requete POST');
   var req = https.request(options, callback).end();
 }
 
