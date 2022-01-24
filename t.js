@@ -47,6 +47,7 @@ function reAuthorize(){
   }
   // lance la requête, et enchaine sur getActivities
   var req = https.request(options, callback).end();
+}
 
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
