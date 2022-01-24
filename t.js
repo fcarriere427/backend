@@ -36,6 +36,7 @@ function reAuthorize(){
     res.on('end', d => {
         const data = JSON.parse(d);
         const token = data.access_token;
+        console.log('on va lancer getActivities');
         getActivities(token);
       });
     })
