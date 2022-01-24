@@ -51,9 +51,7 @@ function getActivities(token){
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   const req = https.get(activities_link, (res) => {
     console.log('statusCode:',res.statusCode);
-    console.log('res.id:',res.id);
-    const data = JSON.parse(res);
-    saveData(data);
+    saveData(res);
 //    .then(function (response) {return response.json();})
 //    .then(function (data) {appendData(data);})
 //    .then(function (data) {saveData(data);})
