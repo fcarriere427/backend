@@ -31,18 +31,22 @@ function reAuthorize(){
       'Content-Length': body.length
     }
   }
+  var str = '';
+  callback = function(res){
+    res.on('data', function(chunk){
+      str += chunk;
+    });
+    res.on('end', function(){
+      console.log('str:', str);
+      console.log('req.data:', req.data);
+      const data = JSON.parse(d);
+      const token = data.access_token;
+      console.log('on va lancer getActivities');
+      getActivities(token);
+    });
+  }
   // lance la requête, et enchaine sur getActivities
-  const req = https.request(options, (res) => {
-    res.on('data', d => {
-        const data = JSON.parse(d);
-        const token = data.access_token;
-        console.log('on va lancer getActivities');
-        getActivities(token);
-      });
-    })
-  req.on('error',(e) => {
-    console.error(e);
-  });
+  const req = https.request(options, callback).end();
   req.write(body);
   req.end();
   }
@@ -53,6 +57,9 @@ function getActivities(token){
   console.log('on va lancer la requete GET');
   const req = https.get(activities_link, (res) => {
     res.on('data', d => {
+      console.log('d: ', d);
+    })
+    res.on('end', d => {
       console.log('d: ', d);
       saveData(d);
     })
