@@ -35,7 +35,8 @@ function reAuthorize(){
   const req = https.request(options, (res) => {
     res.on('data', d => {
         console.log('on récupère access token');
-        const token = JSON.parse(d);
+        const data = JSON.parse(d);
+        const token = data.access_token;
 //***  CA PLANTE ICI : on ne récupère rien, juste "undefined"...
 //        var token = d.access_token;
         console.log('on va lancer getActivities avec token = ', token);
