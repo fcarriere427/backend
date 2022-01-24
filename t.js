@@ -40,7 +40,7 @@ function reAuthorize(){
       });
     })
   req.on('error',(e) => {
-    console.error(e)
+    console.error(e);
   });
   req.write(body);
   req.end();
@@ -49,14 +49,24 @@ function reAuthorize(){
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  https.get(activities_link, (res) => {
+  const req = https.get(activities_link, (res) => {
     console.log('statusCode:',res.statusCode);
     console.log('res.id:',res.id);
-
+    const data = JSON.parse(res);
+    saveData(data);
 //    .then(function (response) {return response.json();})
 //    .then(function (data) {appendData(data);})
 //    .then(function (data) {saveData(data);})
 //    .catch(function (err) {console.log('error: ' + err);})
+  })
+  req.on('error',(e) => {
+    console.error(e);
+  })
+}
+
+function saveData(data) {
+  fs.writeFile('strava_data.txt', data, 'utf-8', (err) => {
+      console.log('File created')
   })
 }
 
