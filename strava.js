@@ -4,19 +4,22 @@ const https = require('https');
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  https.get(activities_link, (res) => {
-
-//***  CA PLANTE ICI : on ne récupère rien, juste "undefined"...
-
-
-
-    console.log('statusCode:',res.statusCode);
-
-//    .then(function (response) {return response.json();})
-//    .then(function (data) {appendData(data);})
-//    .then(function (data) {saveData(data);})
-//    .catch(function (err) {console.log('error: ' + err);})
+  var https.get(activities_link, (res) => {
+    //***  REPRENDRE ICI ********
+    res.on('data', (chunk) => {
+      const data = JSON.parse(chunk);
+      const token = data.access_token;
+      console.log('statusCode:',res.statusCode);
+    //    .then(function (response) {return response.json();})
+    //    .then(function (data) {appendData(data);})
+    //    .then(function (data) {saveData(data);})
+    //    .catch(function (err) {console.log('error: ' + err);})
+    });
   })
+  req.on('error',(e) => {
+    console.error(e)
+  });
+  req.end();
 }
 
 function saveData(data) {
@@ -57,6 +60,7 @@ function reAuthorize(){
   }
   // lance la requête, et enchaine sur getActivities
   var req = https.request(options, (res) => {
+    //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')...
     res.on('data', (chunk) => {
         const data = JSON.parse(chunk);
         const token = data.access_token;
