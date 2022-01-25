@@ -5,17 +5,15 @@ function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   var req = https.get(activities_link, (res) => {
-    //***  REPRENDRE ICI ********
     var str = '';
     res.on('data', (chunk) => {
       str += chunk;
-      console.log('statusCode:',res.statusCode);
     })
     res.on('end', () => {
-      console.log('statusCode:',res.statusCode);
-      console.log('str:',str);
-      const data = JSON.parse(str);
-      saveData(str);
+      // sauve les données dans un fichier
+      // pour les récupérer, les convertir en objet si besoin pour les manipuler, puis les reconvertir en str pour les sauver...
+      // ... voir ici : https://qastack.fr/programming/36856232/write-add-data-in-json-file-using-node-js
+          saveData(str);
     })
   })
   req.on('error',(e) => {
@@ -25,7 +23,7 @@ function getActivities(token){
 }
 
 function saveData(data) {
-  fs.writeFile('strava_data.txt', data, 'utf-8', (err) => {
+  fs.writeFile('data.txt', data, 'utf-8', (err) => {
       console.log('File created')
   })
 }
