@@ -4,7 +4,7 @@ const https = require('https');
 function getActivities(token){
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  var https.get(activities_link, (res) => {
+  var req = https.get(activities_link, (res) => {
     //***  REPRENDRE ICI ********
     res.on('data', (chunk) => {
       const data = JSON.parse(chunk);
