@@ -6,15 +6,17 @@ function getActivities(token){
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   var req = https.get(activities_link, (res) => {
     //***  REPRENDRE ICI ********
+    var str = '';
     res.on('data', (chunk) => {
-      const data = JSON.parse(chunk);
-      const token = data.access_token;
+      str += chunk;
       console.log('statusCode:',res.statusCode);
-    //    .then(function (response) {return response.json();})
-    //    .then(function (data) {appendData(data);})
-    //    .then(function (data) {saveData(data);})
-    //    .catch(function (err) {console.log('error: ' + err);})
-    });
+    })
+    res.on('end', () => {
+      console.log('statusCode:',res.statusCode);
+      console.log('str:',str);
+      const data = JSON.parse(str);
+      saveData(data);
+    })
   })
   req.on('error',(e) => {
     console.error(e)
