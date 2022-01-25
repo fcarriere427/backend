@@ -15,7 +15,7 @@ function getActivities(token){
       console.log('statusCode:',res.statusCode);
       console.log('str:',str);
       const data = JSON.parse(str);
-      saveData(data);
+      saveData(str);
     })
   })
   req.on('error',(e) => {
