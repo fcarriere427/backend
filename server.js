@@ -2,13 +2,14 @@
 // Serveur : gère les requêtes du front
 ////////////////
 
-const http = require('http')
+const express = require('express')
+const app = express()
+const port = 3000
 
-const server = http.createServer((req, res) => {
-    // envoi la réponse au client
-    res.end('Hello World from the server')
+app.get('/', (req, res) => {
+  res.send('Hello World!')
 })
 
-server.listen(5000, 'localhost', () => {
-    console.log('Server is listening at localhost on port 5000')
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
 })
