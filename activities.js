@@ -1,6 +1,7 @@
 const https = require('https');
 const express = require('express');
 const fs = require('fs');
+const reAuthorize = require('./reAuthorize');
 
 var router = express.Router();
 
@@ -13,6 +14,5 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
     reAuthorize();
 });
-
 
 module.exports = router;
