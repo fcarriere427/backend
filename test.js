@@ -14,4 +14,4 @@ function test() {
   });
 }
 
-test();
+test()
