@@ -2,6 +2,8 @@ const https = require('https');
 const express = require('express');
 const fs = require('fs');
 
+const getActivities = require('./getActivities');
+
 var router = express.Router();
 
 // middleware that is specific to this router
