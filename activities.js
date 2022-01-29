@@ -3,12 +3,13 @@ var router = express.Router();
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  console.log('Time: ', Date.now());
+  console.log('Tiens, on m\'a appelé à : ', Date.now());
   next();
 });
 // define the home page route
 router.get('/', function(req, res) {
-  res.send('Activities home page');
+  res.send('Ici, on va appeler les données Strava');
+
 });
 // define the about route
 router.get('/about', function(req, res) {
