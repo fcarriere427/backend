@@ -41,7 +41,7 @@ function getActivities(){
       console.error(e)
     });
     // req.write(body);
-    // req.end();
+    req.end();
   })
 }
 
