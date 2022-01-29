@@ -9,7 +9,7 @@ const app = express()
 
 const port = 3000
 
-app.get('/activities', (req, res) => res.json({ "réponse du serveur !" }));
+app.get('/activities', (req, res) => res.json("réponse du serveur !"));
 
 app.get('/autre', async (req, res) => {
   try{
