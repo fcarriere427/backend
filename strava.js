@@ -1,3 +1,7 @@
+////////////////
+// Récupère toutes les activités Strava et les sauve dans un fichier
+////////////////
+
 const fs = require('fs');
 const https = require('https');
 

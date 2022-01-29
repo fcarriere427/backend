@@ -9,9 +9,9 @@ const app = express()
 
 const port = 3000
 
-app.get('/', (req, res) => res.json({ Hello: 'World!' }));
+app.get('/activities', (req, res) => res.json({ "réponse du serveur !" }));
 
-app.get('/readFile', async (req, res) => {
+app.get('/autre', async (req, res) => {
   try{
     // When an Error is thrown in the try block the rest
     // of the block is not executed, execution continues
