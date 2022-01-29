@@ -13,7 +13,7 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
-  var str = getActivities();
+  str = getActivities();
   console.log('str = ' + str);
   res.status(200).json({
     // renvoyer les données Strava :-)
