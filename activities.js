@@ -17,11 +17,9 @@ router.get('/', function(req, res) {
   var str = getActivities(token);
   console.log("6 - Le résultat de getActivities, dans le router = " + str);
   res.status(200).json({
-    // récupérer les vraies données Strava :-)
+    // renvoyer les données Strava :-)
     data: str
   });
-  console.log("7 - On va envoyer le retour, depuis le routeur = " + data);
-  res.send(data);
 });
 
 // Récupère les activités Strava
