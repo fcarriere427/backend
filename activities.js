@@ -93,7 +93,7 @@ function reAuthorize(){
     req.write(token);
     req.end();
   });
-  console.log("reAuthorize va renvoyer : " + token);
+  //console.log("reAuthorize va renvoyer : " + token);
   return token;
 }
 
