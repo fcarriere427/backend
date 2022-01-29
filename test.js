@@ -6,7 +6,6 @@ function test() {
 
   prom.then((value) => {
     console.log("retour du createur = " + value);
-    resolve("retourne du 1er then");
   });
 }
 
