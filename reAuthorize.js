@@ -1,4 +1,7 @@
 // Renouvelle le token d'access Strava
+const https = require('https');
+const fs = require('fs');
+
 function reAuthorize(){
   var token = "";
   console.log("2 - Début de reAuthorize (depuis reAuthorize)");
