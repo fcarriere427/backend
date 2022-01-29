@@ -35,13 +35,13 @@ function getActivities(){
       })
       res.on('end', () => {
         body = str;
-        console.log("résultat de getActivities : " + body);  
+        return body;
+        // console.log("résultat de getActivities : " + body);
       })
     })
     req.on('error',(e) => {
       console.error(e)
     });
-    // req.write(body);
     req.end();
   })
 }
