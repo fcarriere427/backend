@@ -48,7 +48,7 @@ function getActivities(){
 // Renouvelle le token d'access Strava
 function reAuthorize(){
   return new Promise((successCallback, failureCallback) => {
-    console.log("on lancela promesse de reAuthorize");
+    console.log("on lance la promesse de reAuthorize");
     // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
     // et initialise les 3 variables id, secret et token
     var data = fs.readFileSync('./strava_keys.json'), myObj;
@@ -90,9 +90,10 @@ function reAuthorize(){
     req.on('error',(e) => {
       console.error(e)
     });
-    req.write(body);
+    //req.write(body);
     req.end();
   });
+  return token;
 }
 
 module.exports = router;
