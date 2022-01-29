@@ -11,11 +11,11 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
   console.log("on lance getActivities");
-  getActivities();
+  var str = getActivities();
   res.status(200).json({
     // ******* REPRENDRE ICI ************* //
     // récuprer les vraies données Strava :-)
-    data: "données strava :-)"
+    data: str
   });
   // res.send('Ici, on va appeler les données Strava');
 });
