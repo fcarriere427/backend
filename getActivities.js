@@ -75,18 +75,19 @@ function getActivities() {
   }
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
-    token = body.access_token;
+    var token = body.access_token;
 //console.log("token = " + token);
   }).then(function(body) {
     var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
     var body = '';
     // Lance la requête de récupération des activités
-      httpsRequest(options).then(function(body) {
+    httpsRequest(options).then(function(body) {
 //console.log("activities = " + body);
       // Sauve les activités dans un fichier
       ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
-      saveData(body);
-      return(body);
+      var str = JSON.stringify(body);
+      saveData(str);
+      return(str);
     })
   })
 }
