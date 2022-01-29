@@ -47,7 +47,7 @@ function getActivities(){
 
 // Renouvelle le token d'access Strava
 function reAuthorize(){
-  return new Promise((successCallback, failureCallback) => {
+  return new Promise((successCallback) => {
     console.log("on lance la promesse de reAuthorize");
     // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
     // et initialise les 3 variables id, secret et token
