@@ -12,6 +12,7 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
   var str = getActivities();
+  console.log("str de getActivities dans la route = " + str);
   res.status(200).json({
     // récupérer les vraies données Strava :-)
     data: str
@@ -35,9 +36,10 @@ function getActivities(){
       })
       res.on('end', () => {
         body = str;
-        return body;
         // console.log("résultat de getActivities : " + body);
-      })
+        // ça fonctionne : body contient bien les données Strava !!!
+        return body;
+        })
     })
     req.on('error',(e) => {
       console.error(e)
