@@ -40,8 +40,8 @@ function getActivities(){
     req.on('error',(e) => {
       console.error(e)
     });
-    req.write(body);
-    req.end();
+    // req.write(body);
+    // req.end();
   })
 }
 
