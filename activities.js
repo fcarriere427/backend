@@ -27,25 +27,30 @@ router.get('/about', function(req, res) {
 // Récupère les activités Strava
 function getActivities(){
   //lance le renouvellement de l'access token
-  token = await reAuthorize();
-  console.log("On va lancer getActivities avec token : " + token);
-  // appelle API strava avec l'access token qu'on vient de renouveller
-  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-  var body = '';
-  var req = https.get(activities_link, (res) => {
-    var str = '';
-    res.on('data', (chunk) => {
-      str += chunk;
-    })
-    res.on('end', () => {
-      body = str;
-    })
+  const token = new Promise((res,rej) => {
+    token = reAuthorize();
   })
-  req.on('error',(e) => {
-    console.error(e)
-  });
-  req.write(body);
-  req.end();
+
+  token.then((value) => {
+    console.log("On va lancer getActivities avec token : " + token);
+    // appelle API strava avec l'access token qu'on vient de renouveller
+    const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+    var body = '';
+    var req = https.get(activities_link, (res) => {
+      var str = '';
+      res.on('data', (chunk) => {
+        str += chunk;
+      })
+      res.on('end', () => {
+        body = str;
+      })
+    })
+    req.on('error',(e) => {
+      console.error(e)
+    });
+    req.write(body);
+    req.end();
+  })
 }
 
 // Renouvelle le token d'access Strava
