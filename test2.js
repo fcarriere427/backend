@@ -73,6 +73,7 @@ function getActivities() {
     token = body.access_token;
     console.log("token = " + token);
   }).then(function(body) {
+    console.log("et là on peut appeler getActivities ?");
     // pour suite éventuelle
   })
 }
