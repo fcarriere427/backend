@@ -9,7 +9,7 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
   res.send('Ici, on va appeler les données Strava');
-  res.status.json({
+  res.status(200).json({
     data: "données strava :-)"
   });
 });
