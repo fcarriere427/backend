@@ -5,20 +5,9 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const activitiesRouter = require("routes");
 
-app.use("routes", activitiesRouter);
-
-app.get('/activities', (req, res) => {
-  try{
-    res.json("réponse du serveur !");
-  } catch (err) {
-    res.status(500);
-    res.json({
-      error: true,
-      errorMsg: err,
-    })
-  }
+app.get('/', (req, res) => {
+  res.send('réponse du serveur !');
 });
 
 app.listen(port, () => {
@@ -26,4 +15,4 @@ app.listen(port, () => {
   }
 );
 
-module.exports = app;
+//module.exports = app;
