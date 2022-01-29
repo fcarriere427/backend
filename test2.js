@@ -12,9 +12,9 @@ const fs = require('fs');
 //   });
 // }
 
-function httpRequest(params, postData) {
+function httpsRequest(params, postData) {
     return new Promise(function(resolve, reject) {
-      var req = http.request(params, function(res) {
+      var req = https.request(params, function(res) {
           // cumulate data
           var body = [];
           res.on('data', function(chunk) {
@@ -69,7 +69,7 @@ function getActivities() {
   }
   //// REPRENDRE ICI
   // Lance la requête de renouvellement de l'access_token
-  httpRequest(options,body).then(function(body) {
+  httpsRequest(options,body).then(function(body) {
     token = body.access_token;
     console.log("token = " + token);
   }).then(function(body) {
