@@ -12,61 +12,69 @@ const fs = require('fs');
 //   });
 // }
 
-function getActivities() {
-  return new Promise((successCB, failCB) => {
-    // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
-    // et initialise les 3 variables id, secret et token
-    console.log('création de la promesse');
-    var data = fs.readFileSync('./strava_keys.json'), myObj;
-    try {
-      myObj = JSON.parse(data);
-      var id = myObj.id;
-      var secret = myObj.secret;
-      var refresh_token = myObj.token;
-    } catch (err) {
-      console.log('Il manque le fichier des clés Strava !')
-      console.error(err)
-    }
-  // Prépare les éléments pour la requête de renouvellement sur l'API strava
-    var body = JSON.stringify({
-      client_id: id,
-      client_secret: secret,
-      refresh_token: refresh_token,
-      grant_type: 'refresh_token'
-    })
-    var options = {
-      hostname: 'www.strava.com',
-      port: 443,
-      path: '/oauth/token',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': body.length
-      }
-    }
-    // Lance la requête de renouvellement de l'access_token
-    var req = https.request(options, (res) => {
-      //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
-      res.on('data', (chunk) => {
-        var data = JSON.parse(chunk);
-        token = data.access_token;
-        console.log("reAuthorize - 3 - reAuthorize va renvoyer : " + token);
-        return(token);
+function httpRequest(params, postData) {
+    return new Promise(function(resolve, reject) {
+      var req = http.request(params, function(res) {
+          // cumulate data
+          var body = [];
+          res.on('data', function(chunk) {
+              body.push(chunk);
+          });
+          // resolve on end
+          res.on('end', function() {
+              try {
+                body = JSON.parse(Buffer.concat(body).toString());
+              } catch(e) { reject(e);}
+              resolve(body);
+          });
       });
-    });
-    req.write(body);
-    req.end();
-    // resolve promise
-    successCB("OK !");
+      if (postData) {
+          req.write(postData);
+      }
+      // IMPORTANT
+      req.end();
+  });
+}
+
+function getActivities() {
+  //// Préparation des éléments pour la requête de renouvellement sur l'API strava
+  // Lecture des clés Strava dans un fichier
+  var data = fs.readFileSync('./strava_keys.json'), myObj;
+  // Récupération dans 3 variables locales
+  try {
+    myObj = JSON.parse(data);
+    var id = myObj.id;
+    var secret = myObj.secret;
+    var refresh_token = myObj.token;
+  } catch (err) {
+    console.log('Il manque le fichier des clés Strava !')
+    console.error(err)
+  }
+  // Prépare des variables passées à la  requête
+  var body = JSON.stringify({
+    client_id: id,
+    client_secret: secret,
+    refresh_token: refresh_token,
+    grant_type: 'refresh_token'
   })
-  .then(function() {
-    console.log("then de la promesse : là on va pouvoir lancer getActivities")
+  var options = {
+    hostname: 'www.strava.com',
+    port: 443,
+    path: '/oauth/token',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': body.length
+    }
+  }
+  //// REPRENDRE ICI
+  // Lance la requête de renouvellement de l'access_token
+  httpRequest(options,body).then(function(body) {
+    token = body.access_token;
+    console.log("token = " + token);
+  }).then(function(body) {
+    // pour suite éventuelle
   })
 }
 
-function main () {
-  const promise = getActivities();
-  promise.then((value) => console.log("retour de la promesse = " + value));
-}
-
-main()
+getActivities()
