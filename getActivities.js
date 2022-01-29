@@ -75,7 +75,7 @@ function getActivities() {
   }
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
-    var token = body.access_token;
+    token = body.access_token;
 //console.log("token = " + token);
   }).then(function(body) {
     var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
