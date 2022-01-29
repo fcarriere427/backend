@@ -9,7 +9,17 @@ const app = express()
 
 const port = 3000
 
-app.get('/activities', (req, res) => res.json("réponse du serveur !"));
+app.get('/activities', (req, res) => {
+  try{
+    res.json("réponse du serveur !"));
+  } catch (err) {
+    res.status(500);
+    res.json({
+      error: true,
+      errorMsg: err,
+    })
+  }
+}
 
 app.get('/autre', async (req, res) => {
   try{
