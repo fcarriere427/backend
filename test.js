@@ -17,7 +17,7 @@ function newProm() {
       reAuthorize();
       successCB("OK !");
   }).then(function() {
-    console.log("then de la promesse = " + value)
+    console.log("then de la promesse")
   })
 }
 
