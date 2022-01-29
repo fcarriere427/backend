@@ -63,4 +63,9 @@ function getActivities() {
   })
 }
 
-getActivities()
+function main () {
+  const promise = getActivities();
+  promise.then((value) => console.log("retour de la promesse = " + value));
+}
+
+main()
