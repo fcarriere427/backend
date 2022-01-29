@@ -13,6 +13,7 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
     reAuthorize();
+    console.log("router - 1 - juste après l'appel à reAuthorize")
 });
 
 module.exports = router;
