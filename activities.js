@@ -11,11 +11,15 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
-  // console.log("0 - on lance reAuthorize, depuis le router");
-  // var token = reAuthorize();
+  console.log("0 - on lance reAuthorize, depuis le router");
+  let token = new Promise(function(resolve){
+    token = reAuthorize();
+    resolve(token);
+  })
+  token.then(
+    result => getActivities(token);
+  )
   // console.log("3 - on lance getActivities, depuis le router");
-  // var str = getActivities(token);
-  var str = getActivities( reAuthorize());
   console.log("6 - Le résultat de getActivities, dans le router = " + str);
   res.status(200).json({
     // renvoyer les données Strava :-)
