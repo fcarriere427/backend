@@ -15,7 +15,8 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
     console.log("router - 0 - avant l'appel à newProm")
     var prom = new Promise((resolve, reject) => {
-      console.log("router - 1 - création de la promise")
+      console.log("router - 1 - création de la promise");
+      resolve("OK");
     });
     prom.then(() => {newProm()});
     console.log("router - 2 - après l'appel à newProm")
