@@ -10,7 +10,7 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
   res.send('Ici, on va appeler les données Strava');
   res.status.json({
-    data: "données strava :-)";
+    data: "données strava :-)"
   });
 });
 // define the about route
