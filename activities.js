@@ -29,26 +29,25 @@ function getActivities(token){
   //lance le renouvellement de l'access token
   var activities = {};
   console.log("4 - On est dans getActivities, avec token : " + token);
-    // appelle API strava avec l'access token qu'on vient de renouveller
-    const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
-    var body = '';
-    var req = https.get(activities_link, (res) => {
-      var str = '';
-      res.on('data', (chunk) => {
-        str += chunk;
-      })
-      res.on('end', () => {
-        activities = str;
-        // console.log("résultat de getActivities : " + body);
-        // ça fonctionne : body contient bien les données Strava !!!
-        // inutile ?? return body;
-        })
+  // appelle API strava avec l'access token qu'on vient de renouveller
+  const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+  var body = '';
+  var req = https.get(activities_link, (res) => {
+    var str = '';
+    res.on('data', (chunk) => {
+      str += chunk;
     })
-    req.on('error',(e) => {
-      console.error(e)
-    });
-    req.end();
+    res.on('end', () => {
+      activities = str;
+      // console.log("résultat de getActivities : " + body);
+      // ça fonctionne : body contient bien les données Strava !!!
+      // inutile ?? return body;
+      })
   })
+  req.on('error',(e) => {
+    console.error(e)
+  });
+  req.end();
   console.log("5 - on va retourner activities = " + activities);
   return activities;
 }
