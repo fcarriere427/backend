@@ -51,16 +51,15 @@ router.get('/', function(req, res) {
     // Lance la requête de récupération des activités
     httpsRequest(options).then(function(body) {
 //console.log("activities = " + body);
+      // ici on a bien les données str dispo !!! --> les renvoyer à la requete !
       // Sauve les activités dans un fichier
       ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
       var str = JSON.stringify(body);
       saveData(str);
+      res.status(200).json({
+        data: str
+      });
     })
-  }).then(function(body) {
-    // ici on a bien les données str dispo !!! --> les renvoyer à la requete !
-    res.status(200).json({
-      data: str
-    });
   })
 });
 
