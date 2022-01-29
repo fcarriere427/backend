@@ -80,10 +80,11 @@ function reAuthorize(){
     }
     // Lance la requête de renouvellement de l'access_token
     var req = https.request(options, (res) => {
+      var token = "";
       //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
       res.on('data', (chunk) => {
         var data = JSON.parse(chunk);
-        var token = data.access_token;
+        token = data.access_token;
         console.log("reAuthorize a récupéré : " + token);
       });
     })
