@@ -4,7 +4,7 @@ const fs = require('fs');
 
 function reAuthorize(){
   var token = "";
-  console.log("2 - Début de reAuthorize (depuis reAuthorize)");
+  console.log("reAuthorize - 1 - Début de reAuthorize");
   // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
   // et initialise les 3 variables id, secret et token
   var data = fs.readFileSync('./strava_keys.json'), myObj;
@@ -37,11 +37,11 @@ function reAuthorize(){
   // Lance la requête de renouvellement de l'access_token
   var req = https.request(options, (res) => {
     //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
-    console.log("3 - Entrée dans la requête Strava (depuis reAuthorize) : " + token);
+    console.log("reAuthorize - 2 - Entrée dans la requête Strava : " + token);
     res.on('data', (chunk) => {
       var data = JSON.parse(chunk);
       token = data.access_token;
-      console.log("4 - reAuthorize va renvoyer (depuis reAuthorize) : " + token);
+      console.log("reAuthorize - 3 - reAuthorize va renvoyer : " + token);
       return(token);
     });
   })
