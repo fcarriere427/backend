@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
     return new Promise((resolve, reject) => {
       newProm();
       console.log("router - 1 - à l'intérieur de la promise du router")
-    }
+    })
     console.log("router - 2 - après l'appel à newProm")
 });
 
