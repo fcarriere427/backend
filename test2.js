@@ -72,9 +72,14 @@ function getActivities() {
   httpsRequest(options,body).then(function(body) {
     token = body.access_token;
     console.log("token = " + token);
+    //return token; // utile ?
   }).then(function(body) {
-    console.log("et là on peut appeler getActivities ?");
-    // pour suite éventuelle
+    console.log("et là on peut appeler getActivities avec token = " + token);
+    var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+    var body = '';
+    httpsRequest(options).then(function(body) {
+      console.log("activities = " + body);  
+    })
   })
 }
 
