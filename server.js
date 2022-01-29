@@ -5,7 +5,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const actitiesRoute = require(".routes");
+const activitiesRouter = require("routes");
 
 app.use("routes", activitiesRouter);
 
