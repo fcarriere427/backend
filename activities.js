@@ -10,6 +10,7 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
+  console.log("on lance getActivities");
   getActivities();
   res.status(200).json({
     // ******* REPRENDRE ICI ************* //
