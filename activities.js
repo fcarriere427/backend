@@ -92,9 +92,9 @@ function reAuthorize(){
     });
     req.write(body);
     req.end();
+    console.log("reAuthorize va renvoyer : " + token);
+    return token;
   });
-  console.log("reAuthorize va renvoyer : " + token);
-  return token;
 }
 
 module.exports = router;
