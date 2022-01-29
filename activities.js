@@ -85,7 +85,8 @@ function reAuthorize(){
       res.on('data', (chunk) => {
         var data = JSON.parse(chunk);
         token = data.access_token;
-        console.log("reAuthorize a récupéré : " + token);
+        console.log("reAuthorize va renvoyer : " + token);
+        successCallback(token);
       });
     })
     req.on('error',(e) => {
@@ -93,8 +94,6 @@ function reAuthorize(){
     });
     req.write(body);
     req.end();
-    console.log("reAuthorize va renvoyer : " + token);
-    successCallback(token);
   });
 }
 
