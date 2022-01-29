@@ -13,8 +13,8 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
     // promesse sur reAuthorise, récupérer l'access access_token
     console.log("0 - on lance reAuthorize, depuis le router");
-    let token = new Promise(function(resolve){
-      token = reAuthorize();
+    let promise = new Promise(function(resolve){
+      var token = reAuthorize();
       resolve(token);
     })
     token.then(result => {
