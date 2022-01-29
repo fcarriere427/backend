@@ -28,8 +28,11 @@ router.get('/about', function(req, res) {
 function getActivities(){
   //lance le renouvellement de l'access token
   const token = new Promise((res,rej) => {
-    res = reAuthorize();
+    res(reAuthorize());
   })
+
+  // ******* REPRENDRE ICI ************* //
+  // que récupère-t-on dans token ?
 
   token.then((value) => {
     console.log("On va lancer getActivities avec token : " + token);
