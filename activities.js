@@ -11,16 +11,16 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
-    // promesse sur reAuthorise, récupérer l'access access_token
+    // promesse sur reAuthorize, récupérer l'access access_token
     console.log("0 - Création de la promesse pour reAuthorize (depuis le router)");
     const promise = new Promise((resolve,reject) => {
       console.log("1 - Lancement de reAuthorize (depuis le router)");
       var token = reAuthorize();
-      console.log("4 - Réponse de reAuthorise, depuis le router : " + token);
+      console.log("4 - Réponse de reAuthorize (depuis le router) : " + token);
       resolve(token);
     })
     promise.then(result => {
-        console.log("5 - Réponse de la promesse (result) = " + result);
+        console.log("5 - Réponse de la promesse (depuis le router), result = " + result);
         // getActivities(token);
     })
 
@@ -71,7 +71,7 @@ function reAuthorize(){
     res.on('data', (chunk) => {
       var data = JSON.parse(chunk);
       token = data.access_token;
-      console.log("3 - reAuthorize va renvoyer : " + token);
+      console.log("3 - reAuthorize va renvoyer (depuis reAuthorize) : " + token);
       return(token);
     });
   })
