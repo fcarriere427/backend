@@ -27,6 +27,7 @@ router.get('/about', function(req, res) {
 function getActivities(){
   //lance le renouvellement de l'access token
   token = reAuthorize();
+  console.log("access token renouvelé : " + token);
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
   var req = https.get(activities_link, (res) => {
