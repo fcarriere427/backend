@@ -14,15 +14,16 @@ const reAuthorize = require('./reAuthorize');
 function newProm() {
   return new Promise((successCB, failCB) => {
       // ici lancer la requête asynchrone
-      await reAuthorize();
+      reAuthorize();
       successCB("OK !");
+  }).then(function() {
+    console.log("then de la promesse = " + value)
   })
 }
 
 function main() {
   const promise = newProm();
   promise.then((value) => console.log("retour de la promesse = " + value));
-  promise.then((value) => console.log("2ème then = " + value));
 }
 
 main()
