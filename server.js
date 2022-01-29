@@ -19,7 +19,7 @@ app.get('/activities', (req, res) => {
       errorMsg: err,
     })
   }
-}
+});
 
 app.get('/autre', async (req, res) => {
   try{
