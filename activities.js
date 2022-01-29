@@ -12,14 +12,15 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
     // promesse sur reAuthorise, récupérer l'access access_token
-    console.log("0 - on lance reAuthorize, depuis le router");
-    let promise = new Promise(function(resolve){
+    console.log("0 - Création de la promesse pour reAuthorize (depuis le router)");
+    const promise = new Promise((resolve,reject) => {
+      console.log("1 - Lancement de reAuthorize (depuis le router)");
       var token = reAuthorize();
-      console.log("3 - Réponse de reAuthorise, depuis le router : " + token);
+      console.log("4 - Réponse de reAuthorise, depuis le router : " + token);
       resolve(token);
     })
     promise.then(result => {
-        console.log("4 - Réponse de la promesse (result) = " + result);
+        console.log("5 - Réponse de la promesse (result) = " + result);
         // getActivities(token);
     })
 
@@ -34,7 +35,7 @@ router.get('/', function(req, res) {
 // Renouvelle le token d'access Strava
 function reAuthorize(){
   var token = "";
-  console.log("1 - on est dans reAuthorize");
+  console.log("2 - on est dans reAuthorize");
   // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
   // et initialise les 3 variables id, secret et token
   var data = fs.readFileSync('./strava_keys.json'), myObj;
@@ -70,7 +71,7 @@ function reAuthorize(){
     res.on('data', (chunk) => {
       var data = JSON.parse(chunk);
       token = data.access_token;
-      console.log("2 - reAuthorize va renvoyer : " + token);
+      console.log("3 - reAuthorize va renvoyer : " + token);
       return(token);
     });
   })
