@@ -1,3 +1,6 @@
+const https = require('https');
+const fs = require('fs');
+
 function newProm(options, postData) {
   return new Promise((resolve, reject) => {
     var token = "";
