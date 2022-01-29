@@ -13,8 +13,9 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
+    console.log("router - 0 - avant l'appel à newProm")
     newProm();
-    console.log("router - 1 - juste après l'appel à reAuthorize")
+    console.log("router - 1 - après l'appel à newProm")
 });
 
 module.exports = router;
