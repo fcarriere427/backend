@@ -54,54 +54,52 @@ function getActivities(){
 
 // Renouvelle le token d'access Strava
 function reAuthorize(){
-  return new Promise((successCallback) => {
-    console.log("2 - on lance la promesse de reAuthorize");
-    // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
-    // et initialise les 3 variables id, secret et token
-    var data = fs.readFileSync('./strava_keys.json'), myObj;
-    try {
-      myObj = JSON.parse(data);
-      var id = myObj.id;
-      var secret = myObj.secret;
-      var token = myObj.token;
-    } catch (err) {
-      console.log('There has been an error reading the keys file :-(')
-      console.error(err)
+  console.log("2 - on lance la promesse de reAuthorize");
+  // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
+  // et initialise les 3 variables id, secret et token
+  var data = fs.readFileSync('./strava_keys.json'), myObj;
+  try {
+    myObj = JSON.parse(data);
+    var id = myObj.id;
+    var secret = myObj.secret;
+    var token = myObj.token;
+  } catch (err) {
+    console.log('There has been an error reading the keys file :-(')
+    console.error(err)
+  }
+// Prépare les éléments pour la requête de renouvellement sur l'API strava
+  var body = JSON.stringify({
+    client_id: id,
+    client_secret: secret,
+    refresh_token: token,
+    grant_type: 'refresh_token'
+  })
+  var options = {
+    hostname: 'www.strava.com',
+    port: 443,
+    path: '/oauth/token',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': body.length
     }
-  // Prépare les éléments pour la requête de renouvellement sur l'API strava
-    var body = JSON.stringify({
-      client_id: id,
-      client_secret: secret,
-      refresh_token: token,
-      grant_type: 'refresh_token'
-    })
-    var options = {
-      hostname: 'www.strava.com',
-      port: 443,
-      path: '/oauth/token',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': body.length
-      }
-    }
-    // Lance la requête de renouvellement de l'access_token
-    var req = https.request(options, (res) => {
-      var token = "";
-      //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
-      res.on('data', (chunk) => {
-        var data = JSON.parse(chunk);
-        token = data.access_token;
-        console.log("3 - reAuthorize va renvoyer : " + token);
-        successCallback(token);
-      });
-    })
-    req.on('error',(e) => {
-      console.error(e)
+  }
+  // Lance la requête de renouvellement de l'access_token
+  var req = https.request(options, (res) => {
+    var token = "";
+    //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
+    res.on('data', (chunk) => {
+      var data = JSON.parse(chunk);
+      token = data.access_token;
+      console.log("3 - reAuthorize va renvoyer : " + token);
+      successCallback(token);
     });
-    req.write(body);
-    req.end();
+  })
+  req.on('error',(e) => {
+    console.error(e)
   });
+  req.write(body);
+  req.end();
 }
 
 module.exports = router;
