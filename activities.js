@@ -94,7 +94,7 @@ function reAuthorize(){
     req.write(body);
     req.end();
     console.log("reAuthorize va renvoyer : " + token);
-    return token;
+    successCallback(token);
   });
 }
 
