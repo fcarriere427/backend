@@ -21,8 +21,9 @@ app.get('/activities', (req, res) => {
   }
 });
 
-app.listen(port, () =>
-  console.log(`Running on http://localhost:${port}`);
+app.listen(port, () => {
+  console.log("Running on http://localhost:${port}");
+  }
 );
 
 module.exports = app;
