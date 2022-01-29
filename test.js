@@ -9,4 +9,15 @@ function test() {
   });
 }
 
-test()
+function newProm() {
+  return new Promise((successCB, failCB) => {
+      successCB("OK !");
+  })
+}
+
+function main() {
+  const promise = newProm();
+  promise.then(successCB, failCB);
+}
+
+main()
