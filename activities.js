@@ -44,6 +44,7 @@ function getActivities(){
     req.on('error',(e) => {
       console.error(e)
     });
+    console.log("est-ce qu'on arrive là au moins ?");
     req.end();
   })
 }
