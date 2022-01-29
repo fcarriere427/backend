@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
       resolve(token);
     })
     promise.then(result => {
-        console.log("3 - Réponse de la promesse (token) = " + token);
+        console.log("3 - Réponse de la promesse (result) = " + result);
         // getActivities(token);
     })
 
