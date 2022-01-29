@@ -17,7 +17,7 @@ function newProm() {
 
 function main() {
   const promise = newProm();
-  promise.then(successCB, failCB);
+  promise.then((value) => console.log("retour de la promesse = " + value));
 }
 
 main()
