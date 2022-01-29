@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
       var token = reAuthorize();
       resolve(token);
     })
-    token.then(result => {
+    promise.then(result => {
         console.log("3 - Réponse de la promesse (token) = " + token);
         // getActivities(token);
     })
