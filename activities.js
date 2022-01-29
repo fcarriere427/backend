@@ -11,23 +11,24 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
-  console.log("1 - on va lancer getActivities depuis le router");
-  var str = getActivities();
-  console.log("6 - Le str de getActivities dans la route = " + str);
+  console.log("0 - on lance reAuthorize, depuis le router");
+  var token = reAuthorize();
+  console.log("3 - on lance getActivities, depuis le router");
+  var str = getActivities(token);
+  console.log("6 - Le résultat de getActivities, dans le router = " + str);
   res.status(200).json({
     // récupérer les vraies données Strava :-)
     data: str
   });
-  // res.send('Ici, on va appeler les données Strava');
+  console.log("7 - On va envoyer le retour, depuis le routeur = " + data);
+  res.send(data);
 });
 
 // Récupère les activités Strava
-function getActivities(){
+function getActivities(token){
   //lance le renouvellement de l'access token
   var activities = {};
-  reAuthorize()
-  .then(token => {
-    console.log("4 - On va lancer getActivities avec token : " + token);
+  console.log("4 - On est dans getActivities, avec token : " + token);
     // appelle API strava avec l'access token qu'on vient de renouveller
     const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
     var body = '';
@@ -48,13 +49,14 @@ function getActivities(){
     });
     req.end();
   })
-  console.log("5 - on va retourner : " + activities);
+  console.log("5 - on va retourner activities = " + activities);
   return activities;
 }
 
 // Renouvelle le token d'access Strava
 function reAuthorize(){
-  console.log("2 - on lance la promesse de reAuthorize");
+  var token = "";
+  console.log("1 - on est dans reAuthorize");
   // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
   // et initialise les 3 variables id, secret et token
   var data = fs.readFileSync('./strava_keys.json'), myObj;
@@ -62,7 +64,7 @@ function reAuthorize(){
     myObj = JSON.parse(data);
     var id = myObj.id;
     var secret = myObj.secret;
-    var token = myObj.token;
+    var refresh_token = myObj.token;
   } catch (err) {
     console.log('There has been an error reading the keys file :-(')
     console.error(err)
@@ -71,7 +73,7 @@ function reAuthorize(){
   var body = JSON.stringify({
     client_id: id,
     client_secret: secret,
-    refresh_token: token,
+    refresh_token: refresh_token,
     grant_type: 'refresh_token'
   })
   var options = {
@@ -86,13 +88,12 @@ function reAuthorize(){
   }
   // Lance la requête de renouvellement de l'access_token
   var req = https.request(options, (res) => {
-    var token = "";
     //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
     res.on('data', (chunk) => {
       var data = JSON.parse(chunk);
       token = data.access_token;
-      console.log("3 - reAuthorize va renvoyer : " + token);
-      successCallback(token);
+      console.log("2 - reAuthorize va renvoyer : " + token);
+      return(token);
     });
   })
   req.on('error',(e) => {
