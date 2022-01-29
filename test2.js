@@ -16,6 +16,7 @@ function getActivities() {
   return new Promise((successCB, failCB) => {
     // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
     // et initialise les 3 variables id, secret et token
+    console.log('création de la promesse');
     var data = fs.readFileSync('./strava_keys.json'), myObj;
     try {
       myObj = JSON.parse(data);
