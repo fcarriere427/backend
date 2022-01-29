@@ -15,10 +15,11 @@ router.get('/', function(req, res) {
     console.log("0 - on lance reAuthorize, depuis le router");
     let promise = new Promise(function(resolve){
       var token = reAuthorize();
+      console.log("3 - on lance reAuthorize, depuis le router");
       resolve(token);
     })
     promise.then(result => {
-        console.log("3 - Réponse de la promesse (result) = " + result);
+        console.log("4 - Réponse de la promesse (result) = " + result);
         // getActivities(token);
     })
 
