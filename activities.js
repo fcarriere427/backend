@@ -50,6 +50,7 @@ function reAuthorize(){
   return new Promise((successCallback, failureCallback) => {
     console.log("on lancela promesse de reAuthorize");
     // Récupère les clés nécessaire dans le fichier (dispo en local seulement)
+    // et initialise les 3 variables id, secret et token
     var data = fs.readFileSync('./strava_keys.json'), myObj;
     try {
       myObj = JSON.parse(data);
@@ -60,7 +61,7 @@ function reAuthorize(){
       console.log('There has been an error reading the keys file :-(')
       console.error(err)
     }
-  // fait la requête POST de renouvellement sur l'API strava
+  // Prépare les éléments pour la requête de renouvellement sur l'API strava
     var body = JSON.stringify({
       client_id: id,
       client_secret: secret,
@@ -77,21 +78,21 @@ function reAuthorize(){
         'Content-Length': body.length
       }
     }
-    // lance la requête, et enchaine sur getActivities
+    // Lance la requête de renouvellement de l'access_token
     var req = https.request(options, (res) => {
-      //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')...
+      //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
       res.on('data', (chunk) => {
-          var data = JSON.parse(chunk);
-          var token = data.access_token;
-          console.log("reAuthorize a récupéré : " + token);
-        });
-      })
+        var data = JSON.parse(chunk);
+        var token = data.access_token;
+        console.log("reAuthorize a récupéré : " + token);
+      });
+    })
     req.on('error',(e) => {
       console.error(e)
     });
     req.write(body);
     req.end();
-  }
+  });
 }
 
 module.exports = router;
