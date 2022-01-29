@@ -23,6 +23,7 @@ router.get('/', function(req, res) {
 // Récupère les activités Strava
 function getActivities(){
   //lance le renouvellement de l'access token
+  var activities = {};
   reAuthorize()
   .then(token => {
     console.log("On va lancer getActivities avec token : " + token);
@@ -35,18 +36,19 @@ function getActivities(){
         str += chunk;
       })
       res.on('end', () => {
-        body = str;
+        activities = str;
         // console.log("résultat de getActivities : " + body);
         // ça fonctionne : body contient bien les données Strava !!!
-        return body;
+        // inutile ?? return body;
         })
     })
     req.on('error',(e) => {
       console.error(e)
     });
-    console.log("est-ce qu'on arrive là au moins ?");
     req.end();
   })
+  console.log("on va retourner : " + activities);
+  return activities;
 }
 
 // Renouvelle le token d'access Strava
