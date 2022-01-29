@@ -88,8 +88,9 @@ function getActivities() {
       ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
       saveData(body);
       console.log("données sauvées (dans le fichier)");
+      return(body);
     })
   })
 }
 
-getActivities()
+module.exports = getActivities;
