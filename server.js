@@ -11,7 +11,7 @@ const port = 3000
 
 app.get('/activities', (req, res) => {
   try{
-    res.json("réponse du serveur !"));
+    res.json("réponse du serveur !");
   } catch (err) {
     res.status(500);
     res.json({
