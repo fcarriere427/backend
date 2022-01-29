@@ -14,7 +14,7 @@ const reAuthorize = require('./reAuthorize');
 function newProm() {
   return new Promise((successCB, failCB) => {
       // ici lancer la requête asynchrone
-      reAuthorize();
+      await reAuthorize();
       successCB("OK !");
   })
 }
