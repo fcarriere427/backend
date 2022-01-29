@@ -35,6 +35,7 @@ function getActivities(){
       })
       res.on('end', () => {
         body = str;
+        console.log("résultat de getActivities : " + body);  
       })
     })
     req.on('error',(e) => {
