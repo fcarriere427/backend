@@ -14,10 +14,10 @@ router.use(function timeLog(req, res, next) {
 // define the home page route
 router.get('/', function(req, res) {
     console.log("router - 0 - avant l'appel à newProm")
-    return new Promise((resolve, reject) => {
-      newProm();
-      console.log("router - 1 - à l'intérieur de la promise du router")
-    })
+    var prom = new Promise((resolve, reject) => {
+      console.log("router - 1 - création de la promise")
+    });
+    prom.then(() => {newProm()});
     console.log("router - 2 - après l'appel à newProm")
 });
 
