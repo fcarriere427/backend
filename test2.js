@@ -46,7 +46,6 @@ function getActivities() {
     // Lance la requête de renouvellement de l'access_token
     var req = https.request(options, (res) => {
       //*** A revoir : normalement, il faudrait attendre d'avoir tout reçu, donc res.on('end')... mais bon, ça marche :-/
-      console.log("reAuthorize - 2 - Entrée dans la requête Strava : " + token);
       res.on('data', (chunk) => {
         var data = JSON.parse(chunk);
         token = data.access_token;
