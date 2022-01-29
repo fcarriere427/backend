@@ -87,8 +87,9 @@ function getActivities() {
       ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
       var str = JSON.stringify(body);
       saveData(str);
-      return(str);
     })
+  }).then(function(body) {
+    // ici on a bien les données str dispo !!!
   })
 }
 

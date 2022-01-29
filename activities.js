@@ -59,6 +59,7 @@ router.get('/', function(req, res) {
       res.status(200).json({
         data: str
       });
+      console.log("on envoie les données : " + str);
     })
   })
 });
