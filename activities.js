@@ -11,7 +11,6 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/', function(req, res) {
-  console.log("on lance getActivities");
   var str = getActivities();
   res.status(200).json({
     // ******* REPRENDRE ICI ************* //
@@ -28,7 +27,12 @@ router.get('/about', function(req, res) {
 // Récupère les activités Strava
 function getActivities(){
   //lance le renouvellement de l'access token
-  token = reAuthorize();
+  try {
+    token = reAuthorize();
+  } catch (err) {
+    console.log('reAuthorize a foiré...')
+    console.error(err)
+  }
   console.log("On va lancer getActivities avec token : " + token);
   // appelle API strava avec l'access token qu'on vient de renouveller
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
@@ -38,15 +42,13 @@ function getActivities(){
       str += chunk;
     })
     res.on('end', () => {
-      // sauve les données dans un fichier
-      // pour les récupérer, les convertir en objet si besoin pour les manipuler, puis les reconvertir en str pour les sauver...
-      // ... voir ici : https://qastack.fr/programming/36856232/write-add-data-in-json-file-using-node-js
-          saveData(str);
+      var body = str;
     })
   })
   req.on('error',(e) => {
     console.error(e)
   });
+  req.write(body);
   req.end();
 }
 
@@ -87,7 +89,7 @@ function reAuthorize(){
     res.on('data', (chunk) => {
         const data = JSON.parse(chunk);
         const token = data.access_token;
-        console.log("reAuthorize a récupéré" + token);
+        console.log("reAuthorize a récupéré : " + token);
       });
     })
   req.on('error',(e) => {
