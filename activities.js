@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
       resolve("OK");
     });
     prom.then(() => {newProm()});
-    console.log("router - 2 - après l'appel à newProm")
+    prom.then(() => {console.log("router - 2 - après l'appel à newProm")});
 });
 
 module.exports = router;
