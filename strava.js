@@ -44,7 +44,6 @@ function reAuthorize(){
     console.log('There has been an error reading the keys file :-(')
     console.error(err)
   }
-
 // fait la requête POST de renouvellement sur l'API strava
   var body = JSON.stringify({
     client_id: id,
