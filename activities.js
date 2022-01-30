@@ -28,8 +28,7 @@ router.get('/', function(req, res) {
     var secret = myObj.secret;
     var refresh_token = myObj.refresh_token;
     var access_token = myObj.access_token;
-    var refresh_expiration = myObj.refresh_expiration;
-    var
+    var refresh_expiration = myObj.refresh_expiration; 
   } catch (err) {
     console.log('Il manque le fichier des clés Strava !')
     console.error(err)
