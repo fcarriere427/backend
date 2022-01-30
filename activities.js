@@ -21,16 +21,32 @@ router.get('/', function(req, res) {
   //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier
   var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
-  // Récupération dans 3 variables locales
+  // Récupération des clés dans des variables locales
   try {
     myObj = JSON.parse(data);
     var id = myObj.id;
     var secret = myObj.secret;
     var refresh_token = myObj.refresh_token;
+    var access_token = myObj.access_token;
+    var refresh_expiration = myObj.refresh_expiration;
+    var
   } catch (err) {
     console.log('Il manque le fichier des clés Strava !')
     console.error(err)
   }
+
+  /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
+  /// /!\ attention, il va falloir enchainer les promises...
+  /// a priori :
+  /// Si refresh_expiration (en secondes) < current time (="Date.now()" qui renvoie des millisecondes)
+  /// Then httpsRequest('refresh')
+  ///   .then httpsRequest('activities')
+  ///   .then res.send(...)
+  /// Else httpsRequest('activities')
+  ///   .then res.send(...)
+
+
+  //// REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
   // Prépare des variables passées à la  requête
   var body = JSON.stringify({
     client_id: id,
@@ -38,6 +54,7 @@ router.get('/', function(req, res) {
     refresh_token: refresh_token,
     grant_type: 'refresh_token'
   })
+
   var options = {
     hostname: 'www.strava.com',
     port: 443,
@@ -50,10 +67,10 @@ router.get('/', function(req, res) {
   }
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
-    token = body.access_token;
+    access_token = body.access_token;
   })
   .then(function(body) {
-    var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
+    var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
     var body = '';
     // Lance la requête de récupération des activités
     httpsRequest(options)
