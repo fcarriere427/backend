@@ -55,7 +55,8 @@ router.get('/', function(req, res) {
       // Ici on a bien les données str dispo --> les renvoyer à la requete
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       var str = JSON.stringify(body);
-      res.status(200).send(str);
+      //res.status(200).send(str);
+      res.status(200).json(body);
     })
   })
 });
