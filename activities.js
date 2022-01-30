@@ -1,3 +1,9 @@
+// ***********************
+// Préambule : il faut définir la route dans le fichier de conf de nginx (as a reverse proxy)
+// Voir le bloc existant /etc/nginx/sites-available/letsq.xyz
+// (A reproduire pour chaque route)
+// ***********************
+
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
