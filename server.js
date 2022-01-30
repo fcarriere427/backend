@@ -10,7 +10,7 @@ var activities = require('./activities');
 app.use('/activities', activities);
 
 app.listen(port, () => {
-  console.log('Server running on http://localhost:'+ port);
+  console.log('Server running on localhost:'+ port);
   }
 );
 
