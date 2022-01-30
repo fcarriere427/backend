@@ -13,7 +13,7 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
   //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier
-  var data = fs.readFileSync('./strava_keys.json'), myObj;
+  var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
   // Récupération dans 3 variables locales
   try {
     myObj = JSON.parse(data);
