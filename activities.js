@@ -56,10 +56,11 @@ router.get('/', function(req, res) {
       ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
       var str = JSON.stringify(body);
       saveData(str);
-      res.status(200).send({ //plutôt que .json ?
-        data: str
-      });
-      console.log("on envoie les données : " + str);
+      res.status(200).send(str);
+      // res.status(200).send({ //plutôt que .json ?
+      //   data: str
+      // });
+      console.log("on envoie les données (extrait) : " + str.substring(0,50));
     })
   })
 });
