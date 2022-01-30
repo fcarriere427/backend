@@ -1,15 +1,16 @@
-const https = require('https');
 const express = require('express');
 const fs = require('fs');
+const https = require('https');
 
 var router = express.Router();
 
-// middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
   next();
 });
-// define the home page route
+
+
+///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
 router.get('/', function(req, res) {
   //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier
@@ -44,22 +45,17 @@ router.get('/', function(req, res) {
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
     token = body.access_token;
-//console.log("token = " + token);
-  }).then(function(body) {
+  })
+  .then(function(body) {
     var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${token}`;
     var body = '';
     // Lance la requête de récupération des activités
-    httpsRequest(options).then(function(body) {
-//console.log("activities = " + body);
-      // ici on a bien les données str dispo !!! --> les renvoyer à la requete !
-      ///// ***** REPRENDRE ICI : on devrait les stocker dans une BDD...
+    httpsRequest(options)
+    .then(function(body) {
+      // Ici on a bien les données str dispo --> les renvoyer à la requete
+      ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       var str = JSON.stringify(body);
-      // Sauve les activités dans un fichier
-      //saveData(str);
       res.status(200).send(str);
-      // res.status(200).send({ //plutôt que .json ?
-      //   data: str
-      // });
     })
   })
 });
@@ -86,12 +82,6 @@ function httpsRequest(params, postData) {
       // IMPORTANT
       req.end();
   });
-}
-
-function saveData(data) {
-  fs.writeFile('data.txt', data, 'utf-8', (err) => {
-      console.log('File created')
-  })
 }
 
 module.exports = router;
