@@ -36,9 +36,9 @@ router.get('/', function(req, res) {
     console.error(err)
   }
 
-  console.log('current time = '+ Date.now() + " vs. refresh_expiration = " + refresh_expiration)
-  if (Date.now()>refresh_expiration) {
-    console.log("là, il faudrait renouveller")  
+  console.log('current time = '+ Date.now() / 1000 + " vs. refresh_expiration = " + refresh_expiration)
+  if (Date.now() / 1000 >refresh_expiration) {
+    console.log("là, il faudrait renouveller")
   } else {
     console.log("là, pas la peine de renouveller")
   }
