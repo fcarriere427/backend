@@ -37,8 +37,9 @@ router.get('/', function(req, res) {
   }
 
   current_time = Math.trunc(Date.now()/1000);
+  difference =  current_time - refresh_expiration;
   console.log('current time = '+ current_time + " vs. refresh_expiration = " + refresh_expiration);
-  console.log('différence = ' + current_time - refresh_expiration);
+  console.log('différence = ' + difference);
   if (current_time > refresh_expiration) {
     console.log("là, il faudrait renouveller")
   } else {
