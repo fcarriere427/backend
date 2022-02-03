@@ -1,6 +1,3 @@
-///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
-
-
 // ***********************
 // Préambule : il faut définir la route dans le fichier de conf de nginx (as a reverse proxy)
 // Voir le bloc existant /etc/nginx/sites-available/letsq.xyz
@@ -19,6 +16,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 
+///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
 router.get('/', function(req, res) {
   //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier
@@ -68,19 +66,7 @@ router.get('/', function(req, res) {
   }
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
-    id = myObj.id;
-    secret = myObj.secret;
-    refresh_token = myObj.refresh_token;
-    access_token = myObj.access_token;
-    refresh_expiration = myObj.refresh_expiration;
-    keys = JSON.stringify({
-      client_id: id,
-      client_secret: secret,
-      refresh_token: refresh_token,
-      access_token: access_token,
-      refresh_expiration: refresh_expiration
-    })
-    saveData(keys);
+    access_token = body.access_token;
   })
   .then(function(body) {
     var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
@@ -117,12 +103,6 @@ function httpsRequest(params, postData) {
       // IMPORTANT
       req.end();
   });
-}
-
-function saveData(data) {
-  fs.writeFile('./keys/strava_keys.json', data, 'utf-8', (err) => {
-      console.log('Keys file updated')
-  })
 }
 
 module.exports = router;
