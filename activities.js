@@ -36,15 +36,6 @@ router.get('/', function(req, res) {
     console.error(err)
   }
 
-  current_time = Math.trunc(Date.now()/1000);
-  difference =  current_time - refresh_expiration;
-  console.log('current time = '+ current_time + " vs. refresh_expiration = " + refresh_expiration);
-  console.log('différence = ' + difference);
-  if (current_time > refresh_expiration) {
-    console.log("là, il faudrait renouveller")
-  } else {
-    console.log("là, pas la peine de renouveller")
-  }
   /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
   /// /!\ attention, il va falloir enchainer les promises...
   /// a priori :
@@ -77,11 +68,21 @@ router.get('/', function(req, res) {
   }
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
-    id = myObj.id;
-    secret = myObj.secret;
-    refresh_token = myObj.refresh_token;
     access_token = myObj.access_token;
     refresh_expiration = myObj.refresh_expiration;
+    refresh_token = myObj.refresh_token;
+
+    current_time = Math.trunc(Date.now()/1000);
+    difference =  current_time - refresh_expiration;
+    console.log("Résultat du refresh_token : ");
+    console.log('current time = '+ current_time + " vs. refresh_expiration = " + refresh_expiration);
+    console.log('différence = ' + difference);
+    if (current_time > refresh_expiration) {
+      console.log("là, il faudrait renouveller")
+    } else {
+      console.log("là, pas la peine de renouveller")
+    }
+
     keys = JSON.stringify({
       client_id: id,
       client_secret: secret,
