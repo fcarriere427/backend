@@ -84,12 +84,11 @@ router.get('/', function(req, res) {
     }
 
     keys = JSON.stringify({
-      client_id: id,
-      client_secret: secret,
       refresh_token: refresh_token,
       access_token: access_token,
       refresh_expiration: refresh_expiration
     })
+    console.log("Keys = " + keys);
     saveData(keys);
   })
   .then(function(body) {
