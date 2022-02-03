@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
     var secret = myObj.client_secret;
     var refresh_token = myObj.refresh_token;
     var access_token = myObj.access_token;
-    var refresh_expiration = myObj.refresh_expiration;
+    var expires_at = myObj.expires_at;
   } catch (err) {
     console.log('Il manque le fichier des clés Strava !')
     console.error(err)
@@ -69,15 +69,15 @@ router.get('/', function(req, res) {
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body).then(function(body) {
     access_token = myObj.access_token;
-    refresh_expiration = myObj.refresh_expiration;
+    expires_at = myObj.expires_at;
     refresh_token = myObj.refresh_token;
 
     current_time = Math.trunc(Date.now()/1000);
-    difference =  current_time - refresh_expiration;
+    difference =  current_time - expires_at;
     console.log("Résultat du refresh_token : ");
-    console.log('current time = '+ current_time + " vs. refresh_expiration = " + refresh_expiration);
+    console.log('current time = '+ current_time + " vs. expires_at = " + expires_at);
     console.log('différence = ' + difference);
-    if (current_time > refresh_expiration) {
+    if (current_time > expires_at) {
       console.log("là, il faudrait renouveller")
     } else {
       console.log("là, pas la peine de renouveller")
@@ -86,7 +86,7 @@ router.get('/', function(req, res) {
     keys = JSON.stringify({
       refresh_token: refresh_token,
       access_token: access_token,
-      refresh_expiration: refresh_expiration
+      expires_at: expires_at
     })
     console.log("Keys = " + keys);
     saveData(keys);
