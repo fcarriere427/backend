@@ -26,8 +26,8 @@ router.get('/', function(req, res) {
   // Récupération des clés dans des variables locales
   try {
     myObj = JSON.parse(data);
-    var id = myObj.id;
-    var secret = myObj.secret;
+    var id = myObj.client_id;
+    var secret = myObj.client_secret;
     var refresh_token = myObj.refresh_token;
     var access_token = myObj.access_token;
     var refresh_expiration = myObj.refresh_expiration;
@@ -36,6 +36,12 @@ router.get('/', function(req, res) {
     console.error(err)
   }
 
+  console.log('current time = '+ Date.now() + " vs. refresh_expiration = " + refresh_expiration)
+  if (Date.now()>refresh_expiration) {
+    console.log("là, il faudrait renouveller")  
+  } else {
+    console.log("là, pas la peine de renouveller")
+  }
   /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
   /// /!\ attention, il va falloir enchainer les promises...
   /// a priori :
