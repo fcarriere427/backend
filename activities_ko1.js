@@ -1,4 +1,4 @@
-// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
+///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
 
 // ***********************
 // Préambule : il faut définir la route dans le fichier de conf de nginx (as a reverse proxy)
@@ -10,46 +10,45 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-var id = "init_id";
-var secret = "init_secret";
-
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
   next();
 });
 
 router.get('/', function(req, res) {
+  //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier
   var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
-  // Récupération des deux clés permanentes dans des variables locales
+  // Récupération des clés dans des variables locales
   try {
     myObj = JSON.parse(data);
-    id = myObj.client_id;
-    secret = myObj.client_secret;
-///// TMP
+    var id = myObj.client_id;
+    var secret = myObj.client_secret;
+    var refresh_token = myObj.refresh_token;
+    var access_token = myObj.access_token;
+    var expires_at = myObj.expires_at;
     console.log('id = ' + id);
     console.log('secret = ' + secret);
-///// TMP
+    console.log('refresh_token = ' + refresh_token);
+    console.log('access_token = ' + access_token);
+    console.log('expires_at = ' + expires_at);
   } catch (err) {
     console.log('Il manque le fichier des clés Strava !')
     console.error(err)
   }
 
-  // Récupération des deux clés permanentes dans des variables locales
+  /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
+  /// /!\ attention, il va falloir enchainer les promises...
+  /// a priori :
+  /// Si refresh_expiration (en secondes) < current time (="Date.now()" qui renvoie des millisecondes)
+  /// Then httpsRequest('refresh')
+  ///   .then httpsRequest('activities')
+  ///   .then res.send(...)
+  /// Else httpsRequest('activities')
+  ///   .then res.send(...)
 
 
-
-/// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
-/// /!\ attention, il va falloir enchainer les promises...
-/// a priori :
-/// Si refresh_expiration (en secondes) < current time (="Date.now()" qui renvoie des millisecondes)
-/// Then httpsRequest('refresh')
-///   .then httpsRequest('activities')
-///   .then res.send(...)
-/// Else httpsRequest('activities')
-///   .then res.send(...)
-
-  // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
+  //// REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
   // Prépare des variables passées à la  requête
   var body = JSON.stringify({
     client_id: id,
@@ -93,7 +92,7 @@ router.get('/', function(req, res) {
     } else {
       console.log("là, pas la peine de renouveller")
     }
-    saveData(keys, './keys/output.json');
+    saveData(keys);
   })
   .then(function(body) {
     console.log("on lance la requete getActivities");
@@ -138,9 +137,9 @@ function httpsRequest(params, postData) {
   });
 }
 
-function saveData(data, filename) {
-  fs.writeFile(filename, data, 'utf-8', (err) => {
-      console.log('Keys file updated @ ' + filename)
+function saveData(data) {
+  fs.writeFile('./keys/strava_keys.json', data, 'utf-8', (err) => {
+      console.log('Keys file updated')
   })
 }
 
