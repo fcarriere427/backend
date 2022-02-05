@@ -65,10 +65,10 @@ router.get('/', function(req, res) {
   // Lance la requête de renouvellement de l'access_token
   httpsRequest(options,body)
   // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
-  .then(function(body) {
-    access_token = myObj.access_token;
-    expires_at = myObj.expires_at;
-    refresh_token = myObj.refresh_token;
+  .then((res) => {
+    access_token = res.access_token;
+    expires_at = res.expires_at;
+    refresh_token = res.refresh_token;
     keys = JSON.stringify({
       refresh_token: refresh_token,
       access_token: access_token,
@@ -124,7 +124,7 @@ function httpsRequest(params, postData) {
           req.write(postData);
       }
       req.on('error', error => {
-        console.log("message d'erreur httpsRequest");
+        console.log("Erreur httpsRequest");
         console.error(error);
       })
       // IMPORTANT
