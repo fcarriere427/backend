@@ -46,21 +46,29 @@ router.get('/', function(req, res) {
   current_time = Math.trunc(Date.now()/1000);
   if (current_time > expires_at) {
     console.log("On renouvelle les tokens")
-    renewTokens();
-  } else {
-    console.log("Là, pas la peine de renouveller")
+    // Si oui, on renouvelle, et on lance getActivities
+    renewTokens()
+    .then((res) => {
+      var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
+      // Lance la requête de récupération des activités
+      httpsRequest(options)
+      // Si oui, on renouvelle, et on lance getActivities
+        .then((res) => {
+        ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
+        console.log("on renvoie les données vers la route");
+        res.status(200).json(res);
+      })
+    })
   }
-
-  console.log("on lance la requete getActivities");
+  // Sinon, on lance getActivities sans renouveller
   var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
-  var body = '';
   // Lance la requête de récupération des activités
   httpsRequest(options)
-  .then(function(body) {
+  .then((res) => {
     // Ici on a bien les données str dispo --> les renvoyer à la requete
     ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
     console.log("on renvoie les données vers la route");
-    res.status(200).json(body);
+    res.status(200).json(res);
   })
 });
 
