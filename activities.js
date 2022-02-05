@@ -15,9 +15,6 @@ var secret = "init_secret";
 
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
-  console.log('//// avant appel des fonctions : ' );
-  console.log('id = ' + id);
-  console.log('secret = ' + secret);
   next();
 });
 
@@ -27,6 +24,7 @@ router.get('/', function(req, res) {
   // Récupération des deux clés permanentes dans des variables locales
   try {
     myObj = JSON.parse(data);
+    console.log('myObj = ' + myObj);
     id = myObj.client_id;
     secret = myObj.client_secret;
 ///// TMP
