@@ -54,7 +54,7 @@ router.get('/', function(req, res) {
   var body = JSON.stringify({
     client_id: id,
     client_secret: secret,
-    refresh_token: refresh_token,
+//    refresh_token: refresh_token,
     grant_type: 'refresh_token'
   })
 
