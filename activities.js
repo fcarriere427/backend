@@ -31,9 +31,7 @@ router.get('/', function(req, res) {
     console.error(err)
   }
 
-  // Récupération des deux clés permanentes dans des variables locales
-
-
+  // TO DO : réceuRécupération des deux clés permanentes dans des variables locales
 
 /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
 /// /!\ attention, il va falloir enchainer les promises...
