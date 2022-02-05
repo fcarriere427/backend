@@ -34,17 +34,6 @@ router.get('/', function(req, res) {
     console.error(err)
   }
 
-  /// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
-  /// /!\ attention, il va falloir enchainer les promises...
-  /// a priori :
-  /// Si refresh_expiration (en secondes) < current time (="Date.now()" qui renvoie des millisecondes)
-  /// Then httpsRequest('refresh')
-  ///   .then httpsRequest('activities')
-  ///   .then res.send(...)
-  /// Else httpsRequest('activities')
-  ///   .then res.send(...)
-
-
   //// REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
   // Prépare des variables passées à la  requête
   var body = JSON.stringify({
