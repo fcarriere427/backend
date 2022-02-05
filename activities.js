@@ -49,18 +49,20 @@ router.get('/', function(req, res) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
     .then((res) => {
+      console.log("on lance getActivities avec token = " + access_token);
       var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
       // Lance la requête de récupération des activités
       httpsRequest(options)
       // Si oui, on renouvelle, et on lance getActivities
         .then((data) => {
         ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-        console.log("(chemin avec renouvellement) on renvoie les données vers la route = " + data);
+        console.log("on renvoie les données vers la route = " + data);
         res.status(200).json(data);
       })
     })
   } else {
     // Sinon, on lance getActivities sans renouveller
+    console.log("pas de renouvellement");
     console.log("on lance getActivities avec token = " + access_token);
     var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
     // Lance la requête de récupération des activités
@@ -117,7 +119,6 @@ function readData(filename) {
 
 function renewTokens() {
   return new Promise(function(resolve, reject) {
-    console.log("On renouvelle les tokens...");
     // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
     // Prépare des variables passées à la  requête
     var body = JSON.stringify({
@@ -151,7 +152,6 @@ function renewTokens() {
       })
     })
     .then((res) => {
-      console.log("on va sauver les tokens !");
       saveData(keys, './keys/tokens.json');
     })
     resolve();
