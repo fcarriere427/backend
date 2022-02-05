@@ -10,8 +10,8 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-var id = "init_id";
-var secret = "init_secret";
+var client_id = "init_id";
+var client_secret = "init_secret";
 
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
@@ -24,13 +24,8 @@ router.get('/', function(req, res) {
   // Récupération des deux clés permanentes dans des variables locales
   try {
     myObj = JSON.parse(data);
-    console.log('myObj = ' + myObj);
-    id = myObj.client_id;
-    secret = myObj.client_secret;
-///// TMP
-    console.log('id = ' + id);
-    console.log('secret = ' + secret);
-///// TMP
+    client_id = myObj.client_id;
+    client_secret = myObj.client_secret;
   } catch (err) {
     console.log('Il manque le fichier des clés Strava !')
     console.error(err)
@@ -53,9 +48,9 @@ router.get('/', function(req, res) {
   // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
   // Prépare des variables passées à la  requête
   var body = JSON.stringify({
-    client_id: id,
-    client_secret: secret,
-//    refresh_token: refresh_token,
+    client_id: client_id,
+    client_secret: client_secret,
+    refresh_token: "1fa2b3a8d0efb1df86c7f4ed1d67fc03e89ea3ac",
     grant_type: 'refresh_token'
   })
 
