@@ -123,6 +123,9 @@ function httpsRequest(params, postData) {
       if (postData) {
           req.write(postData);
       }
+      req.on('error', error => {
+        console.error(error)
+      })
       // IMPORTANT
       req.end();
   });
