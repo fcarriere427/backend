@@ -146,7 +146,7 @@ function renewTokens() {
       saveData(keys, './keys/tokens.json');
     })
     resolve();
-  }
+  })
 }
 
 
