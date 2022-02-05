@@ -55,22 +55,22 @@ router.get('/', function(req, res) {
       // Si oui, on renouvelle, et on lance getActivities
         .then((data) => {
         ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-        console.log("on renvoie les données vers la route");
+        console.log("(chemin avec renouvellement) on renvoie les données vers la route = " + data);
         res.status(200).json(data);
       })
     })
+  } else {
+    // Sinon, on lance getActivities sans renouveller
+    console.log("on lance getActivities avec token = " + access_token);
+    var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
+    // Lance la requête de récupération des activités
+    httpsRequest(options)
+    .then((data) => {
+      ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
+      console.log("(chemin sans renouvellement) on renvoie les données vers la route = " + data);
+      res.status(200).json(data);
+    })
   }
-  // Sinon, on lance getActivities sans renouveller
-  console.log("on lance getActivities avec token = " + access_token);
-  var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
-  // Lance la requête de récupération des activités
-  httpsRequest(options)
-  .then((data) => {
-    // Ici on a bien les données str dispo --> les renvoyer à la requete
-    ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-    console.log("on renvoie les données vers la route = " + data);
-    res.status(200).json(data);
-  })
 });
 
 function httpsRequest(params, postData) {
