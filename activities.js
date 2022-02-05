@@ -15,6 +15,9 @@ var secret = "init_secret";
 
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
+  console.log('//// avant appel des fonctions : ' );
+  console.log('id = ' + id);
+  console.log('secret = ' + secret);
   next();
 });
 
