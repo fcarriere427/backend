@@ -67,11 +67,20 @@ router.get('/', function(req, res) {
     }
   }
   // Lance la requête de renouvellement de l'access_token
-  httpsRequest(options,body).then(function(body) {
+  httpsRequest(options,body)
+  // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
+  .then(function(body) {
     access_token = myObj.access_token;
     expires_at = myObj.expires_at;
     refresh_token = myObj.refresh_token;
+    keys = JSON.stringify({
+      refresh_token: refresh_token,
+      access_token: access_token,
+      expires_at: expires_at
+    })
+    console.log("Keys = " + keys);
 
+    // TMP pour vérifier les dates de renouvellement nécessaire
     current_time = Math.trunc(Date.now()/1000);
     difference =  current_time - expires_at;
     console.log("Résultat du refresh_token : ");
@@ -82,13 +91,6 @@ router.get('/', function(req, res) {
     } else {
       console.log("là, pas la peine de renouveller")
     }
-
-    keys = JSON.stringify({
-      refresh_token: refresh_token,
-      access_token: access_token,
-      expires_at: expires_at
-    })
-    console.log("Keys = " + keys);
     saveData(keys);
   })
   .then(function(body) {
