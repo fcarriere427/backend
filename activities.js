@@ -53,10 +53,10 @@ router.get('/', function(req, res) {
       // Lance la requête de récupération des activités
       httpsRequest(options)
       // Si oui, on renouvelle, et on lance getActivities
-        .then((res) => {
+        .then((data) => {
         ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
         console.log("on renvoie les données vers la route");
-        res.status(200).json(res);
+        res.status(200).json(data);
       })
     })
   }
@@ -64,11 +64,11 @@ router.get('/', function(req, res) {
   var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
   // Lance la requête de récupération des activités
   httpsRequest(options)
-  .then((res) => {
+  .then((data) => {
     // Ici on a bien les données str dispo --> les renvoyer à la requete
     ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
     console.log("on renvoie les données vers la route");
-    res.status(200).json(res);
+    res.status(200).json(data);
   })
 });
 
