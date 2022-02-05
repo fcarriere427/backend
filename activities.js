@@ -129,7 +129,7 @@ function renewTokens() {
       }
     }
     // Lance la requête de renouvellement de l'access_token
-    httpsRequest(options,body);
+    httpsRequest(options,body)
     // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
     .then((res) => {
       access_token = res.access_token;
