@@ -12,6 +12,9 @@ var router = express.Router();
 
 var client_id = "init_id";
 var client_secret = "init_secret";
+var access_token = "init_access_token";
+var expires_at = 0;
+var refresh_token = "refresh_token";
 
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
@@ -19,88 +22,45 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-  // Lecture des clés Strava dans un fichier
+  // Récupération des deux clés permanentes
   var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
-  // Récupération des deux clés permanentes dans des variables locales
   try {
     myObj = JSON.parse(data);
     client_id = myObj.client_id;
     client_secret = myObj.client_secret;
   } catch (err) {
-    console.log('Il manque le fichier des clés Strava !')
+    console.error(err)
+  }
+  // Récupération des tokens
+  var data = fs.readFileSync('./keys/tokens.json'), myObj;
+  try {
+    myObj = JSON.parse(data);
+    access_token = myObj.access_token;
+    expires_at = myObj.expires_at;
+    refresh_token = myObj.refresh_token;
+  } catch (err) {
     console.error(err)
   }
 
-  // TO DO : réceuRécupération des deux clés permanentes dans des variables locales
-
-/// ICI : si refresh_expiration < current time, alors lancer une requête avec "refresh_token" et enregistrer les nouveaux codes et times
-/// /!\ attention, il va falloir enchainer les promises...
-/// a priori :
-/// Si refresh_expiration (en secondes) < current time (="Date.now()" qui renvoie des millisecondes)
-/// Then httpsRequest('refresh')
-///   .then httpsRequest('activities')
-///   .then res.send(...)
-/// Else httpsRequest('activities')
-///   .then res.send(...)
-
-  // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
-  // Prépare des variables passées à la  requête
-  var body = JSON.stringify({
-    client_id: client_id,
-    client_secret: client_secret,
-    refresh_token: "1fa2b3a8d0efb1df86c7f4ed1d67fc03e89ea3ac",
-    grant_type: 'refresh_token'
-  })
-
-  var options = {
-    hostname: 'www.strava.com',
-    port: 443,
-    path: '/oauth/token',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': body.length
-    }
+  //Décider si besoin de renouveller les tokens
+  current_time = Math.trunc(Date.now()/1000);
+  if (current_time > expires_at) {
+    console.log("On renouvelle les tokens")
+    renewTokens();
+  } else {
+    console.log("Là, pas la peine de renouveller")
   }
-  // Lance la requête de renouvellement de l'access_token
-  httpsRequest(options,body)
-  // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
-  .then((res) => {
-    access_token = res.access_token;
-    expires_at = res.expires_at;
-    refresh_token = res.refresh_token;
-    keys = JSON.stringify({
-      refresh_token: refresh_token,
-      access_token: access_token,
-      expires_at: expires_at
-    })
-    console.log("Keys = " + keys);
 
-    // TMP pour vérifier les dates de renouvellement nécessaire
-    current_time = Math.trunc(Date.now()/1000);
-    difference =  current_time - expires_at;
-    console.log("Résultat du refresh_token : ");
-    console.log('current time = '+ current_time + " vs. expires_at = " + expires_at);
-    console.log('différence = ' + difference);
-    if (current_time > expires_at) {
-      console.log("là, il faudrait renouveller")
-    } else {
-      console.log("là, pas la peine de renouveller")
-    }
-    saveData(keys, './keys/output.json');
-  })
+  console.log("on lance la requete getActivities");
+  var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
+  var body = '';
+  // Lance la requête de récupération des activités
+  httpsRequest(options)
   .then(function(body) {
-    console.log("on lance la requete getActivities");
-    var options = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
-    var body = '';
-    // Lance la requête de récupération des activités
-    httpsRequest(options)
-    .then(function(body) {
-      // Ici on a bien les données str dispo --> les renvoyer à la requete
-      ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log("on renvoie les données vers la route");
-      res.status(200).json(body);
-    })
+    // Ici on a bien les données str dispo --> les renvoyer à la requete
+    ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
+    console.log("on renvoie les données vers la route");
+    res.status(200).json(body);
   })
 });
 
@@ -133,9 +93,61 @@ function httpsRequest(params, postData) {
 }
 
 function saveData(data, filename) {
-  fs.writeFile(filename, data, 'utf-8', (err) => {
-      console.log('Keys file updated @ ' + filename)
-  })
+  return new Promise(function(resolve, reject) {
+    fs.writeFile(filename, data, 'utf-8', (err) => {
+        if (err) reject(err);
+        else resolve(data);
+        console.log('Keys file updated @ ' + filename)
+    });
+  });
 }
+
+function readData(filename) {
+// à faire, sur la base du saveData, pour lire les fichiers locaux
+}
+
+function renewTokens() {
+  return new Promise(function(resolve, reject) {
+    console.log("On renouvelle les tokens...");
+    // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
+    // Prépare des variables passées à la  requête
+    var body = JSON.stringify({
+      client_id: client_id,
+      client_secret: client_secret,
+      refresh_token: refresh_token,
+      grant_type: 'refresh_token'
+    })
+
+    var options = {
+      hostname: 'www.strava.com',
+      port: 443,
+      path: '/oauth/token',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': body.length
+      }
+    }
+    // Lance la requête de renouvellement de l'access_token
+    httpsRequest(options,body);
+    // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
+    .then((res) => {
+      access_token = res.access_token;
+      expires_at = res.expires_at;
+      refresh_token = res.refresh_token;
+      keys = JSON.stringify({
+        refresh_token: refresh_token,
+        access_token: access_token,
+        expires_at: expires_at
+      })
+    })
+    .then((res) => {
+      console.log("on va sauver les tokens !");
+      saveData(keys, './keys/tokens.json');
+    })
+    resolve();
+  }
+}
+
 
 module.exports = router;
