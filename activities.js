@@ -24,24 +24,23 @@ router.use(function timeLog(req, res, next) {
 router.get('/', function(req, res) {
   // Récupération des clés et tokens
   readData()
-  .then(() => {
+  .then( () => {
     //Décider si besoin de renouveller les tokens
     current_time = Math.trunc(Date.now()/1000);
     if (current_time > expires_at) {
       // Si oui, on renouvelle, et on lance getActivities
       renewTokens()
-      .then((res) => {
+      .then( () => {
         getActivities().
-        then((data) => {
-          res.status(200).json(data);
-        })
+        then( (data) => {
+          console.log("RES = " + res);
+          res.status(200).json(data)}
+        )
       })
     } else {
       // Sinon, on lance getActivities sans renouveller
       getActivities().
-      then((data) => {
-        res.status(200).json(data);
-      })
+      then( (data) => {res.status(200).json(data)} )
     }
   })
 });
@@ -112,7 +111,6 @@ function readData() {
   });
 }
 
-
 // REQUETE POUR RECUPERER LES ACTIVITES
 function getActivities() {
   console.log("Récupération des activités...");
@@ -127,7 +125,6 @@ function getActivities() {
     })
   });
 }
-
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
 function renewTokens() {
