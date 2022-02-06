@@ -79,7 +79,6 @@ function saveData(data, filename) {
     fs.writeFile(filename, data, 'utf-8', (err) => {
         if (err) reject(err);
         else resolve(data);
-        console.log('Keys file updated @ ' + filename)
     });
   });
 }
@@ -120,7 +119,6 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log("Activités OK = " + data);
       resolve(data);
     })
   });
