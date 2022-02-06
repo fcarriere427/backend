@@ -8,9 +8,9 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
+// Récupération des clés et tokens
 const keys = require('./keys/strava_keys.json');
 const tokens =  require('./keys/tokens.json');
-
 var client_id = keys.client_id;
 var client_secret = keys.client_secret;
 var access_token = tokens.access_token;
@@ -28,24 +28,20 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-  // Récupération des clés et tokens
-  readData()
-  .then( () => {
-    //Décider si besoin de renouveller les tokens
-    current_time = Math.trunc(Date.now()/1000);
-    if (current_time > expires_at) {
-      // Si oui, on renouvelle, et on lance getActivities
-      renewTokens()
-      .then( () => {
-        getActivities().
-        then( (data) => {res.status(200).json(data)} )
-      })
-    } else {
-      // Sinon, on lance getActivities sans renouveller
+  //Décider si besoin de renouveller les tokens
+  current_time = Math.trunc(Date.now()/1000);
+  if (current_time > expires_at) {
+    // Si oui, on renouvelle, et on lance getActivities
+    renewTokens()
+    .then( () => {
       getActivities().
       then( (data) => {res.status(200).json(data)} )
-    }
-  })
+    })
+  } else {
+    // Sinon, on lance getActivities sans renouveller
+    getActivities().
+    then( (data) => {res.status(200).json(data)} )
+  }
 });
 
 function httpsRequest(params, postData) {
@@ -83,33 +79,6 @@ function saveData(data, filename) {
         if (err) reject(err);
         else resolve(data);
     });
-  });
-}
-
-function readData() {
-// à faire, sur la base du saveData, pour lire les fichiers locaux
-  console.log("Récupération des clés et tokens...");
-  return new Promise(function(resolve, reject) {
-    // Récupération des deux clés permanentes
-    var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
-    try {
-      myObj = JSON.parse(data);
-      client_id = myObj.client_id;
-      client_secret = myObj.client_secret;
-    } catch (err) {
-      console.error(err)
-    }
-    // Récupération des tokens
-    var data = fs.readFileSync('./keys/tokens.json'), myObj;
-    try {
-      myObj = JSON.parse(data);
-      access_token = myObj.access_token;
-      expires_at = myObj.expires_at;
-      refresh_token = myObj.refresh_token;
-    } catch (err) {
-      console.error(err)
-    }
-    resolve();
   });
 }
 
