@@ -57,7 +57,7 @@ router.get('/', function(req, res) {
       // Si oui, on renouvelle, et on lance getActivities
         .then((data) => {
         ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-        console.log("on renvoie les données vers la route = " + data);
+        console.log("(chemin avec renouvellement) on renvoie les données vers la route = " + JSON.parse(data));
         res.status(200).json(data);
       })
     })
