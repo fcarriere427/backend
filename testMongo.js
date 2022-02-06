@@ -3,6 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 // Connect to the db
 MongoClient.connect("mongodb://localhost:27017", function (err, db) {
 
+    console.log('Connecté à la DB');
     db.collection('Persons', function (err, collection) {
 
         collection.insert({ id: 1, firstName: 'Steve', lastName: 'Jobs' });
