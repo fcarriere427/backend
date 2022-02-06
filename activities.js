@@ -116,7 +116,7 @@ function getActivities() {
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       console.log("Activités OK = " + data);
-      resove(data);
+      resolve(data);
     })
   });
 }
