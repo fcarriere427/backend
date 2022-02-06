@@ -86,6 +86,7 @@ function saveData(data, filename) {
 
 function readData() {
 // à faire, sur la base du saveData, pour lire les fichiers locaux
+  console.log("Récupération des clés et tokens...");
   return new Promise(function(resolve, reject) {
     // Récupération des deux clés permanentes
     var data = fs.readFileSync('./keys/strava_keys.json'), myObj;
