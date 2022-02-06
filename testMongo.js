@@ -1,22 +1,27 @@
-var MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
+// or as an es module:
+// import { MongoClient } from 'mongodb'
 
-// Connect to the db
-MongoClient.connect("mongodb://localhost:27017", function (err, db) {
+// Connection URL
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url);
 
-    console.log('Connecté à la DB');
-    db.collection('Persons', function (err, collection) {
+// Database Name
+const dbName = 'strava';
 
-        collection.insert({ id: 1, firstName: 'Steve', lastName: 'Jobs' });
-        collection.insert({ id: 2, firstName: 'Bill', lastName: 'Gates' });
-        collection.insert({ id: 3, firstName: 'James', lastName: 'Bond' });
+async function main() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log('Connected successfully to server');
+  const db = client.db(dbName);
+  const collection = db.collection('documents');
 
+  // the following code examples can be pasted here...
 
+  return 'done.';
+}
 
-        db.collection('Persons').count(function (err, count) {
-            if (err) throw err;
-
-            console.log('Total Rows: ' + count);
-        });
-    });
-
-});
+main()
+  .then(console.log)
+  .catch(console.error)
+  .finally(() => client.close());
