@@ -107,7 +107,7 @@ function readData() {
     } catch (err) {
       console.error(err)
     }
-  }
+  });
 }
 
 
