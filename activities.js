@@ -36,7 +36,8 @@ router.get('/', function(req, res) {
   try {
     myObj = JSON.parse(data);
     access_token = myObj.access_token;
-    expires_at = myObj.expires_at;
+/// TMP    expires_at = myObj.expires_at;
+    expires_at = 0;
     refresh_token = myObj.refresh_token;
   } catch (err) {
     console.error(err)
@@ -69,7 +70,7 @@ router.get('/', function(req, res) {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log("(chemin sans renouvellement) on renvoie les données vers la route = " + data);
+      console.log("(chemin sans renouvellement) on renvoie les données vers la route = " + JSON.parse(data));
       res.status(200).json(data);
     })
   }
@@ -138,6 +139,9 @@ function renewTokens() {
         'Content-Length': body.length
       }
     }
+
+    console.log('On lance le renouvellement avec refresh_token = ' + refresh_token);
+
     // Lance la requête de renouvellement de l'access_token
     httpsRequest(options,body)
     // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
