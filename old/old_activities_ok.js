@@ -4,6 +4,10 @@
 // (A reproduire pour chaque route)
 // ***********************
 
+///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
+
+
+
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
@@ -16,7 +20,6 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-///// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
 router.get('/', function(req, res) {
   //// Préparation des éléments pour la requête de renouvellement sur l'API strava
   // Lecture des clés Strava dans un fichier

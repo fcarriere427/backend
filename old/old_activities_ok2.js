@@ -1,3 +1,5 @@
+// ***** A AMELIORER / PERF : on ne devrait pas renouveler l'access token à chaque fois, mais plutôt le tester, et le renouveler si besoin uniquement...
+
 // ***********************
 // Préambule : il faut définir la route dans le fichier de conf de nginx (as a reverse proxy)
 // Voir le bloc existant /etc/nginx/sites-available/letsq.xyz
@@ -8,22 +10,14 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-const keys = require('./keys/strava_keys.json');
-const tokens =  require('./keys/tokens.json');
-
-var client_id = keys.client_id;
-var client_secret = keys.client_secret;
-var access_token = tokens.access_token;
-var expires_at = tokens.expires_at;
-var refresh_token = tokens.refresh_token;
+var client_id = "init_id";
+var client_secret = "init_secret";
+var access_token = "init_access_token";
+var expires_at = 0;
+var refresh_token = "init_refresh_token";
 
 router.use(function timeLog(req, res, next) {
   console.log('Appel de la route Activities @ : ', Date.now());
-  console.log('client_id : ' + client_id);
-  console.log('client_secret : ' + client_secret);
-  console.log('access_token : ' + access_token);
-  console.log('expires_at : ' + expires_at);
-  console.log('refresh_token : ' + refresh_token);
   next();
 });
 
