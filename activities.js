@@ -57,7 +57,7 @@ router.get('/', function(req, res) {
       // Si oui, on renouvelle, et on lance getActivities
         .then((data) => {
         ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-        console.log("(chemin avec renouvellement) on renvoie les données vers la route = " + JSON.parse(data));
+        //console.log("(chemin avec renouvellement) on renvoie les données vers la route = " + data);
         res.status(200).json(data);
       })
     })
@@ -70,7 +70,7 @@ router.get('/', function(req, res) {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log("(chemin sans renouvellement) on renvoie les données vers la route = " + JSON.parse(data));
+      console.log("(chemin sans renouvellement) on renvoie les données vers la route = " + data);
       res.status(200).json(data);
     })
   }
