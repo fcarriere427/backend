@@ -155,13 +155,13 @@ function renewTokens() {
       access_token = res.access_token;
       expires_at = res.expires_at;
       refresh_token = res.refresh_token;
-      keys = JSON.stringify({
+      local_keys = JSON.stringify({
         refresh_token: refresh_token,
         access_token: access_token,
         expires_at: expires_at
       })
       // on sauve en asynchrone : pas besoin d'attendre pour renvoyer la réponse...
-      saveData(keys, './keys/tokens.json');
+      saveData(local_keys, './keys/tokens.json');
     })
     resolve();
   })
