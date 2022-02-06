@@ -101,8 +101,7 @@ function readData() {
     try {
       myObj = JSON.parse(data);
       access_token = myObj.access_token;
-    /// TMP    expires_at = myObj.expires_at;
-      expires_at = 0;
+      expires_at = myObj.expires_at;
       refresh_token = myObj.refresh_token;
     } catch (err) {
       console.error(err)
