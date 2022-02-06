@@ -32,10 +32,7 @@ router.get('/', function(req, res) {
       renewTokens()
       .then( () => {
         getActivities().
-        then( (data) => {
-          console.log("RES = " + res);
-          res.status(200).json(data)}
-        )
+        then( (data) => {res.status(200).json(data)} )
       })
     } else {
       // Sinon, on lance getActivities sans renouveller
@@ -157,6 +154,7 @@ function renewTokens() {
         access_token: access_token,
         expires_at: expires_at
       })
+      // on sauve en asynchrone : pas besoin d'attendre pour renvoyer la réponse...
       saveData(keys, './keys/tokens.json');
     })
     resolve();
