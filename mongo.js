@@ -22,6 +22,6 @@ async function main() {
 }
 
 main()
-  .then(console.log)
-  .catch(console.error)
+  .then(console.log("eh ben ?"))
+  .catch(console.error("KO :-(")
   .finally(() => client.close());
