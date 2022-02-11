@@ -16,7 +16,6 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-
 var activities = require('./activities');
 app.use('/activities', activities);
 

@@ -1,9 +1,13 @@
 const mysql = require('mysql');
 
+const keys = require('./keys/db.json');
+var user = keys.user;
+var password = keys.password;
+
 const con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "boubou",
+  user: user,
+  password: password,
   database : "strava"
 });
 
