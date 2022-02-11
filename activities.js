@@ -34,14 +34,12 @@ router.get('/', function(req, res) {
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
-    .then( () => {
-      getActivities().
-      then( (data) => {res.status(200).json(data)} )
-    })
+    .then(() => getActivities())
+    .then((data) => {res.status(200).json(data)})
   } else {
     // Sinon, on lance getActivities sans renouveller
     getActivities().
-    then( (data) => {res.status(200).json(data)} )
+    then((data) => {res.status(200).json(data)} )
   }
 });
 
