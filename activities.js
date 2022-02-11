@@ -9,7 +9,7 @@ const https = require('https');
 var router = express.Router();
 
 // Récupération des clés et tokens
-const keys = require('./keys/strava_keys.json');
+const keys = require('./keys/strava.json');
 const tokens =  require('./keys/tokens.json');
 var client_id = keys.client_id;
 var client_secret = keys.client_secret;
