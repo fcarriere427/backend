@@ -9,6 +9,7 @@ const https = require('https');
 var router = express.Router();
 
 // Récupération des clés et tokens
+// /!\ Suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
 const keys = require('./keys/strava.json');
 const tokens =  require('./keys/tokens.json');
 var client_id = keys.client_id;
