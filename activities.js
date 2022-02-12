@@ -96,11 +96,7 @@ function getActivities() {
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       console.log('Sauvegarde dans la BDD...');
-      console.log('typeof Data = ' + typeof data);
-      console.log('Conversion vis stringify');
-      var string = JSON.stringify(data);
-      console.log('typeof string  = ' + typeof string);
-
+      var string = '{' + data + '}';
       //console.log('Data = ' + data);
       //const o = JSON.parse(data);
       storeData(string);
