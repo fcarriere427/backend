@@ -104,9 +104,9 @@ function getActivities() {
       //console.log('string = ' + string);
       //console.log('Data = ' + data);
       //const o = JSON.parse(data);
-      var myObj = JSON.parse(data);
-      console.log('myObj = ' + myObj);
-      storeData(myObj);
+      //var myObj = JSON.parse(data);
+      console.log('Data dans getActivities = ' + data);
+      storeData(data);
     })
     .catch((err) => console.log(err))
     .then ((data) => resolve(data));
