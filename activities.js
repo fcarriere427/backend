@@ -96,7 +96,8 @@ function getActivities() {
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       console.log('Sauvegarde dans la BDD...')
-      storeData(data);
+      o = JSON.parse(data);
+      storeData(o);
     })
     .then ((data) => resolve(data));
   });
