@@ -15,7 +15,7 @@ const db = nano.use('strava');
 //var data = ''{ happy: true }, 'rabbit'';
 var data = 'salut !';
 
-nano.db.insert(data)
+db.insert(data)
 .then((data) => console.log(data))
 .catch((err) => console.log(err))
 
