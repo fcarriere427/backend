@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
     .then((data) => storeData(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
-    getActivities().
+    getActivities()
     //    .then((data) => res.status(200).json(data))
     .then((data) => storeData(data))
   }
