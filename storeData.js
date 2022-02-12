@@ -32,7 +32,7 @@ var doc = JSON.stringify(o);
 console.log("doc = " + doc);
 
 
-db.insert(doc)
+db.insert(o)
 .then((data) => console.log(data))
 .catch((err) => console.log(err))
 
