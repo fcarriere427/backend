@@ -40,13 +40,11 @@ router.get('/', function(req, res) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
     .then(() => getActivities())
-//    .then((data) => res.status(200).json(data))
-    .then((data) => storeData(data))
+    .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
     getActivities()
-    //    .then((data) => res.status(200).json(data))
-    .then((data) => storeData(data))
+    .then((data) => res.status(200).json(data))
   }
 });
 
@@ -97,8 +95,10 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      resolve(data);
+      console.log('Sauvegarde dans la BDD...')
+      storeData(data);
     })
+    .then ((data) => resolve(data));
   });
 }
 
