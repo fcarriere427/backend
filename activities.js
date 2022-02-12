@@ -3,10 +3,14 @@
 // Voir le bloc existant /etc/nginx/sites-available/letsq.xyz
 // ***********************
 
+// Définition du router
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
 var router = express.Router();
+
+// Définition de la BDD
+const storeData = require('storeData');
 
 // Récupération des clés et tokens
 // /!\ Suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
