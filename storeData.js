@@ -1,4 +1,4 @@
-function storeData(Data) {
+function storeData(data) {
 
   // Récupération des clés pour se connecter à couchDB
   console.log("Début de storeData.js...");

@@ -10,7 +10,7 @@ const https = require('https');
 var router = express.Router();
 
 // Définition de la BDD
-const storeData = require('storeData');
+const storeData = require('./storeData');
 
 // Récupération des clés et tokens
 // /!\ Suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
