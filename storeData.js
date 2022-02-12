@@ -5,7 +5,7 @@ var user = couchKeys.user;
 var pwd = couchKeys.password;
 var host = couchKeys.host;
 var port = couchKeys.port;
-var url = 'http://' + user + ':'' + pwd + '@' + host + ':' + port;
+var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
 console.log("url = " + url);
 const nano = require('nano')(url);
 
