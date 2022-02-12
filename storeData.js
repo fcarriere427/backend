@@ -9,11 +9,13 @@ var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
 console.log("url = " + url);
 const nano = require('nano')(url);
 
-couch.db.create('test2', function(err) {
-  if (err) {
-    console.error(err);
-  }
-});
+//
+const db = nano.use('strava');
 
+var data = ''{ happy: true }, 'rabbit'';
+
+nano.db.insert(data)
+.then((data) => console.log(data))
+.catch((err) => console.log(err))
 
 // module.exports =
