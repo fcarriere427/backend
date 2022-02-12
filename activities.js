@@ -60,7 +60,11 @@ function httpsRequest(params, postData) {
           res.on('end', function() {
               try {
                 body = JSON.parse(Buffer.concat(body).toString());
-              } catch(e) { reject(e);}
+              }
+              catch(e) {
+                reject(e);
+              }
+              console.log('Body dans httpsRequest = ' + body);
               resolve(body);
           });
       });
