@@ -13,12 +13,26 @@ const nano = require('nano')(url);
 const db = nano.use('strava');
 
 //var data = ''{ happy: true }, 'rabbit'';
-var data = {};
-var data = JSON.stringify('salut');
-console.log("data = " + data);
+var o = {} // empty Object
+var key = 'Orientation Sensor';
+o[key] = []; // empty Array, which you can push() values into
 
 
-db.insert(data)
+var data = {
+    sampleTime: '1450632410296',
+    data: '76.36731:3.4651554:0.5665419'
+};
+var data2 = {
+    sampleTime: '1450632410296',
+    data: '78.15431:0.5247617:-0.20050584'
+};
+o[key].push(data);
+o[key].push(data2);
+var doc = JSON.stringify(o);
+console.log("doc = " + doc);
+
+
+db.insert(doc)
 .then((data) => console.log(data))
 .catch((err) => console.log(err))
 
