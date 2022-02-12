@@ -36,11 +36,13 @@ router.get('/', function(req, res) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
     .then(() => getActivities())
-    .then((data) => {res.status(200).json(data)})
+//    .then((data) => res.status(200).json(data))
+    .then((data) => storeData(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
     getActivities().
-    then((data) => {res.status(200).json(data)} )
+    //    .then((data) => res.status(200).json(data))
+    .then((data) => storeData(data))
   }
 });
 
