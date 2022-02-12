@@ -102,6 +102,7 @@ function getActivities() {
       //const o = JSON.parse(data);
       storeData(string);
     })
+    .catch((err) => console.log(err))
     .then ((data) => resolve(data));
   });
 }
