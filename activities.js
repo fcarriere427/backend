@@ -95,9 +95,10 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log('Sauvegarde dans la BDD...')
-      const o = JSON.parse(data);
-      storeData(o);
+      console.log('Sauvegarde dans la BDD...');
+      console.log('Data = ' + data);
+      //const o = JSON.parse(data);
+      storeData(data);
     })
     .then ((data) => resolve(data));
   });
