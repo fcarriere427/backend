@@ -37,3 +37,4 @@ module.exports = storeData;
 // o[key].push(data);
 // o[key].push(data2);
 // var doc = JSON.stringify(o);
+// db.insert(doc);
