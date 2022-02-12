@@ -13,7 +13,7 @@ const nano = require('nano')(url);
 const db = nano.use('strava');
 
 //var data = ''{ happy: true }, 'rabbit'';
-var data = 'salut !';
+var data = JSON.parse('salut !');
 
 db.insert(data)
 .then((data) => console.log(data))
