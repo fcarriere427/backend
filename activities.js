@@ -57,11 +57,6 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      //var string = JSON.parse('{' + JSON.stringify(data) + '}');
-      //console.log('string = ' + string);
-      //console.log('Data = ' + data);
-      //const o = JSON.parse(data);
-      //var myObj = JSON.parse(data);
       storeData(data);
       resolve(data);
     })
