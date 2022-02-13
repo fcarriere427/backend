@@ -65,9 +65,10 @@ function getActivities() {
       //var myObj = JSON.parse(data);
       console.log('typeof Data dans getActivities = ' + typeof(data));
       //storeData(data);
+      resolve(data);
     })
     .catch((err) => console.log(err))
-    .then ((data) => resolve(data));
+    //.then ((data) => resolve(data));
   });
 }
 
