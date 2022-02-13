@@ -18,9 +18,12 @@ function storeData(data) {
   for (var i = 0; i < data.length; i++) {
 /////// REPRENDRE ICI /////////
     console.log('Boucle for avec i = ' + i);
-    db.insert(data[i])
-    .then((data) => console.log('Insertion BDD de l\'enregistrement n°' + i))
-    .catch((err) => console.log());
+    return new Promise ((res,rej) => {
+      db.insert(data[i])
+      .then((data) => console.log('Insertion BDD de l\'enregistrement n°' + i))
+      .then((data) => res())
+      .catch((err) => console.log());
+    })
   }
   console.log('Fin de l\'insertion dans la BDD !');
 }
