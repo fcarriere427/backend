@@ -11,8 +11,9 @@ function storeData(data) {
   var host = couchKeys.host;
   var port = couchKeys.port;
   var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
+  console.log('url = ' + url);
   // Ouverture de la BDD
-  //var db = prom(nano('http://localhost:5984')).db.use('test');
+  var db = prom(nano('http://localhost:5984')).db.use('test');
   var db = prom(nano(url)).db.use('strava');
 
   // Création d'un enregistrement pour chaque activité
