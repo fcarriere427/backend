@@ -28,7 +28,7 @@ function insertData (data, db) {
       .then(() => console.log('Insertion BDD de l\'enregistrement n°' + i))
       .catch((err) => console.log(err))
     }
-    resolve(data);
+    res(data);
   });
 }
 
