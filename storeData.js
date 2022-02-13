@@ -24,7 +24,6 @@ function storeData(data) {
     db.insert(data[i])
     //.then((data) => console.log('Enregistrement n°' + i + ' OK'))
     .catch((err) => console.log());
-    })
   }
   console.log('Fin de l\'insertion dans la BDD !');
 }
