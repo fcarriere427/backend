@@ -39,11 +39,11 @@ router.get('/', function(req, res) {
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
-    .then(() => getActivities())
+    .then(() => getActivity(6670082920))
     .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
-    getActivities()
+    getActivitiy(6670082920)
     .then((data) => res.status(200).json(data))
   }
 });
@@ -57,13 +57,27 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
-      console.log('Sauvegarde dans la BDD...');
       //var string = JSON.parse('{' + JSON.stringify(data) + '}');
       //console.log('string = ' + string);
       //console.log('Data = ' + data);
       //const o = JSON.parse(data);
       //var myObj = JSON.parse(data);
-      console.log('typeof Data dans getActivities = ' + typeof(data));
+      storeData(data);
+      resolve(data);
+    })
+    .catch((err) => console.log(err))
+    //.then ((data) => resolve(data));
+  });
+}
+
+// REQUETE POUR RECUPERER LES ACTIVITES
+function getActivity(id) {
+  console.log("Récupération de l'activité " + id);
+  return new Promise(function(resolve, reject) {
+    var options = `https://www.strava.com/api/v3/athlete/activities'+id+'?access_token=${access_token}`;
+    // Lance la requête de récupération de l'activité
+    httpsRequest(options)
+    .then((data) => {
       storeData(data);
       resolve(data);
     })
