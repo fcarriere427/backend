@@ -2,7 +2,7 @@ function storeData(data) {
 
   var array = [];
   for (var i = 0; i < data.length; i++) {
-    array[var] = 'ID: ' + data[i].id
+    array[i] = 'ID: ' + data[i].id
      + '  // Date: ' + data[i].start_date
      + '  // Distance: ' + Math.round(data[i].distance / 1000 * 100) / 100 + 'km'
      + '  // Time: ' + Math.round(data[i].moving_time/60 * 100) / 100 + "mn"
