@@ -1,9 +1,6 @@
 //*** Intégration des données dans la BDD
 function storeData(data) {
   console.log("Début de storeData...");
-  // Import
-  const nano = require ('nano');
-  const prom = require ('nano-promises');
   // Récupération des clés pour se connecter à couchDB
   const couchKeys = require('./keys/couchDB.json');
   var user = couchKeys.user;
@@ -13,8 +10,9 @@ function storeData(data) {
   var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
   console.log('url = ' + url);
   // Ouverture de la BDD
-  var db = prom(nano('http://localhost:5984')).db.use('test');
-  var db = prom(nano(url)).db.use('strava');
+  const nano = require ('nano')(url);
+  const prom = require ('nano-promises');
+  var db = prom(nano).db.use('strava');
 
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
