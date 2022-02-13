@@ -1,8 +1,9 @@
 //*** Intégration des données dans la BDD
 //var couchdb = require('./couchdb.js');
 
-function storeData(data) {
+async function storeData(data) {
   console.log("Début de storeData...");
+
   // Récupération des clés pour se connecter à couchDB
   const couchKeys = require('./keys/couchDB.json');
   var user = couchKeys.user;
@@ -10,25 +11,19 @@ function storeData(data) {
   var host = couchKeys.host;
   var port = couchKeys.port;
   var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
+
   // Ouverture de la BDD
   const nano = require ('nano')(url);
-  const prom = require ('nano-promises');
   console.log('nano = ' + JSON.stringify(nano));
   var db = nano.db.use('strava');
-//var db = prom(nano).db.use('strava');
 
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
 /////// REPRENDRE ICI /////////
     console.log('Boucle for avec i = ' + i);
-    return new Promise ((resolve,reject) => {
-      db.insert(data[i])
-      .then((data) => console.log('Enregistrement n°' + i + ' OK'))
-      .then((data) => {
-          console.log('On envoie le Resolve de i = ' + i);
-          resolve();
-      })
-      .catch((err) => console.log());
+    db.insert(data[i])
+    .then((data) => console.log('Enregistrement n°' + i + ' OK'))
+    .catch((err) => console.log());
     })
   }
   console.log('Fin de l\'insertion dans la BDD !');

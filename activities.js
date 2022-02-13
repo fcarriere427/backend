@@ -59,7 +59,7 @@ function getActivities() {
     // Lance la requête de récupération des activités
     httpsRequest(options)
     .then((data) => {
-      storeData(data);
+      await storeData(data);
     })
     .then((data) => {
       resolve(data);
