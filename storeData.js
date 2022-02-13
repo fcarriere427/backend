@@ -1,7 +1,7 @@
 //*** Intégration des données dans la BDD
 //var couchdb = require('./couchdb.js');
 
-async function storeData(data) {
+function storeData(data) {
   console.log("Début de storeData...");
 
   // Récupération des clés pour se connecter à couchDB
@@ -22,7 +22,7 @@ async function storeData(data) {
 /////// REPRENDRE ICI /////////
     console.log('Boucle for avec i = ' + i);
     db.insert(data[i])
-    .then((data) => console.log('Enregistrement n°' + i + ' OK'))
+    //.then((data) => console.log('Enregistrement n°' + i + ' OK'))
     .catch((err) => console.log());
     })
   }
