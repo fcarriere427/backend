@@ -60,8 +60,6 @@ function getActivities() {
     httpsRequest(options)
     .then((data) => {
       storeData(data);
-    // })
-    // .then((data) => {
       resolve(data);
     })
     .catch((err) => console.log(err))

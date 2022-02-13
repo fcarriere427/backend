@@ -19,31 +19,11 @@ function storeData(data) {
 
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
-/////// REPRENDRE ICI /////////
     console.log('Boucle for avec i = ' + i);
     db.insert(data[i])
-    //.then((data) => console.log('Enregistrement n°' + i + ' OK'))
     .catch((err) => console.log());
   }
   console.log('Fin de l\'insertion dans la BDD !');
 }
 
 module.exports = storeData;
-
-/// example of OK json Object
-
-// var o = {} // empty Object
-// var key = 'Orientation Sensor';
-// o[key] = []; // empty Array, which you can push() values into
-// var data = {
-//     sampleTime: '1450632410296',
-//     data: '76.36731:3.4651554:0.5665419'
-// };
-// var data2 = {
-//     sampleTime: '1450632410296',
-//     data: '78.15431:0.5247617:-0.20050584'
-// };
-// o[key].push(data);
-// o[key].push(data2);
-// var doc = JSON.stringify(o);
-// db.insert(doc);
