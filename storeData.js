@@ -8,11 +8,11 @@ function storeData(data) {
   var host = couchKeys.host;
   var port = couchKeys.port;
   var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
-  const nano = require('nano')(url);
+  const nano = require('nano');
   const prom = require('nano-promises');
 
   // Ouverture de la BDD
-  var db = prom(nano.use('strava'));
+  var db = prom(nano(url)).use('strava');
   
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
