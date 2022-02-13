@@ -15,20 +15,11 @@ function storeData(data) {
   const db = nano.use('strava');
 
   // Création d'un enregistrement pour chaque activité
-  insertData(data, db)
-  .then(console.log('Fin de l\'insertion dans la BDD !'));
-}
-
-function insertData (data, db) {
-  return new Promise(function(res,err) {
-    for (var i = 0; i < data.length; i++) {
-      // Insertion des données dans la BDD
-      db.insert(data[i])
-      .then(() => console.log('Insertion BDD de l\'enregistrement n°' + i))
-      .catch((err) => console.log(err))
-    }
-    res(data);
-  });
+  for (var i = 0; i < data.length; i++) {
+    const response = await db.insert(data[i]);
+    console.log('Insertion BDD de l\'enregistrement n°' + i)
+  }
+  console.log('Fin de l\'insertion dans la BDD !');
 }
 
 
