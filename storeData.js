@@ -32,9 +32,12 @@ function storeData(data) {
   .then((body) => {
     console.log('on va lister les activités...')
     body.rows.forEach((doc) => {
+      console.log('voici une activité : ');
       console.log(doc);
       stravaDb.get(doc.id)
       .then((doc) => {
+        console.log('voici ce qu\'on récupère quand on fait un "get" dessus  : ');
+        console.log(doc);
         var stravaID = doc.ID;
         console.log(stravaID);
       })
