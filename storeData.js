@@ -30,6 +30,7 @@ function storeData(data) {
   var existingID = [];
   stravaDb.list()
   .then((body) => {
+    console.log('on va lister les activités...')
     body.rows.forEach((doc) => {
       console.log(doc);
     })
