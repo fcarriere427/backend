@@ -59,7 +59,6 @@ function getActivities() {
     // Lance la requête de récupération des activités
     httpsRequest(options)
     .then((data) => {
-      ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       storeData(data);
     })
     .then((data) => {

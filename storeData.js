@@ -18,10 +18,10 @@ function storeData(data) {
   for (var i = 0; i < data.length; i++) {
 /////// REPRENDRE ICI /////////
     console.log('Boucle for avec i = ' + i);
-    return new Promise ((res,rej) => {
+    return new Promise ((resolve,reject) => {
       db.insert(data[i])
-      .then((data) => console.log('Insertion BDD de l\'enregistrement n°' + i))
-      .then((data) => res())
+      .then((data) => console.log('Enregistrement n°' + i + ' OK'))
+      .then((data) => resolve())
       .catch((err) => console.log());
     })
   }
