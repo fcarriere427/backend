@@ -1,4 +1,6 @@
 //*** Intégration des données dans la BDD
+//var couchdb = require('./couchdb.js');
+
 function storeData(data) {
   console.log("Début de storeData...");
   // Récupération des clés pour se connecter à couchDB
@@ -12,7 +14,8 @@ function storeData(data) {
   const nano = require ('nano')(url);
   const prom = require ('nano-promises');
   console.log('nano = ' + JSON.stringify(nano));
-  var db = prom(nano).db.use('strava');
+  var db = nano.db.use('strava');
+//var db = prom(nano).db.use('strava');
 
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
