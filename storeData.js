@@ -1,8 +1,6 @@
 //*** Intégration des données dans la BDD
 function storeData(data) {
-  import nano from 'nano';
-  import prom from 'nano-promises';
-
+  
   // Récupération des clés pour se connecter à couchDB
   console.log("Début de storeData...");
   const couchKeys = require('./keys/couchDB.json');
