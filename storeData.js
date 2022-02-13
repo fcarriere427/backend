@@ -34,9 +34,9 @@ function storeData(data) {
     body.rows.forEach((doc) => {
       var activity = stravaDb.get(body.id);
       var stravaID = activity.ID;
-      console.log('doc : ' : doc);
-      console.log('activity : ' : activity);
-      console.log('stravaID : ' : stravaID);
+      console.log('doc : ' + doc);
+      console.log('activity : ' + activity);
+      console.log('stravaID : ' + stravaID);
     })
   });
 }
