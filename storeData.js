@@ -16,15 +16,14 @@ function storeData(data) {
 
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
-
 /////// REPRENDRE ICI /////////
-
-    const response = await db.insert(data[i]);
+    db.insert(data[i])
+    .then((data) console.log('Insertion BDD de l\'enregistrement n°' + i))
+    .catch((err) => console.log());
     console.log('Insertion BDD de l\'enregistrement n°' + i)
   }
   console.log('Fin de l\'insertion dans la BDD !');
 }
-
 
 module.exports = storeData;
 
