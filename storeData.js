@@ -35,7 +35,7 @@ function storeData(data) {
       console.log(doc);
       stravaDb.get(doc.id)
       .then((doc) => {
-        var stravaID = activity.ID;
+        var stravaID = doc.ID;
         console.log(stravaID);
       })
     })
