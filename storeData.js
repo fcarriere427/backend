@@ -1,36 +1,28 @@
+//*** Intégration des données dans la BDD
+
 function storeData(data) {
 
-  var array = [];
+  // Récupération des clés pour se connecter à couchDB
+  console.log("Début de storeData.js...");
+  const couchKeys = require('./keys/couchDB.json');
+  var user = couchKeys.user;
+  var pwd = couchKeys.password;
+  var host = couchKeys.host;
+  var port = couchKeys.port;
+  var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
+  const nano = require('nano')(url);
+
+  // Ouverture de la BDD
+  const db = nano.use('strava');
+
+  // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
-    array[i] = 'ID: ' + data[i].id
-     + '  // Date: ' + data[i].start_date
-     + '  // Distance: ' + Math.round(data[i].distance / 1000 * 100) / 100 + 'km'
-     + '  // Time: ' + Math.round(data[i].moving_time/60 * 100) / 100 + "mn"
-     + '  // Avg speed: ' + Math.round(1000 / 60 / data[i].average_speed * 100) / 100 + "mn/km";
+    // Insertion des données dans la BDD
+    db.insert(data[i])
+    .then((data) => console.log('Insertion BDD de l\'enregistrement n°' + i))
+    .catch((err) => console.log(err))
   }
-
-  console.log("Array = " + array);
-
-  return array;
-
-  // //*** Intégration dans la BDD
-  // // Récupération des clés pour se connecter à couchDB
-  // console.log("Début de storeData.js...");
-  // const couchKeys = require('./keys/couchDB.json');
-  // var user = couchKeys.user;
-  // var pwd = couchKeys.password;
-  // var host = couchKeys.host;
-  // var port = couchKeys.port;
-  // var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
-  // const nano = require('nano')(url);
-  //
-  // // Ouverture de la BDD
-  // const db = nano.use('strava');
-  //
-  // // Insertion des données dans la BDD
-  // db.insert(data)
-  // .then((data) => console.log('Insertion BDD OK !'))
-  // .catch((err) => console.log(err))
+  console.log('Fin de l\'insertion dans la BDD !');
 }
 
 module.exports = storeData;
