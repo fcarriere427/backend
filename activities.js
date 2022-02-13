@@ -51,7 +51,7 @@ router.get('/', function(req, res) {
 });
 
 // REQUETE POUR RECUPERER LES ACTIVITES
-async function getActivities() {
+function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     var nbActivities = 5;
@@ -59,7 +59,7 @@ async function getActivities() {
     // Lance la requête de récupération des activités
     httpsRequest(options)
     .then((data) => {
-      await storeData(data);
+      storeData(data);
     })
     .then((data) => {
       resolve(data);
