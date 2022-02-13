@@ -2,7 +2,7 @@
 
 function storeData(data) {
   // Récupération des clés pour se connecter à couchDB
-  console.log("Début de storeData.js...");
+  console.log("Début de storeData...");
   const couchKeys = require('./keys/couchDB.json');
   var user = couchKeys.user;
   var pwd = couchKeys.password;
@@ -17,10 +17,10 @@ function storeData(data) {
   // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
 /////// REPRENDRE ICI /////////
+    console.log('Boucle for avec i = ' + i);
     db.insert(data[i])
     .then((data) => console.log('Insertion BDD de l\'enregistrement n°' + i))
     .catch((err) => console.log());
-    console.log('Insertion BDD de l\'enregistrement n°' + i)
   }
   console.log('Fin de l\'insertion dans la BDD !');
 }

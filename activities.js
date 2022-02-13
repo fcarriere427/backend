@@ -61,10 +61,11 @@ function getActivities() {
     .then((data) => {
       ///// ***** A AMELIORER : on devrait les stocker dans une BDD...
       storeData(data);
+    })
+    .then((data) => {
       resolve(data);
     })
     .catch((err) => console.log(err))
-    //.then ((data) => resolve(data));
   });
 }
 
@@ -126,6 +127,7 @@ function renewTokens() {
 }
 
 function httpsRequest(params, postData) {
+    console.log("Requête http... avec : " + params);
     return new Promise(function(resolve, reject) {
       var req = https.request(params, function(res) {
           // cumulate data
