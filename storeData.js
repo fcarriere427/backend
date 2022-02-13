@@ -15,15 +15,25 @@ function storeData(data) {
   // Ouverture de la BDD
   const nano = require ('nano')(url);
   console.log('nano = ' + JSON.stringify(nano));
-  var db = nano.db.use('strava');
+  var stravaDb = nano.db.use('strava');
 
-  // Création d'un enregistrement pour chaque activité
+    // Création d'un enregistrement pour chaque activité
   for (var i = 0; i < data.length; i++) {
-    console.log('Boucle for avec i = ' + i);
-    db.insert(data[i])
+// ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
+// ?1 : comment
+    stravaDb.insert(data[i])
     .catch((err) => console.log());
   }
-  console.log('Fin de l\'insertion dans la BDD !');
+  console.log('BdD mise à jour !');
+
+  // Récupération de tous les ID d'activités Strava dans un tableau
+  var existingID = [];
+  stravaDb.list()
+  .then((body) => {
+    body.rows.forEach((doc) => {
+      console.log(doc);
+    })
+  });
 }
 
 module.exports = storeData;
