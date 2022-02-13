@@ -21,7 +21,10 @@ function storeData(data) {
     return new Promise ((resolve,reject) => {
       db.insert(data[i])
       .then((data) => console.log('Enregistrement n°' + i + ' OK'))
-      .then((data) => resolve())
+      .then((data) => {
+          console.log('On envoie le Resolve de i = ' + i);
+          resolve();
+      })
       .catch((err) => console.log());
     })
   }
