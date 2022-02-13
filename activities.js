@@ -74,7 +74,7 @@ function getActivities() {
 function getActivity(id) {
   console.log("Récupération de l'activité " + id);
   return new Promise(function(resolve, reject) {
-    var options = `https://www.strava.com/api/v3/athlete/activities'+id+'?access_token=${access_token}`;
+    var options = `https://www.strava.com/api/v3/activities'+id+'?access_token=${access_token}`;
     // Lance la requête de récupération de l'activité
     httpsRequest(options)
     .then((data) => {
