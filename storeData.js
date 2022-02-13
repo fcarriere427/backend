@@ -16,7 +16,7 @@ function storeData(data) {
   const db = nano.use('strava');
 
   // Création d'un enregistrement pour chaque activité
-  let insertData = new Promise(function(res,err) {
+  function insertData = new Promise(function(res,err) {
     for (var i = 0; i < data.length; i++) {
       // Insertion des données dans la BDD
       db.insert(data[i])
