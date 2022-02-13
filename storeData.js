@@ -16,8 +16,7 @@ function storeData(data) {
 
   // Création d'un enregistrement pour chaque activité
   insertData(data, db)
-  .then(console.log('Fin de l\'insertion dans la BDD !'))
-  .catch(console.log(err));
+  .then(console.log('Fin de l\'insertion dans la BDD !'));
 }
 
 function insertData (data, db) {
