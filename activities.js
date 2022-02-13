@@ -48,48 +48,6 @@ router.get('/', function(req, res) {
   }
 });
 
-function httpsRequest(params, postData) {
-    return new Promise(function(resolve, reject) {
-      var req = https.request(params, function(res) {
-          // cumulate data
-          var body = [];
-          res.on('data', function(chunk) {
-              body.push(chunk);
-          });
-          // resolve on end
-          res.on('end', function() {
-              try {
-                body = JSON.parse(Buffer.concat(body).toString());
-              }
-              catch(e) {
-                reject(e);
-              }
-              console.log('Body dans httpsRequest = ' + body);
-              resolve(body);
-          });
-      });
-      if (postData) {
-          req.write(postData);
-      }
-      req.on('error', error => {
-        console.log("Erreur httpsRequest");
-        console.error(error);
-      })
-      // IMPORTANT
-      req.end();
-  });
-}
-
-function saveData(data, filename) {
-  console.log("Sauvegarde des nouveaux tokens...");
-  return new Promise(function(resolve, reject) {
-    fs.writeFile(filename, data, 'utf-8', (err) => {
-        if (err) reject(err);
-        else resolve(data);
-    });
-  });
-}
-
 // REQUETE POUR RECUPERER LES ACTIVITES
 function getActivities() {
   console.log("Récupération des activités...");
@@ -105,7 +63,7 @@ function getActivities() {
       //console.log('Data = ' + data);
       //const o = JSON.parse(data);
       //var myObj = JSON.parse(data);
-      console.log('Data dans getActivities = ' + data);
+      console.log('typeof Data dans getActivities = ' + typeof(data));
       storeData(data);
     })
     .catch((err) => console.log(err))
@@ -151,6 +109,47 @@ function renewTokens() {
     })
     resolve();
   })
+}
+
+function httpsRequest(params, postData) {
+    return new Promise(function(resolve, reject) {
+      var req = https.request(params, function(res) {
+          // cumulate data
+          var body = [];
+          res.on('data', function(chunk) {
+              body.push(chunk);
+          });
+          // resolve on end
+          res.on('end', function() {
+              try {
+                body = JSON.parse(Buffer.concat(body).toString());
+              }
+              catch(e) {
+                reject(e);
+              }
+              resolve(body);
+          });
+      });
+      if (postData) {
+          req.write(postData);
+      }
+      req.on('error', error => {
+        console.log("Erreur httpsRequest");
+        console.error(error);
+      })
+      // IMPORTANT
+      req.end();
+  });
+}
+
+function saveData(data, filename) {
+  console.log("Sauvegarde des nouveaux tokens...");
+  return new Promise(function(resolve, reject) {
+    fs.writeFile(filename, data, 'utf-8', (err) => {
+        if (err) reject(err);
+        else resolve(data);
+    });
+  });
 }
 
 module.exports = router;
