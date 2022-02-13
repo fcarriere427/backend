@@ -43,7 +43,7 @@ router.get('/', function(req, res) {
     .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
-    getActivitiy(6670082920)
+    getActivity(6670082920)
     .then((data) => res.status(200).json(data))
   }
 });
