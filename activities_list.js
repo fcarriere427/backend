@@ -132,6 +132,8 @@ function httpsRequest(params, postData) {
               catch(e) {
                 reject(e);
               }
+              console.log("body = ");
+              console.log(body);
               resolve(body);
           });
       });
