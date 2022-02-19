@@ -126,8 +126,8 @@ function httpsRequest(params, postData) {
           // resolve on end
           res.on('end', function() {
               try {
-                //body = JSON.parse(Buffer.concat(body).toString());
-                body = Buffer.concat(body).toString();
+                body = JSON.parse(Buffer.concat(body).toString());
+                //body = Buffer.concat(body).toString();
               }
               catch(e) {
                 reject(e);
