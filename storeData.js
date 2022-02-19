@@ -36,8 +36,10 @@ function storeData(data) {
       console.log(doc);
       stravaDb.get(doc.id)
       .then((doc) => {
-        console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
-        console.log(doc);
+        //console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
+        //console.log(doc);
+        console.log('Et voici le type de "doc" : ');
+        console.log(typeof(doc));
         //var activity_obj = JSON.parse(doc);
         //var stravaID = activity_obj.ID;
         var act_str = JSON.stringify(doc);
