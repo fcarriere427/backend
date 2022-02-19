@@ -32,7 +32,7 @@ function storeData(data) {
   stravaDb.list()
   .then((body) => {
     console.log('on va lister les activités...')
-    for (var i = 0; j < body.rows.length; i++) {
+    for (var i = 0; i < body.rows.length; i++) {
       console.log("on traite la ligne n°" + i);
       console.log('voici une activité : ');
       console.log(body.rows[i]);
