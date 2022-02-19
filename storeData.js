@@ -37,7 +37,7 @@ function storeData(data) {
       console.log('voici une activité : ');
       console.log(body.rows[i]);
       console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-      writeArray(i, stravaDB, body.rows[i].id)
+      writeArray(i, stravaDb, body.rows[i].id)
       .then(data => {
         console.log("Et voici le tableau des ID Strava : ");
         for (var j = 0; j < existingID.length; j++) {
@@ -57,7 +57,7 @@ function storeData(data) {
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
 
-function writeArray(i, stravaDB, data) {
+function writeArray(i, stravaDb, data) {
   console.log("On rentre dans writeArray...");
   return new Promise(function(resolve, reject) {
     var req = stravaDb.get(body.rows[i].id, param, function (res) {
