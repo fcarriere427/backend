@@ -33,8 +33,8 @@ function storeData(data) {
   .then((body) => {
     console.log('on va lister les activités...')
     body.rows.forEach((doc) => {
-      console.log("on traite la ligne " + i);
       var i = 0;
+      console.log("on traite la ligne " + i);
       console.log('voici une activité : ');
       console.log(doc);
       stravaDb.get(doc.id)
