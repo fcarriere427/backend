@@ -32,27 +32,16 @@ function storeData(data) {
   stravaDb.list()
   .then((body) => {
     console.log('on va lister les activités...')
-    console.log('taille du tableau body.rows = ' + body.rows.length);
-    
-    body.rows.forEach((doc) => {
-      var i = 0;
-      console.log("on traite la ligne " + i);
+    for (var i = 0; j < body.rows.length; i++) {
+      console.log("on traite la ligne n°" + i);
       console.log('voici une activité : ');
-      console.log(doc);
-      stravaDb.get(doc.id)
+      console.log(body.rows[i]);
+      stravaDb.get(body.rows.id)
       .then((doc) => {
         console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
         // console.log(doc);
         existingID[i] = doc["id"];
-        i = i+1;
-///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
-///// ... donc on ne sait pas remplir le tableau des ID des activités strava
-///// ... qui va servir à vérifier si une activité existe déjà avant de l'ajouter à la BDD
-
-//// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
-///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
-
-      })
+      }
     })
   })
   .then(data =>{
@@ -62,5 +51,14 @@ function storeData(data) {
     }
   });
 }
+
+///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
+///// ... donc on ne sait pas remplir le tableau des ID des activités strava
+///// ... qui va servir à vérifier si une activité existe déjà avant de l'ajouter à la BDD
+
+//// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
+///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
+
+
 
 module.exports = storeData;
