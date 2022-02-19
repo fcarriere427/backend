@@ -33,6 +33,7 @@ function storeData(data) {
   .then((body) => {
     console.log('on va lister les activités...')
     body.rows.forEach((doc) => {
+      console.log("on traite la ligne " + i);
       var i = 0;
       console.log('voici une activité : ');
       console.log(doc);
@@ -41,7 +42,7 @@ function storeData(data) {
         console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
         // console.log(doc);
         existingID[i] = doc["id"];
-        i++;
+        i = i+1;
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
 ///// ... donc on ne sait pas remplir le tableau des ID des activités strava
 ///// ... qui va servir à vérifier si une activité existe déjà avant de l'ajouter à la BDD
