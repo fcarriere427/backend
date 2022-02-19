@@ -39,10 +39,9 @@ function storeData(data) {
       stravaDb.get(body.rows.id)
       .then((doc) => {
         console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
-        // console.log(doc);
         existingID[i] = doc["id"];
-      }
-    })
+      })
+    }
   })
   .then(data =>{
     console.log("Et voici le tableau des ID Strava : ");
