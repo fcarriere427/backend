@@ -40,9 +40,10 @@ function storeData(data) {
         console.log(doc);
         //var activity_obj = JSON.parse(doc);
         //var stravaID = activity_obj.ID;
-        console.log('Et voici le type de "doc" : ');
-        console.log(typeof(doc));
-        var stravaID = doc.ID;
+        var act_str = doc.toString();
+        console.log('Et voici le type de "act_str" : ');
+        console.log(typeof(act_str));
+        var stravaID = act_str.ID;
         console.log('Et voici son ID Strava : ');
         console.log(stravaID);
 
