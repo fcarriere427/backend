@@ -54,7 +54,9 @@ function storeData(data) {
   })
   .then(data =>{
     console.log("Et voici le tableau des ID Strava : ");
-    console.log(existingID);
+    for (var j = 0; j < existingID.length; j++) {
+      console.log("j = " + j + " =>" + existingID[j]);
+    }
   });
 }
 
