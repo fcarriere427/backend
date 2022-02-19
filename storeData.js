@@ -36,7 +36,6 @@ function storeData(data) {
       console.log("on traite la ligne n°" + i);
       console.log('voici une activité : ');
       console.log(body.rows[i]);
-      console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
       writeArray(i, stravaDb, body, body.rows[i].id)
       .then(data => {
         console.log("Et voici le tableau des ID Strava : ");
@@ -61,6 +60,7 @@ function writeArray(i, stravaDb, body, data) {
   console.log("On rentre dans writeArray...");
   var param = "{}";
   return new Promise(function(resolve, reject) {
+    console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
     var req = stravaDb.get(body.rows[i].id, param, function (doc) {
       console.log('et on obtient l\'enregistrement = ' + doc);
       var stravaID = doc["id"];
