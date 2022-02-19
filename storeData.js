@@ -15,7 +15,7 @@ function storeData(data) {
   // Ouverture de la BDD
   const nano = require ('nano')(url);
   //console.log('nano = ' + JSON.stringify(nano));
-  var stravaDb = nano.db.use('strava');
+  const stravaDb = nano.db.use('strava');
 
     // Création d'un enregistrement pour chaque activité
   console.log('data.length = ' + data.length);
