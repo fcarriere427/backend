@@ -63,6 +63,7 @@ function getActivities() {
     //   return JSON.stringify(data);
     // })
     .then(data => {
+      console.log('OK, data récupérée !')
       storeData(data);
       resolve(data);
     })
