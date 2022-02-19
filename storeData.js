@@ -40,7 +40,7 @@ function storeData(data) {
       .then((doc) => {
         // console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
         // console.log(doc);
-        var existingID[i] = doc["id"];
+        existingID[i] = doc["id"];
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
 ///// ... donc on ne sait pas remplir le tableau des ID des activités strava
