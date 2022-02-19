@@ -38,7 +38,7 @@ function storeData(data) {
       console.log(doc);
       stravaDb.get(doc.id)
       .then((doc) => {
-        // console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
+        console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
         // console.log(doc);
         existingID[i] = doc["id"];
 
