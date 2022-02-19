@@ -37,7 +37,7 @@ function storeData(data) {
       console.log('voici une activité : ');
       console.log(body.rows[i]);
       console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-      writeArray(i,body.rows[i].id);
+      writeArray(i,body.rows[i].id)
       .then(data => {
         console.log("Et voici le tableau des ID Strava : ");
         for (var j = 0; j < existingID.length; j++) {
