@@ -63,7 +63,7 @@ function getActivities() {
     //   return JSON.stringify(data);
     // })
     .then(data => {
-      console.log('OK, data récupérée !')
+      console.log('... OK, activités récupérées !')
       storeData(data);
       resolve(data);
     })
@@ -110,6 +110,7 @@ function renewTokens() {
       expires_at = tokens.expires_at;
       refresh_token = tokens.refresh_token;
     })
+    console.log("... OK, tokens renouvellés !");
     resolve();
   })
 }
@@ -154,6 +155,7 @@ function saveData(data, filename) {
         else resolve(data);
     });
   });
+  console.log("... OK, tokens sauvegardés !");
 }
 
 module.exports = router;
