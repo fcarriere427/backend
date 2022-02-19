@@ -118,6 +118,9 @@ function renewTokens() {
       })
       // semble se faire après ??? pas grave, on sauve en asynchrone : pas besoin d'attendre pour renvoyer la réponse...
       saveData(local_keys, './keys/tokens.json');
+      access_token = tokens.access_token;
+      expires_at = tokens.expires_at;
+      refresh_token = tokens.refresh_token;
     })
     resolve();
   })
