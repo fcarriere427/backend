@@ -14,7 +14,7 @@ function storeData(data) {
 
   // Ouverture de la BDD
   const nano = require ('nano')(url);
-  console.log('nano = ' + JSON.stringify(nano));
+  //console.log('nano = ' + JSON.stringify(nano));
   var stravaDb = nano.db.use('strava');
 
     // Création d'un enregistrement pour chaque activité
@@ -37,24 +37,16 @@ function storeData(data) {
       console.log('voici une activité : ');
       console.log(body.rows[i]);
       console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-      var valeur = stravaDb.get(body.rows[i].id)
-      .then(doc => {
-        console.log('et on obtient l\'enregistrement = ' + doc);
-        var stravaID = doc["id"];
-        console.log('et on récupère l\'ID Strava = ' + stravaID);
-        console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-        existingID[i] = doc["id"];
+      writeArray(i,body.rows[i].id);
+      .then(data => {
+        console.log("Et voici le tableau des ID Strava : ");
+        for (var j = 0; j < existingID.length; j++) {
+          console.log("j = " + j + " =>" + existingID[j]);
+        }
       })
       .catch(err => console.log(err))
-      console.log("valeur = " + valeur);
     }
   })
-  .then(data =>{
-    console.log("Et voici le tableau des ID Strava : ");
-    for (var j = 0; j < existingID.length; j++) {
-      console.log("j = " + j + " =>" + existingID[j]);
-    }
-  });
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
@@ -65,5 +57,23 @@ function storeData(data) {
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
 
+function writeArray(i, data) {
+  console.log("On rentre dans writeArray...");
+  return new Promise(function(resolve, reject) {
+    var req = stravaDb.get(body.rows[i].id, param, function (res) {
+      console.log('et on obtient l\'enregistrement = ' + doc);
+      var stravaID = doc["id"];
+      console.log('et on récupère l\'ID Strava = ' + stravaID);
+      console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+      existingID[i] = doc["id"];
+    })
+    req.on('error', error => {
+      console.log("Erreur couchdb.get");
+      console.error(error);
+    })
+    // IMPORTANT
+    req.end();
+  })
+}
 
 module.exports = storeData;
