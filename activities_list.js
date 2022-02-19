@@ -61,10 +61,8 @@ function getActivities() {
     httpsRequest(options)
     .then(res => JSON.stringify(res))
     .then(data => {
-      console.log("Type des data récupérées : ");
-      console.log(typeof(data));
-      console.log("Extraction de ID : ");
-      console.log(data.ID);
+      console.log("Data après stringify : ");
+      console.log(data);
       storeData(data);
       resolve(data);
     })
@@ -128,7 +126,6 @@ function httpsRequest(params, postData) {
           res.on('end', function() {
               try {
                 body = JSON.parse(Buffer.concat(body).toString()); // --> renvoie un tableau
-                //body = Buffer.concat(body).toString(); --> renvoie une chaine
               }
               catch(e) {
                 reject(e);
