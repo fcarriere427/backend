@@ -31,21 +31,19 @@ function storeData(data) {
   var existingID = [];
   stravaDb.list()
   .then((body) => {
-    console.log('on va lister les activités...')
+    console.log('on va lister les activités de la BDD...')
     for (var i = 0; i < body.rows.length; i++) {
-      console.log("on traite la ligne n°" + i);
-      console.log('voici une activité : ');
-      console.log(body.rows[i]);
+      console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
       writeArray(i, stravaDb, body, body.rows[i].id)
-      .then(data => {
-        console.log("Et voici le tableau des ID Strava : ");
-        for (var j = 0; j < existingID.length; j++) {
-          console.log("j = " + j + " =>" + existingID[j]);
-        }
-      })
-      .catch(err => console.log(err))
     }
   })
+  .then(() => {
+    console.log("Et voici le tableau des ID Strava : ");
+    for (var i = 0; i < existingID.length; i++) {
+      console.log("i = " + i + " =>" + existingID[i]);
+    }
+  })
+  .catch(err => console.log(err))
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)

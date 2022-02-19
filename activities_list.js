@@ -114,7 +114,7 @@ function renewTokens() {
 }
 
 function httpsRequest(params, postData) {
-    console.log("Requête http... avec : " + params);
+    //console.log("Requête http... avec : " + params);
     return new Promise(function(resolve, reject) {
       var req = https.request(params, function(res) {
           // cumulate data
