@@ -75,7 +75,7 @@ function updateDB(){
       // ?1 : comment
       stravaDb.insert(data[i])
       .then(data => {
-        console.log('Insert de la ligne n°' + i + ' = '+ data))
+        console.log('Insert de la ligne n°' + i + ' = '+ data);
         if(i==data.length){
           console.log('Dernier enregistrement --> on resolve');
           resolve();
