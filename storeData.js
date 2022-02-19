@@ -69,10 +69,6 @@ function writeArray(i, stravaDb, body, data) {
       existingID[i] = doc["id"];
       resolve();
     })
-    req.on('error', error => {
-      console.log("Erreur couchdb.get");
-      console.error(error);
-    })
     // IMPORTANT
     req.end();
   })
