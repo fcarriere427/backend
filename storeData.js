@@ -44,7 +44,7 @@ function storeData(data) {
         //var activity_obj = JSON.parse(doc);
         //var stravaID = activity_obj.ID;
         //var act_str = JSON.stringify(doc);
-        var stravaID = doc.ID;
+        var stravaID = doc[ID];
         console.log('Et voici son ID Strava : ');
         console.log(stravaID);
 
