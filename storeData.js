@@ -23,7 +23,7 @@ function storeData(data) {
 // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
 // ?1 : comment
     stravaDb.insert(data[i])
-    .catch((err) => console.log());
+    .catch(err => console.log(err));
   }
   console.log('BdD mise à jour !');
 
@@ -37,12 +37,16 @@ function storeData(data) {
       console.log('voici une activité : ');
       console.log(body.rows[i]);
       console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-      console.log(body.rows[i].id);
-      stravaDb.get(body.rows[i].id)
-      .then((doc) => {
-        console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
-        existingID[i] = doc["id"];
-      })
+      var valeur = stravaDb.get(body.rows[i].id);
+      console.log('et on obtient l\'enregistrement = ' + valeur);
+      var stravaID = valeur["id"];
+      console.log('et on récupère l\'ID Strava = ' + stravaID);
+            
+      // .then((doc) => {
+      //   console.log("on renseigne la valeur [" + i + "] = " + doc["id"]);
+      //   existingID[i] = doc["id"];
+      // })
+      // .catch(err => console.log(err))
     }
   })
   .then(data =>{
