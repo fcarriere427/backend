@@ -39,7 +39,8 @@ function storeData(data) {
         console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
         console.log(doc);
         var activity_obj = JSON.parse(doc);
-        var stravaID = activity_obj.ID;
+        //var stravaID = activity_obj.ID;
+        var stravaID = doc.ID;
         console.log('Et voici son ID Strava : ');
         console.log(stravaID);
 
