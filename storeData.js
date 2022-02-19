@@ -17,11 +17,11 @@ function storeData(data) {
   //console.log('nano = ' + JSON.stringify(nano));
   const stravaDb = nano.db.use('strava');
 
-
-  updateDB()
+  updateDB(stravaDb, data)
+  .then(() => console.log('mise à jour OK dans le then de updateDB'))
+  .catch(err => console.log(err))
 
 // ********************
-
 
   // Récupération de tous les ID d'activités Strava dans un tableau
   var existingID = [];
@@ -66,7 +66,7 @@ function writeArray(i, stravaDb, body, data) {
   })
 }
 
-function updateDB(){
+function updateDB(stravaDb, data){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
   return new Promise(function(resolve, reject) {
