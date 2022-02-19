@@ -59,7 +59,11 @@ function getActivities() {
     var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
     // Lance la requête de récupération des activités
     httpsRequest(options)
-    .then(res => JSON.stringify(res))
+    .then(data => {
+      console.log("Data avant stringify : ");
+      console.log(data);
+      JSON.stringify(data))
+    }
     .then(data => {
       console.log("Data après stringify : ");
       console.log(data);
