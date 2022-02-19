@@ -37,7 +37,7 @@ function storeData(data) {
       console.log('voici une activité : ');
       console.log(body.rows[i]);
       console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-      writeArray(i,body.rows[i].id)
+      writeArray(i, stravaDB, body.rows[i].id)
       .then(data => {
         console.log("Et voici le tableau des ID Strava : ");
         for (var j = 0; j < existingID.length; j++) {
@@ -57,7 +57,7 @@ function storeData(data) {
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
 
-function writeArray(i, data) {
+function writeArray(i, stravaDB, data) {
   console.log("On rentre dans writeArray...");
   return new Promise(function(resolve, reject) {
     var req = stravaDb.get(body.rows[i].id, param, function (res) {
@@ -66,6 +66,7 @@ function writeArray(i, data) {
       console.log('et on récupère l\'ID Strava = ' + stravaID);
       console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
       existingID[i] = doc["id"];
+      resolve();
     })
     req.on('error', error => {
       console.log("Erreur couchdb.get");
