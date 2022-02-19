@@ -59,6 +59,7 @@ function storeData(data) {
 
 function writeArray(i, stravaDb, body, data) {
   console.log("On rentre dans writeArray...");
+  var param = "{}";
   return new Promise(function(resolve, reject) {
     var req = stravaDb.get(body.rows[i].id, param, function (res) {
       console.log('et on obtient l\'enregistrement = ' + doc);
