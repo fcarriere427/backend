@@ -24,7 +24,7 @@ var refresh_token = tokens.refresh_token;
 
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
-  console.log(`***** Appel de la route Activities_list à ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  console.log(`***** Appel de activities_list : ${newDate.toDateString()} ${newDate.toTimeString()}`);
   // console.log('client_id : ' + client_id);
   // console.log('client_secret : ' + client_secret);
   // console.log('access_token : ' + access_token);

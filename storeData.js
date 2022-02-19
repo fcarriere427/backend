@@ -17,15 +17,11 @@ function storeData(data) {
   //console.log('nano = ' + JSON.stringify(nano));
   const stravaDb = nano.db.use('strava');
 
-    // Création d'un enregistrement pour chaque activité
-  console.log('Nb d\'enregistrements récupérés de l\'API = ' + data.length);
-  for (var i = 0; i < data.length; i++) {
-// ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
-// ?1 : comment
-    stravaDb.insert(data[i])
-    .then(data => console.log('Insert de la ligne n°' + i + ' = '+ data))
-    .catch(err => console.log(err))
-  }
+
+  updateDB()
+
+// ********************
+
 
   // Récupération de tous les ID d'activités Strava dans un tableau
   var existingID = [];
@@ -67,6 +63,27 @@ function writeArray(i, stravaDb, body, data) {
       existingID[i] = doc["id"];
       resolve();
     })
+  })
+}
+
+function updateDB(){
+  // Création d'un enregistrement pour chaque activité
+  console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
+  return new Promise(function(resolve, reject) {
+    for (var i = 0; i < data.length; i++) {
+      // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
+      // ?1 : comment
+      stravaDb.insert(data[i])
+      .then(data => {
+        console.log('Insert de la ligne n°' + i + ' = '+ data))
+        if(i==data.length){
+          console.log('Dernier enregistrement --> on resolve');
+          resolve();
+        }
+      })
+      .catch(err => console.log(err))
+    }
+    console.log('... OK, BDD mise à jour !');
   })
 }
 
