@@ -60,13 +60,9 @@ function getActivities() {
     // Lance la requête de récupération des activités
     httpsRequest(options)
     .then(data => {
-      console.log("Data avant stringify : ");
-      console.log(data);
       return JSON.stringify(data);
     })
     .then(data => {
-      console.log("Data après stringify : ");
-      console.log(data);
       storeData(data);
       resolve(data);
     })
