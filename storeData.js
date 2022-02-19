@@ -32,6 +32,8 @@ function storeData(data) {
   stravaDb.list()
   .then((body) => {
     console.log('on va lister les activités...')
+    console.log('taille du tableau body.rows = ' + body.rows.length);
+    
     body.rows.forEach((doc) => {
       var i = 0;
       console.log("on traite la ligne " + i);
