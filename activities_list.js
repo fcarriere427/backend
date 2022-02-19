@@ -54,11 +54,16 @@ router.get('/', function(req, res) {
 function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
-    var nbActivities = 5;
+    // ******************************************** POUR TEST UNIQUEMENT, SINON REPASSER A PLUS :-)
+    var nbActivities = 1;
     var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
     // Lance la requête de récupération des activités
     httpsRequest(options)
     .then((data) => {
+      console.log("Type des data récupérées : ");
+      console.log(typeof(data));
+      console.log("Extraction de ID : ");
+      console.log(data.ID);
       storeData(data);
       resolve(data);
     })
