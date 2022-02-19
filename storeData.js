@@ -69,8 +69,6 @@ function writeArray(i, stravaDb, body, data) {
       existingID[i] = doc["id"];
       resolve();
     })
-    // IMPORTANT
-    req.end();
   })
 }
 
