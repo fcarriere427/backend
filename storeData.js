@@ -18,6 +18,7 @@ function storeData(data) {
   var stravaDb = nano.db.use('strava');
 
     // Création d'un enregistrement pour chaque activité
+  console.log('data.length = ' + data.lenght);
   for (var i = 0; i < data.length; i++) {
 // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
 // ?1 : comment
