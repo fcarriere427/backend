@@ -33,20 +33,14 @@ function storeData(data) {
   .then((body) => {
     console.log('on va lister les activités...')
     body.rows.forEach((doc) => {
+      var i = 0;
       console.log('voici une activité : ');
       console.log(doc);
       stravaDb.get(doc.id)
       .then((doc) => {
-        console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
-        console.log(doc);
-        console.log('Et voici le type de "doc" : ');
-        console.log(typeof(doc));
-        //var activity_obj = JSON.parse(doc);
-        //var stravaID = activity_obj.ID;
-        //var act_str = JSON.stringify(doc);
-        var stravaID = doc["id"];
-        console.log('Et voici son ID Strava : ');
-        console.log(stravaID);
+        // console.log('voici ce qu\'on récupère quand on fait un "get" dessus : ');
+        // console.log(doc);
+        var existingID[i] = doc["id"];
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
 ///// ... donc on ne sait pas remplir le tableau des ID des activités strava
@@ -55,9 +49,12 @@ function storeData(data) {
 //// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
-
       })
     })
+  })
+  .then(data =>{
+    console.log("Et voici le tableau des ID Strava : ");
+    console.log(existingID);
   });
 }
 
