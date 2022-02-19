@@ -63,7 +63,7 @@ function getActivities() {
       console.log("Data avant stringify : ");
       console.log(data);
       JSON.stringify(data);
-    }
+    })
     .then(data => {
       console.log("Data après stringify : ");
       console.log(data);
