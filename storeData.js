@@ -18,14 +18,14 @@ function storeData(data) {
   const stravaDb = nano.db.use('strava');
 
     // Création d'un enregistrement pour chaque activité
-  console.log('data.length = ' + data.length);
+  console.log('Nb d\'enregistrements récupérés de l\'API = ' + data.length);
   for (var i = 0; i < data.length; i++) {
 // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
 // ?1 : comment
     stravaDb.insert(data[i])
-    .catch(err => console.log(err));
+    .then(data => console.log('Insert de la ligne n°' + i + ' = '+ data))
+    .catch(err => console.log(err))
   }
-  console.log('BdD mise à jour !');
 
   // Récupération de tous les ID d'activités Strava dans un tableau
   var existingID = [];
