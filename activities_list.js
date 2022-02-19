@@ -59,7 +59,8 @@ function getActivities() {
     var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
     // Lance la requête de récupération des activités
     httpsRequest(options)
-    .then((data) => {
+    .then(data => data.json())
+    .then(data => {
       console.log("Type des data récupérées : ");
       console.log(typeof(data));
       console.log("Extraction de ID : ");
@@ -126,14 +127,12 @@ function httpsRequest(params, postData) {
           // resolve on end
           res.on('end', function() {
               try {
-                body = JSON.parse(Buffer.concat(body).toString());
-                //body = Buffer.concat(body).toString();
+                body = JSON.parse(Buffer.concat(body).toString()); // --> renvoie un tableau
+                //body = Buffer.concat(body).toString(); --> renvoie une chaine
               }
               catch(e) {
                 reject(e);
               }
-              console.log("body = ");
-              console.log(body);
               resolve(body);
           });
       });
