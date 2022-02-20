@@ -15,8 +15,8 @@ function storeData(data) {
   var stravaDb = nano.db.use('strava');
 
   // ********************
-  insertDoc(data, stravaDb, 0)
-  .then(data => {
+  insertDoc(data, stravaDb, 0);
+
     // Récupération de tous les ID d'activités Strava dans un tableau
     var existingID = [];
     stravaDb.list()
@@ -34,7 +34,7 @@ function storeData(data) {
       }
     })
     .catch(err => console.log(err))
-  })
+
   // .then(() => console.log('mise à jour OK dans le then de updateDB'))
   // .catch(err => console.log(err))
 
@@ -67,18 +67,27 @@ function writeArray(i, stravaDb, body, data) {
 function insertDoc(data, stravaDb, tried){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
-  stravaDb.insert(data,function(error, http_body,http_headers) {
-    if(error) {
-      if(error.message === 'no_db_file'  && tried < 1) {
-        // create database and retry
-        return nano.db.create('strava', function () {
-          insert_doc(doc, tried+1);
-        });
+  for (var i = 0; i < data.length; i++) {
+    console.log('on va insérer une donnée...')
+    stravaDb.insert(data[i],function(error, http_body,http_headers) {
+      if(error) {
+        if(error.message === 'no_db_file'  && tried < 1) {
+          // create database and retry
+          return nano.db.create('strava', function () {
+            insert_doc(doc, tried+1);
+          });
+        }
+        else {
+          return console.log(error); }
       }
-      else { return console.log(error); }
+      console.log('... ok pour la ligne n°' + i + ' = '+ data);
+      console.log(http_body);
+      });
+      if(i==data.length){
+        console.log('... dernier enregistrement...');
+        console.log('... OK, BDD mise à jour !');
+      }
     }
-    console.log(http_body);
-    });
   }
 
 //   return new Promise(function(resolve, reject) {
