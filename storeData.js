@@ -60,10 +60,13 @@ function writeArray(stravaDb, callback) {
     body.rows.forEach((item, i) => {
       // console.log('Nouvel item : ');
       // console.log(item);
-      getDoc(stravaDb, body, i, function(){console.log('on a lu le doc ' + body.rows[i].id)});
+      getDoc(stravaDb, body, i, function(){
+        console.log('on a lu le doc et écrit existingID[' + i +'] = ' + existingID[i]);
+      });
     });
-  /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
-  ///    callback();
+  })
+  .then(() => {
+    callback();
   })
 }
 
