@@ -46,13 +46,12 @@ function insertDoc(data, stravaDb){
         console.log('Insertion de ' + i + ' ok');
         count = count + 1;
         console.log('count après = ' + count);
+        // Quand on est sur le dernier élément, alors seulement on appelle le callback !
+        if(count==data.length-1){
+          console.log('... OK, BDD mise à jour !');
+          resolve();
+        }
       })
-    }
-    // Quand on est sur le dernier élément, alors seulement on appelle le callback !
-    console.log('count = ' + count);
-    if(count==data.length-1){
-      console.log('... OK, BDD mise à jour !');
-      resolve();
     }
   })
 }
