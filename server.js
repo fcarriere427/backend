@@ -13,8 +13,7 @@ app.use(function timeLog(req, res, next) {
 });
 
 var router = require('./router');
-//app.get('/strava_app', router);
-app.get('/', router);
+app.get('/strava_app', router);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
