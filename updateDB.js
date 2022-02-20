@@ -68,6 +68,7 @@ function readID(stravaDb) {
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
+      console.log('   ... body.rows.length = ' + body.rows.length);
       if (body.rows.length == 0){
         // si la BDD est vide, on ne fait rien
         console.log("   ... pas d\'ID existant, la BDD est vide !");
