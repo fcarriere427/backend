@@ -43,7 +43,7 @@ function insertNew(data, stravaDb){
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
     var count = 0;
     for (let i = 0; i < data.length; i++) {
-      console.log('data[i] = ' + data[i]);
+      console.log('data[i] = ' + data[i].toString());
       if(true) {
         stravaDb.insert(data[i], function(){
           count = count + 1;
