@@ -66,7 +66,7 @@ function writeArray(stravaDb, callback) {
 }
 
 function getDoc(stravaDb, body, i, callback){
-  console.log('Résultat du get :' + stravaDb.get(body.rows[i].id);
+  console.log('Résultat du get :' + stravaDb.get(body.rows[i].id));
   // stravaDb.get(body.rows[i].id, "{}", function(doc){
   //   console.log('et on obtient l\'enregistrement = ' + doc);
   //   var stravaID = doc["id"];
