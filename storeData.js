@@ -51,7 +51,7 @@ function storeData(data) {
 function insertDoc(data, stravaDb, callback){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
-  for (var i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     stravaDb.insert(data[i], function(error, http_body) {
       console.log('On va insérer la ligne ' + i + '...');
       if(!error) {
