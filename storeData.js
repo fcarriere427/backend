@@ -19,7 +19,7 @@ function storeData(data) {
   // ********************
   insertDoc(data, stravaDb, function(){
     writeArray(stravaDb, function (){
-      console.log('callback du writeArray')
+      console.log('callback du writeArray');
     });
   });
 }
@@ -72,8 +72,8 @@ function getDoc(stravaDb, body, i, callback){
     console.log('et on récupère l\'ID Strava = ' + stravaID);
     console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
     existingID[i] = doc["id"];
+    callback();
   })
-  callback();
 }
 
 // stravaDb.list()
