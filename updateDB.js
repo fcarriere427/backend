@@ -42,18 +42,20 @@ function insertNew(data, stravaDb){
   return new Promise((resolve, reject) => {
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
     var count = 0;
+    var count_insert = 0;
     for (let i = 0; i < data.length; i++) {
       //console.log('data[i].id = ' + data[i].id);
       if(!existingID.includes(data[i].id)) {
         stravaDb.insert(data[i], function(){
           count = count + 1;
+          count_insert = count_insert + 1;
         })
       } else {
         count = count + 1
       }
       // Quand on est sur le dernier élément, alors seulement on appelle le callback !
       if(count==data.length){
-        console.log('... OK, BDD mise à jour !');
+        console.log('... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         resolve();
       }
     }
