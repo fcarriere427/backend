@@ -19,7 +19,10 @@ function storeData(data) {
   // ********************
   insertDoc(data, stravaDb, function(){
     writeArray(stravaDb, function (){
-      console.log('callback du writeArray');
+      console.log("Et voici le tableau des ID Strava : ");
+      for (var i = 0; i < existingID.length; i++) {
+        console.log("i = " + i + " =>" + existingID[i]);
+      }
     });
   });
 }
@@ -70,32 +73,10 @@ function getDoc(stravaDb, body, i, callback){
   .then((doc) => {
     console.log('Résultat du get :' + doc);
     console.log('Résultat du stravaID :' + doc["id"]);
+    console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+    existingID[i] = doc["id"];
   })
-  // stravaDb.get(body.rows[i].id, "{}", function(doc){
-  //   console.log('et on obtient l\'enregistrement = ' + doc);
-  //   var stravaID = doc["id"];
-  //   console.log('et on récupère l\'ID Strava = ' + stravaID);
-  //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-  //   existingID[i] = doc["id"];
-  //   callback();
-  // })
+  .then(() => callback());
 }
-
-// stravaDb.list()
-// .then((body) => {
-//   console.log('on va lister les activités de la BDD...')
-//   for (var i = 0; i < body.rows.length; i++) {
-//     console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
-//     writeArray(i, stravaDb, body, body.rows[i].id)
-//   }
-// })
-// .then(() => {
-//   console.log("Et voici le tableau des ID Strava : ");
-//   for (var i = 0; i < existingID.length; i++) {
-//     console.log("i = " + i + " =>" + existingID[i]);
-//   }
-// })
-// .catch(err => console.log(err))
-
 
 module.exports = storeData;
