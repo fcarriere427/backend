@@ -27,4 +27,5 @@ app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
 });
 
+module.exports = app;
 module.exports = router;
