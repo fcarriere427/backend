@@ -17,7 +17,7 @@ function storeData(data) {
   console.log("Début de storeData...");
   // Récupération des clés pour se connecter à couchDB
   // ********************
-  insertDoc(data, stravaDd)
+  insertDoc(data, stravaDb)
   .then(writeArray(stravaDb))
   .then(() => {
     console.log("Et voici le tableau des ID Strava : ");
