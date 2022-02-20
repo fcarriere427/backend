@@ -1,5 +1,6 @@
 //*** Intégration des données dans la BDD
 
+// Récupération des clés pour se connecter à couchDB
 const couchKeys = require('./keys/couchDB.json');
 var user = couchKeys.user;
 var pwd = couchKeys.password;
@@ -15,13 +16,10 @@ var existingID = [];
 
 function storeData(data) {
   console.log("Début de storeData...");
-  // Récupération des clés pour se connecter à couchDB
-  // ********************
   insertDoc(data, stravaDb)
-  .then(() => console.log("Insert OK, maintenant on peut faire autre chose"))
   .then(() => writeArray(stravaDb))
   .then(() => {
-    console.log("Et voici le tableau des ID Strava : " + existingID);
+    console.log("Et voici le tableau des ID Strava : " + existingID.toString());
     for (let i = 0; i < existingID.length; i++) {
       console.log("i = " + i + " =>" + existingID[i]);
     }
