@@ -43,14 +43,13 @@ function insertNew(data, stravaDb){
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
     var count = 0;
     for (let i = 0; i < data.length; i++) {
-      var json = JSON.stringify(data[i]);
-      //console.log('json = ' + json);
-      console.log('json["id"] = ' + json["id"]);
-      console.log('data[i].id = ' + data[i].id);
-      if(true) {
+      //console.log('data[i].id = ' + data[i].id);
+      if(!existingID.includes(data[i].id)) {
         stravaDb.insert(data[i], function(){
           count = count + 1;
         })
+      } else {
+        count = count + 1
       }
       // Quand on est sur le dernier élément, alors seulement on appelle le callback !
       if(count==data.length){
