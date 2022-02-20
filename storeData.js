@@ -20,12 +20,12 @@ function storeData(data) {
   insertDoc(data, stravaDb)
   .then(() => console.log("Insert OK, maintenant on peut faire autre chose"))
   .then(() => writeArray(stravaDb))
-  // .then(() => {
-  //    console.log("Et voici le tableau des ID Strava : ");
-  //   for (var i = 0; i < existingID.length; i++) {
-  //     console.log("i = " + i + " =>" + existingID[i]);
-  //   }
-  // })
+  .then(() => {
+     console.log("Et voici le tableau des ID Strava : ");
+    for (var i = 0; i < existingID.length; i++) {
+      console.log("i = " + i + " =>" + existingID[i]);
+    }
+  })
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
@@ -60,25 +60,13 @@ function writeArray(stravaDb) {
     stravaDb.list()
     .then((body) => {
       body.rows.forEach((item, i) => {
-        // console.log('Nouvel item : ');
-        // console.log(item);
-        getDoc(stravaDb, body, i)
-        .then(() => console.log('Fin du getDB(' + i + ')'))
+        stravaDb.get(body.rows[i].id)
+        .then((doc) => {
+          existingID[i] = doc["id"];
+        })
       });
     })
-    .then(resolve());
-  })
-}
-
-function getDoc(stravaDb, body, i){
-  return new Promise((resolve,reject) => {
-    stravaDb.get(body.rows[i].id)
-    .then((doc) => {
-      console.log('Récup ligne ' + i + ' dans la BDD');
-      existingID[i] = doc["id"];
-      console.log('Entrée [' + i + '] = créee dans le tableau existingID, avec : ' + doc["id"]);
-      resolve();
-    })
+    .then(() => resolve());
   })
 }
 
