@@ -66,7 +66,7 @@ function insertDoc(data, stravaDb){
     }
     console.log('... OK, BDD mise à jour !');
     resolve();
-  }
+  })
 }
 
 function writeArray(i, stravaDb, body, data) {
