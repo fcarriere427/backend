@@ -17,7 +17,9 @@ function storeData(data) {
   // ********************
   insertDoc(data, stravaDb, function(){
     console.log('... et maintenant on peut faire la suite :-)');
-    writeArray(stravaDb, );
+    writeArray(stravaDb, function (){
+      console.log('callback du writeArray')
+    });
   });
 
     // // Récupération de tous les ID d'activités Strava dans un tableau
