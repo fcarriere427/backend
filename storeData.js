@@ -57,6 +57,7 @@ function insertDoc(data, stravaDb){
 function writeArray(stravaDb) {
   return new Promise((resolve, reject) => {
     console.log("Création du tableau avec les ID Strava...");
+    var count = 0;
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
@@ -65,12 +66,13 @@ function writeArray(stravaDb) {
         .then((doc) => {
           existingID[i] = doc["id"];
           console.log('On vient de créer existingID[' + i + '] = ' + existingID[i]);
+          count = count + 1;
         })
+        if(count==body.rows.length){
+          console.log('... tableau des ID Strava créé !');
+          resolve();
+        }
       });
-    })
-    .then(() => {
-      console.log('... tableau des ID Strava créé !');
-      resolve();
     })
   })
 }
