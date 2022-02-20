@@ -65,9 +65,7 @@ function writeArray(stravaDb, callback) {
       });
     });
   })
-  .then(() => {
-    callback();
-  })
+  .then(() => callback());
 }
 
 function getDoc(stravaDb, body, i, callback){
