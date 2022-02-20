@@ -16,7 +16,7 @@ function storeData(data) {
 
   // ********************
   insertDoc(data, stravaDb)
-  .then(console.log('/!\ devrait être la dernière instruction !!!'));
+  .then(console.log('!!! devrait être la dernière instruction !!!'));
 
     // // Récupération de tous les ID d'activités Strava dans un tableau
     // var existingID = [];
@@ -56,8 +56,8 @@ function insertDoc(data, stravaDb){
       stravaDb.insert(data[i],function(error, http_body,http_headers) {
         if(error) { return console.log(error) }
         else {
-          console.log(http_body);
-          return console.log('... ok pour la ligne n°' + i + ' = '+ data.toString())
+          console.log('http_body = '+ http_body);
+          return console.log('... ok pour la ligne n°' + i + ' = '+ JSON.parse(data.toString()))
         }
       })
       //console.log('maintenant i = ' + i);
