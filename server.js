@@ -13,7 +13,7 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-router.get('/', function(req, res, next) {
+router.get('/strava_app', function(req, res, next) {
   console.log('App has been called')
 });
 
