@@ -61,8 +61,8 @@ function insertDoc(data, stravaDb, callback){
         console.log(error)
       }
     })
+    if(i=data.length-1){callback()};
   }
-  callback();
 }
 
 function writeArray(i, stravaDb, body, data) {
