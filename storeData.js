@@ -72,7 +72,7 @@ function getDoc(stravaDb, body, i, callback){
     console.log('et on récupère l\'ID Strava = ' + stravaID);
     console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
     existingID[i] = doc["id"];
-  }
+  })
   callback();
 }
 
