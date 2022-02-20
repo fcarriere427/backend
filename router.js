@@ -14,7 +14,7 @@ router.get('/strava_app', function(req, res, next) {
 var list_activities = require('./list_activities');
 router.get('/list_activities', list_activities);
 
-var fetch_activities = require('./fetch_activities');
-router.get('/fetch_activities', fetch_activities);
+// var fetch_activities = require('./fetch_activities');
+// router.get('/fetch_activities', fetch_activities);
 
 module.exports = router;
