@@ -16,7 +16,8 @@ function storeData(data) {
 
   // ********************
   insertDoc(data, stravaDb, function(){
-    console.log('... et maintenant on peut faire la suite :-)')
+    console.log('... et maintenant on peut faire la suite :-)');
+    writeArray(stravaDb, );
   });
 
     // // Récupération de tous les ID d'activités Strava dans un tableau
@@ -57,7 +58,7 @@ function insertDoc(data, stravaDb, callback){
         // Quand on est sur le dernier élément, alors seulement on appelle le callback !
         if(i==data.length-1){
           console.log('... OK, BDD mise à jour !');
-          callback()
+          callback();
         };
       } else {
         console.log(error)
@@ -66,20 +67,22 @@ function insertDoc(data, stravaDb, callback){
   }
 }
 
-function writeArray(i, stravaDb, body, data) {
-  console.log("On rentre dans writeArray...");
-  var param = "{}";
-  return new Promise(function(resolve, reject) {
-    console.log('on fait un get sur stravaDB avec l\'id = ' + body.rows[i].id);
-    var req = stravaDb.get(body.rows[i].id, param, function (doc) {
-      console.log('et on obtient l\'enregistrement = ' + doc);
-      var stravaID = doc["id"];
-      console.log('et on récupère l\'ID Strava = ' + stravaID);
-      console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-      existingID[i] = doc["id"];
-      resolve();
+function writeArray(stravaDb, callback) {
+  console.log("Création du tableau avec les ID Strava...");
+  // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
+  stravaDb.rows.forEach((item) => {
+    console.log('Nouvelle ligne : ');
+    console.log(item);
+    // stravaDb.get(itembody.rows[i].id, param, function (doc) {
+    //   console.log('et on obtient l\'enregistrement = ' + doc);
+    //   var stravaID = doc["id"];
+    //   console.log('et on récupère l\'ID Strava = ' + stravaID);
+    //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+    //   existingID[i] = doc["id"];
     })
-  })
+/// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
+///    callback();
+  });
 }
 
 module.exports = storeData;
