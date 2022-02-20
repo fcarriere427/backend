@@ -66,7 +66,10 @@ function writeArray(stravaDb) {
         })
       });
     })
-    .then(() => resolve());
+    .then(() => {
+      console.log('... tableau des ID Strava créé !');
+      resolve());
+    }
   })
 }
 
