@@ -9,7 +9,7 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-// Définition de la BDD
+// Fonctions d'accès à la DB
 const updateDB = require('./updateDB');
 
 // Récupération des clés et tokens
@@ -24,7 +24,7 @@ var refresh_token = tokens.refresh_token;
 
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
-  console.log(`***** Appel de activities_list : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  console.log(`***** Appel de fetch_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
   // console.log('client_id : ' + client_id);
   // console.log('client_secret : ' + client_secret);
   // console.log('access_token : ' + access_token);
@@ -39,12 +39,12 @@ router.get('/', function(req, res) {
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
-    //.then(() => getActivity(6670082920))
+//TO DO : supprimer / récréer la DB ? --> fonction à créer dans updateDB
     .then(() => getActivities(1)) // on commence par la page 1
     .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
-    //getActivity(6670082920)
+//TO DO : supprimer / récréer la DB ? --> fonction à créer dans updateDB
     getActivities(1) // on commence par la page 1
     .then((data) => res.status(200).json(data))
   }
