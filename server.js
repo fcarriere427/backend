@@ -11,6 +11,10 @@ app.use('/', function (req, res, next) {
   next();
 });
 
+app.get('/', function(req, res, next) {
+  console.log('App has been called')
+});
+
 var list_activities = require('./list_activities');
 app.get('/list_activities', list_activities);
 
