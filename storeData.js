@@ -18,29 +18,30 @@ function storeData(data) {
   var stravaDb = nano.db.use('strava');
 
   // ********************
-  insertDoc(data, tried)
+  insertDoc(data, 0)
+  .then(data => {
+    // Récupération de tous les ID d'activités Strava dans un tableau
+    var existingID = [];
+    stravaDb.list()
+    .then((body) => {
+      console.log('on va lister les activités de la BDD...')
+      for (var i = 0; i < body.rows.length; i++) {
+        console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
+        writeArray(i, stravaDb, body, body.rows[i].id)
+      }
+    })
+    .then(() => {
+      console.log("Et voici le tableau des ID Strava : ");
+      for (var i = 0; i < existingID.length; i++) {
+        console.log("i = " + i + " =>" + existingID[i]);
+      }
+    })
+    .catch(err => console.log(err))
+  })
   // .then(() => console.log('mise à jour OK dans le then de updateDB'))
   // .catch(err => console.log(err))
 
 // ********************
-
-  // Récupération de tous les ID d'activités Strava dans un tableau
-  var existingID = [];
-  stravaDb.list()
-  .then((body) => {
-    console.log('on va lister les activités de la BDD...')
-    for (var i = 0; i < body.rows.length; i++) {
-      console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
-      writeArray(i, stravaDb, body, body.rows[i].id)
-    }
-  })
-  .then(() => {
-    console.log("Et voici le tableau des ID Strava : ");
-    for (var i = 0; i < existingID.length; i++) {
-      console.log("i = " + i + " =>" + existingID[i]);
-    }
-  })
-  .catch(err => console.log(err))
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
@@ -49,7 +50,6 @@ function storeData(data) {
 
 //// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
-
 
 function writeArray(i, stravaDb, body, data) {
   console.log("On rentre dans writeArray...");
@@ -67,26 +67,40 @@ function writeArray(i, stravaDb, body, data) {
   })
 }
 
-function insertDoc(data){
+function insertDoc(data, tried){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
-  return new Promise(function(resolve, reject) {
-    for (var i = 0; i < data.length; i++) {
-      // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
-      // ?1 : comment
-      console.log('on va insérer une donnée...')
-      stravaDb.insert(data[i])
-      .then(data => {
-        console.log('... ok pour la ligne n°' + i + ' = '+ data);
-        if(i==data.length){
-          console.log('Dernier enregistrement --> on resolve');
-          resolve();
-        }
-      })
-      .catch(err => console.log(err))
+  stravaDb.insert(data,function(error, http_body,http_headers) {
+    if(error) {
+      if(error.message === 'no_db_file'  && tried < 1) {
+        // create database and retry
+        return nano.db.create('strava', function () {
+          insert_doc(doc, tried+1);
+        });
+      }
+      else { return console.log(error); }
     }
-    console.log('... OK, BDD mise à jour !');
-  })
-}
+    console.log(http_body);
+    });
+  }
+
+//   return new Promise(function(resolve, reject) {
+//     for (var i = 0; i < data.length; i++) {
+//       // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
+//       // ?1 : comment
+//       console.log('on va insérer une donnée...')
+//       stravaDb.insert(data[i])
+//       .then(data => {
+//         console.log('... ok pour la ligne n°' + i + ' = '+ data);
+//         if(i==data.length){
+//           console.log('Dernier enregistrement --> on resolve');
+//           resolve();
+//         }
+//       })
+//       .catch(err => console.log(err))
+//     }
+//     console.log('... OK, BDD mise à jour !');
+//   })
+// }
 
 module.exports = storeData;
