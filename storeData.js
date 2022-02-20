@@ -41,14 +41,17 @@ function insertDoc(data, stravaDb){
     for (let i = 0; i < data.length; i++) {
       stravaDb.insert(data[i], function(error, http_body) {
         if(!error) {
-          // Quand on est sur le dernier élément, alors seulement on appelle le callback !
-          if(i==data.length-1){
-            console.log('... OK, BDD mise à jour !');
-            resolve();
-          };
+          console.log('ligne créée dans la BDD')
         } else {
           console.log(error)
         }
+      })
+      .then(() => {
+        // Quand on est sur le dernier élément, alors seulement on appelle le callback
+        if(i==data.length-1){
+          console.log('... OK, BDD mise à jour !');
+          resolve();
+        };
       })
     }
   })
