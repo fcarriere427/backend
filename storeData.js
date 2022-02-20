@@ -50,8 +50,8 @@ function insertDoc(data, stravaDb, callback){
 function writeArray(stravaDb, callback) {
   console.log("Création du tableau avec les ID Strava...");
   // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
-  var list = stravaDb.list()
-  .then(() => {
+  list = stravaDb.list()
+  .then((body) => {
     list.rows.forEach((item) => {
       console.log('Nouvelle ligne : ');
       console.log(item);
