@@ -60,9 +60,9 @@ function insertDoc(data, stravaDb, callback){
       } else {
         console.log(error)
       }
+      callback();
     })
   }
-  callback();
 }
 
 function writeArray(i, stravaDb, body, data) {
