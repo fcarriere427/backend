@@ -14,7 +14,7 @@ var stravaDb = nano.db.use('strava');
 
 var existingID = [];
 
-function updateBD(data) {
+function updateDB(data) {
   console.log('Début de updateDB...');
   majBD(data, stravaDb)
   .then(() => writeArray(stravaDb))
@@ -72,4 +72,4 @@ function writeArray(stravaDb) {
   })
 }
 
-module.exports = updateBD;
+module.exports = updateDB;
