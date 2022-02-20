@@ -53,8 +53,10 @@ function insertDoc(data, stravaDb){
     console.log('on va insérer une donnée...');
     stravaDb.insert(data[i],function(error, http_body,http_headers) {
       if(error) { return console.log(error) }
-      console.log('... ok pour la ligne n°' + i + ' = '+ data);
-      //console.log(http_body);
+      else {
+        //console.log(http_body);
+        return console.log('... ok pour la ligne n°' + i + ' = '+ data)
+      }
     })
     if(i==data.length){
       console.log('... dernier enregistrement...');
