@@ -39,9 +39,7 @@ function insertDoc(data, stravaDb){
   return new Promise((resolve, reject) => {
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
     for (let i = 0; i < data.length; i++) {
-      stravaDb.insert(data[i])
-      .then(() => {
-        // Quand on est sur le dernier élément, alors seulement on appelle le callback
+      stravaDb.insert(data[i], function(){
         console.log('Boucle d\'insertDoc, i = ' + i);
       })
     }
