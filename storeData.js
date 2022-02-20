@@ -16,32 +16,10 @@ function storeData(data) {
 
   // ********************
   insertDoc(data, stravaDb, function(){
-    console.log('... et maintenant on peut faire la suite :-)');
     writeArray(stravaDb, function (){
       console.log('callback du writeArray')
     });
   });
-
-    // // Récupération de tous les ID d'activités Strava dans un tableau
-    // var existingID = [];
-    // stravaDb.list()
-    // .then((body) => {
-    //   console.log('on va lister les activités de la BDD...')
-    //   for (var i = 0; i < body.rows.length; i++) {
-    //     console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
-    //     writeArray(i, stravaDb, body, body.rows[i].id)
-    //   }
-    // })
-    // .then(() => {
-    //   console.log("Et voici le tableau des ID Strava : ");
-    //   for (var i = 0; i < existingID.length; i++) {
-    //     console.log("i = " + i + " =>" + existingID[i]);
-    //   }
-    // })
-    // .catch(err => console.log(err))
-
-
-// ********************
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
@@ -72,18 +50,39 @@ function insertDoc(data, stravaDb, callback){
 function writeArray(stravaDb, callback) {
   console.log("Création du tableau avec les ID Strava...");
   // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
-  stravaDb.rows.forEach((item) => {
-    console.log('Nouvelle ligne : ');
-    console.log(item);
-    // stravaDb.get(itembody.rows[i].id, param, function (doc) {
-    //   console.log('et on obtient l\'enregistrement = ' + doc);
-    //   var stravaID = doc["id"];
-    //   console.log('et on récupère l\'ID Strava = ' + stravaID);
-    //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-    //   existingID[i] = doc["id"];
-    })
-/// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
-///    callback();
+  var list = stravaDb.list()
+  .then(() => {
+    list.rows.forEach((item) => {
+      console.log('Nouvelle ligne : ');
+      console.log(item);
+      // stravaDb.get(itembody.rows[i].id, param, function (doc) {
+      //   console.log('et on obtient l\'enregistrement = ' + doc);
+      //   var stravaID = doc["id"];
+      //   console.log('et on récupère l\'ID Strava = ' + stravaID);
+      //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+      //   existingID[i] = doc["id"];
+      })
+  /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
+  ///    callback();
+  })
 }
+
+// var existingID = [];
+// stravaDb.list()
+// .then((body) => {
+//   console.log('on va lister les activités de la BDD...')
+//   for (var i = 0; i < body.rows.length; i++) {
+//     console.log("Ligne n°" + i + " / activité = " + body.rows[i]);
+//     writeArray(i, stravaDb, body, body.rows[i].id)
+//   }
+// })
+// .then(() => {
+//   console.log("Et voici le tableau des ID Strava : ");
+//   for (var i = 0; i < existingID.length; i++) {
+//     console.log("i = " + i + " =>" + existingID[i]);
+//   }
+// })
+// .catch(err => console.log(err))
+
 
 module.exports = storeData;
