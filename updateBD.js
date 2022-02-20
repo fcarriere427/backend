@@ -14,15 +14,11 @@ var stravaDb = nano.db.use('strava');
 
 var existingID = [];
 
-function storeData(data) {
-  console.log('Début de storeData...');
-  insertDoc(data, stravaDb)
+function updateBD(data) {
+  console.log('Début de updateDB...');
+  majBD(data, stravaDb)
   .then(() => writeArray(stravaDb))
   .then(() => {
-    console.log('Et voici le type du tableau des ID Strava : ');
-    console.log(typeof(existingID));
-    console.log('Et voici la taille  du tableau des ID Strava : ');
-    console.log(existingID.length);
     for (let i = 0; i < existingID.length; i++) {
       console.log('existingID[' + i + '] = ' + existingID[i]);
     }
@@ -36,7 +32,7 @@ function storeData(data) {
 //// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
-function insertDoc(data, stravaDb){
+function majBD(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   return new Promise((resolve, reject) => {
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
@@ -61,14 +57,11 @@ function writeArray(stravaDb) {
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
-      console.log('body.rows.length = ' + body.rows.length);
       body.rows.forEach((item, i) => {
         stravaDb.get(body.rows[i].id)
         .then((doc) => {
           existingID[i] = doc["id"];
-          console.log('On vient de créer existingID[' + i + '] = ' + existingID[i]);
           count = count + 1;
-          console.log('.. et count = ' + count);
           if(count==body.rows.length){
             console.log('... tableau des ID Strava créé !');
             resolve();
@@ -79,4 +72,4 @@ function writeArray(stravaDb) {
   })
 }
 
-module.exports = storeData;
+module.exports = updateBD;

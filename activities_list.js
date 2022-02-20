@@ -64,7 +64,7 @@ function getActivities() {
     // })
     .then(data => {
       console.log('... OK, activités récupérées !')
-      storeData(data);
+      updateBD(data);
       resolve(data);
     })
     .catch((err) => console.log(err))
