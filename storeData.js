@@ -60,9 +60,8 @@ function writeArray(stravaDb, callback) {
     body.rows.forEach((item, i) => {
       // console.log('Nouvel item : ');
       // console.log(item);
-      getDoc(stravaDb, body, i, function(){
-        console.log('on a lu le doc et écrit existingID[' + i +'] = ' + existingID[i]);
-      });
+      getDoc(stravaDb, body, i)
+      .then(console.log('on a lu le doc et écrit existingID[' + i +'] = ' + existingID[i]));
     });
   })
   .then(() => callback());
