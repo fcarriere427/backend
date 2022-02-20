@@ -55,19 +55,21 @@ function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
-    var nbActivities = 500;
-    var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
-    // Lance la requête de récupération des activités
-    httpsRequest(options)
-    // .then(data => {
-    //   return JSON.stringify(data);
-    // })
-    .then(data => {
-      console.log('... OK, activités récupérées !')
-      updateDB(data);
-      resolve(data);
-    })
-    .catch((err) => console.log(err))
+    var page = 1;
+    var nbActivities = 100;
+    var nbPages = 7;
+    // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
+    for (let i = 0 ; i < nbPages ; i++){
+      var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+      httpsRequest(options)
+      .then(data => {
+        updateDB(data);
+        console.log('... OK, activités de la page ' + page + ' récupérées !')
+        page = page + 1;
+        if (page == nbpages) {resolve(data)};
+      })
+      .catch((err) => console.log(err))
+    }
   });
 }
 
