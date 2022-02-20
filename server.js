@@ -5,25 +5,26 @@
 const express = require('express')
 const app = express()
 const port = 3000
+var router = express.Router();
 
-app.use('/', function (req, res, next) {
-  console.log('Time:', Date.now());
+router.use(function timeLog(req, res, next) {
+  let newDate = new Date(Date.now());
+  console.log(`***** Appel de list_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
   next();
 });
 
-app.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
   console.log('App has been called')
 });
 
 var list_activities = require('./list_activities');
-app.get('/list_activities', list_activities);
+router.get('/list_activities', list_activities);
 
 var fetch_activities = require('./fetch_activities');
-app.get('/fetch_activities', fetch_activities);
+router.get('/fetch_activities', fetch_activities);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
-  }
-);
+});
 
-module.exports = app;
+module.exports = router;
