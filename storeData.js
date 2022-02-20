@@ -55,8 +55,10 @@ function writeArray(stravaDb, callback) {
   stravaDb.list()
   .then((body) => {
     body.rows.forEach((item, i) => {
-      console.log('Nouvelle ligne : ');
-      console.log(item);
+      console.log('ID de la nouvelle ligne : ');
+      console.log(item.ID);
+      console.log('Ou sinon ID de body.rows : ');
+      console.log(body.rows[i].id);
       stravaDb.get(body.rows[i].id, '{}', function (doc) {
         console.log('et on obtient l\'enregistrement = ' + doc);
         var stravaID = doc["id"];
