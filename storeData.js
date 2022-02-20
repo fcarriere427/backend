@@ -54,7 +54,7 @@ function insertDoc(data, stravaDb){
     stravaDb.insert(data[i],function(error, http_body,http_headers) {
       if(error) { return console.log(error) }
       else {
-        //console.log(http_body);
+        console.log(http_body);
         return console.log('... ok pour la ligne n°' + i + ' = '+ data)
       }
     })
