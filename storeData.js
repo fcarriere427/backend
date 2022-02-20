@@ -15,13 +15,16 @@ var stravaDb = nano.db.use('strava');
 var existingID = [];
 
 function storeData(data) {
-  console.log("Début de storeData...");
+  console.log('Début de storeData...');
   insertDoc(data, stravaDb)
   .then(() => writeArray(stravaDb))
   .then(() => {
-    console.log("Et voici le tableau des ID Strava : " + existingID.toString());
+    console.log('Et voici le type du tableau des ID Strava : ');
+    console.log(typeof(existingID));
+    console.log('Et voici la taille  du tableau des ID Strava : ');
+    console.log(existingID.length);
     for (let i = 0; i < existingID.length; i++) {
-      console.log("i = " + i + " =>" + existingID[i]);
+      console.log('existingID[' + i + '] = ' + existingID[i]);
     }
   })
 }
