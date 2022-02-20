@@ -66,7 +66,7 @@ function getActivities() {
         updateDB(data);
         console.log('... OK, activités de la page ' + page + ' récupérées !')
         page = page + 1;
-        if (page == nbpages) {resolve(data)};
+        if (page == nbPages) {resolve(data)};
       })
       .catch((err) => console.log(err))
     }
