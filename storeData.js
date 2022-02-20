@@ -58,13 +58,13 @@ function writeArray(stravaDb, callback) {
       // console.log('Nouvel item : ');
       // console.log(item);
       console.log('On fait un get avec ID = ' + body.rows[i].id);
-      stravaDb.get(body.rows[i].id, "{}", function (doc) {
+      stravaDb.get(body.rows[i].id, "{}", function(doc){
         console.log('et on obtient l\'enregistrement = ' + doc);
         var stravaID = doc["id"];
         console.log('et on récupère l\'ID Strava = ' + stravaID);
         console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
         existingID[i] = doc["id"];
-      })
+      });
   /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
   ///    callback();
     })
