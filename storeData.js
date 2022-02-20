@@ -72,7 +72,8 @@ function writeArray(stravaDb) {
 
 function getDoc(stravaDb, body, i){
   return new Promise((resolve,reject) => {
-    stravaDb.get(body.rows[i].id, function(doc){
+    stravaDb.get(body.rows[i].id)
+    .then((doc) => {
       console.log('Récup ligne ' + i + ' dans la BDD');
       existingID[i] = doc["id"];
       console.log('Entrée [' + i + '] = créee dans le tableau existingID, avec : ' + doc["id"]);
