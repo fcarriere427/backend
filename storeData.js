@@ -45,6 +45,7 @@ function insertDoc(data, stravaDb){
         if(i==data.length-1){
           console.log('... OK, BDD mise à jour !');
           resolve();
+        }
       })
     }
   })
