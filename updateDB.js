@@ -17,7 +17,7 @@ var existingID = [];
 function updateDB(data) {
   console.log('Début de updateDB...');
   readID(stravaDb)
-  .then(() => insertNew());
+  .then(() => insertNew(data,stravaDb));
 
   // majBD(data, stravaDb)
   // .then(() => writeArray(stravaDb))
