@@ -60,7 +60,6 @@ function writeArray(stravaDb, callback) {
     body.rows.forEach((item, i) => {
       // console.log('Nouvel item : ');
       // console.log(item);
-      console.log('On fait un get avec ID = ' + body.rows[i].id);
       getDoc(stravaDb, body, i, function(){console.log('on a lu le doc ' + body.rows[i].id)});
     });
   /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
@@ -69,11 +68,10 @@ function writeArray(stravaDb, callback) {
 }
 
 function getDoc(stravaDb, body, i, callback){
+  console.log("Création d'une ligne dans le tableau des ID Strava...");
   stravaDb.get(body.rows[i].id)
   .then((doc) => {
-    console.log('Résultat du get :' + doc);
-    console.log('Résultat du stravaID :' + doc["id"]);
-    console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+    console.log("...[" + i + "] = " + doc["id"]);
     existingID[i] = doc["id"];
   })
   .then(() => callback());
