@@ -44,8 +44,9 @@ function insertNew(data, stravaDb){
     var count = 0;
     for (let i = 0; i < data.length; i++) {
       var json = JSON.stringify(data[i]);
-      console.log('json = ' + json);
-      console.log('data[i].ID = ' + json["id"]);
+      //console.log('json = ' + json);
+      console.log('json["id"] = ' + json["id"]);
+      console.log('data[i].id = ' + data[i].id);
       if(true) {
         stravaDb.insert(data[i], function(){
           count = count + 1;
