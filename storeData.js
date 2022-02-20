@@ -64,6 +64,7 @@ function writeArray(stravaDb, callback) {
         console.log('on a lu le doc et écrit existingID[' + i +'] = ' + existingID[i]);
       });
     });
+    return();
   })
   .then(() => callback());
 }
@@ -74,6 +75,7 @@ function getDoc(stravaDb, body, i, callback){
   .then((doc) => {
     console.log("...[" + i + "] = " + doc["id"]);
     existingID[i] = doc["id"];
+    return();
   })
   .then(() => callback());
 }
