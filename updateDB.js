@@ -37,19 +37,15 @@ function insertNew(data, stravaDb){
     for (let i = 0; i < data.length; i++) {
       if(!existingID.includes(data[i].id)) {
         stravaDb.insert(data[i], function(){
-          console.log('      ...on a ajouté une ligne');
           count = count + 1;
           count_insert = count_insert + 1;
-          console.log('   ...count = ' + count);
           if(count==data.length){
             console.log('   ... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
             resolve();
           }
         })
       } else {
-        console.log('     ...on saute la ligne');
         count = count + 1;
-        console.log('   ...count = ' + count);
         if(count==data.length){
           console.log('   ... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
           resolve();
@@ -68,7 +64,6 @@ function readID(stravaDb) {
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
-      console.log('   ... body.rows.length = ' + body.rows.length);
       if (body.rows.length == 0){
         // si la BDD est vide, on ne fait rien
         console.log("   ... pas d\'ID existant, la BDD est vide !");
@@ -79,7 +74,6 @@ function readID(stravaDb) {
         body.rows.forEach((item, i) => {
           stravaDb.get(body.rows[i].id)
           .then((doc) => {
-            console.log('   ... on ajoute une ligne avec l\'id = ' + doc["id"]);
             existingID[i] = doc["id"];
             count = count + 1;
             //console.log('   ... count = ' + count);
