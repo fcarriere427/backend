@@ -17,11 +17,11 @@ router.get('/strava_app', function(req, res, next) {
   console.log('App has been called')
 });
 
-var list_activities = require('./list_activities');
-router.get('/list_activities', list_activities);
-
-var fetch_activities = require('./fetch_activities');
-router.get('/fetch_activities', fetch_activities);
+// var list_activities = require('./list_activities');
+// router.get('/list_activities', list_activities);
+//
+// var fetch_activities = require('./fetch_activities');
+// router.get('/fetch_activities', fetch_activities);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
