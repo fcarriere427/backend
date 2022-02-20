@@ -52,14 +52,13 @@ router.get('/', function(req, res) {
 
 // REQUETE POUR RECUPERER LES ACTIVITES
 function getActivities(page) {
-  console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
     var nbActivities = 100;
     var nbPages = 7;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
     // on ne met pas de bloc d'incrémentation dans le for : on le fait dans un then pour forcer la séquentialité
-    console.log('... lancement de la requete Strava pour la page ' + page);
+    console.log('Récupération des activités Strava, pour la page ' + page);
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     httpsRequest(options)
     .then(data => {
