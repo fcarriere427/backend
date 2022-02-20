@@ -58,7 +58,7 @@ function getActivities() {
     var nbActivities = 100;
     var nbPages = 7;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
-    for (let page = 1 ; page <= nbPages ; i++){
+    for (let page = 1 ; page <= nbPages){
       var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
       httpsRequest(options)
       .then(data => {
