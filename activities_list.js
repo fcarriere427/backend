@@ -70,7 +70,11 @@ function getActivities(page) {
         page = page + 1;
         getActivities(page);
         // si on est à la dernière page, on s'arrête
-        if (page == nbPages) {resolve(data)};
+        if (page == nbPages) {
+//// TO DO : récupérer le nb d'activités dans la DB // fake for now
+          var number_activities = 527;
+          resolve(number_activities)
+        };
       })
     })
     .catch((err) => console.log(err))
