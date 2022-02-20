@@ -70,24 +70,24 @@ function readID(stravaDb) {
     stravaDb.list()
     .then((body) => {
       if (body.rows.length == 0){
-        console.log("la BDD est vide")
+        // si la BDD est vide, on ne fait rien
+          console.log("... la BDD est vide");
         resolve();
-      } else {
-        return(body);
       }
-    })
-    .then((body) => {
-      body.rows.forEach((item, i) => {
-        stravaDb.get(body.rows[i].id)
-        .then((doc) => {
-          existingID[i] = doc["id"];
-          count = count + 1;
-          if(count==body.rows.length){
-            console.log('... tableau des ID Strava créé !');
-            resolve();
-          }
+      else {
+        // si la BDD est vide, on ne fait rien
+        body.rows.forEach((item, i) => {
+          stravaDb.get(body.rows[i].id)
+          .then((doc) => {
+            existingID[i] = doc["id"];
+            count = count + 1;
+            if(count==body.rows.length){
+              console.log('... tableau des ID Strava créé !');
+              resolve();
+            }
+          })
         })
-      });
+      }
     })
   })
 }
