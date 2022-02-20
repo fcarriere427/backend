@@ -63,7 +63,7 @@ function writeArray(stravaDb) {
         // console.log('Nouvel item : ');
         // console.log(item);
         getDoc(stravaDb, body, i)
-        .then(console.log('Fin du getDB(' + i +')');
+        .then(console.log('Fin du getDB(' + i + ')'))
       });
     })
     .then(resolve());
