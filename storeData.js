@@ -61,6 +61,7 @@ function writeArray(stravaDb) {
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
+      console.log('body.rows.length = ' + body.rows.length);
       body.rows.forEach((item, i) => {
         stravaDb.get(body.rows[i].id)
         .then((doc) => {
