@@ -38,16 +38,17 @@ function insertDoc(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   return new Promise((resolve, reject) => {
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
+    var count = 0;
     for (let i = 0; i < data.length; i++) {
       console.log('Boucle d\'insertDoc, i = ' + i);
       stravaDb.insert(data[i], function(){
-        console.log(' et dans le db.insert, i = ' + i);
-        // Quand on est sur le dernier élément, alors seulement on appelle le callback !
-        if(i==data.length-1){
-          console.log('... OK, BDD mise à jour !');
-          resolve();
-        }
+        count++;
       })
+    }
+    // Quand on est sur le dernier élément, alors seulement on appelle le callback !
+    if(count==data.length-1){
+      console.log('... OK, BDD mise à jour !');
+      resolve();
     }
   })
 }
