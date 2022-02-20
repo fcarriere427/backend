@@ -16,7 +16,7 @@ function storeData(data) {
 
   // ********************
   insertDoc(data, stravaDb, function(){
-    console.log('... OK, BDD mise à jour !')
+    console.log('... et maintenant on peut faire la suite :-)')
   });
 
     // // Récupération de tous les ID d'activités Strava dans un tableau
@@ -53,11 +53,12 @@ function insertDoc(data, stravaDb, callback){
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
   for (let i = 0; i < data.length; i++) {
     stravaDb.insert(data[i], function(error, http_body) {
-      console.log('On va insérer la ligne ' + i + '...');
       if(!error) {
-        // console.log('http_body = '+ http_body);
-        console.log('... ok pour la ligne n°' + i);
-        if(i==data.length-1){callback()};
+        // Quand on est sur le dernier élément, alors seulement on appelle le callback !
+        if(i==data.length-1){
+          console.log('... OK, BDD mise à jour !');
+          callback()
+        };
       } else {
         console.log(error)
       }
