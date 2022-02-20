@@ -1,4 +1,4 @@
-function list_activities {
+function list_activities () {
   console.log("on est dans list_activities !");
 }
 
