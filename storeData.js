@@ -15,11 +15,12 @@ function storeData(data) {
   // Ouverture de la BDD
   const nano = require ('nano')(url);
   //console.log('nano = ' + JSON.stringify(nano));
-  const stravaDb = nano.db.use('strava');
+  var stravaDb = nano.db.use('strava');
 
-  updateDB(stravaDb, data)
-  .then(() => console.log('mise à jour OK dans le then de updateDB'))
-  .catch(err => console.log(err))
+  // ********************
+  insertDoc(data, tried)
+  // .then(() => console.log('mise à jour OK dans le then de updateDB'))
+  // .catch(err => console.log(err))
 
 // ********************
 
@@ -66,7 +67,7 @@ function writeArray(i, stravaDb, body, data) {
   })
 }
 
-function updateDB(stravaDb, data){
+function insertDoc(data){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
   return new Promise(function(resolve, reject) {
