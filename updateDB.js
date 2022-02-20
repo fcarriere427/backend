@@ -56,8 +56,6 @@ function insertNew(data, stravaDb){
 function readID(stravaDb) {
   return new Promise((resolve, reject) => {
     console.log("   Création du tableau avec les ID Strava, à partir de la BDD existante...");
-    // on vide le tableau, au cas où ;-)
-    existingID = [];
     var count = 0;
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
