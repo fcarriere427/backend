@@ -63,7 +63,7 @@ function readID(stravaDb) {
   return new Promise((resolve, reject) => {
     console.log("   Création du tableau avec les ID Strava, à partir de la BDD existante...");
     // on vide le tableau, au cas où ;-)
-    var existingID = [];
+    existingID = [];
     var count = 0;
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
@@ -77,13 +77,12 @@ function readID(stravaDb) {
       else {
         // sinon on remplit le tableau existingID
         body.rows.forEach((item, i) => {
-          console.log("   ... BDD non vide, on remplit le tableau");
           stravaDb.get(body.rows[i].id)
           .then((doc) => {
-            console.log('   ... avec l\'id = ' + doc["id"]);
+            console.log('   ... on ajoute une ligne avec l\'id = ' + doc["id"]);
             existingID[i] = doc["id"];
             count = count + 1;
-            console.log('   ... count = ' + count);
+            //console.log('   ... count = ' + count);
             if(count==body.rows.length){
               console.log('   ... tableau des ID Strava créé !');
               resolve();
