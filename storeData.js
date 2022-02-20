@@ -1,9 +1,7 @@
 //*** Intégration des données dans la BDD
-//var couchdb = require('./couchdb.js');
 
 function storeData(data) {
   console.log("Début de storeData...");
-
   // Récupération des clés pour se connecter à couchDB
   const couchKeys = require('./keys/couchDB.json');
   var user = couchKeys.user;
@@ -11,14 +9,13 @@ function storeData(data) {
   var host = couchKeys.host;
   var port = couchKeys.port;
   var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
-
   // Ouverture de la BDD
   const nano = require ('nano')(url);
   //console.log('nano = ' + JSON.stringify(nano));
   var stravaDb = nano.db.use('strava');
 
   // ********************
-  insertDoc(data, 0)
+  insertDoc(data, stravaDb, 0)
   .then(data => {
     // Récupération de tous les ID d'activités Strava dans un tableau
     var existingID = [];
@@ -67,7 +64,7 @@ function writeArray(i, stravaDb, body, data) {
   })
 }
 
-function insertDoc(data, tried){
+function insertDoc(data, stravaDb, tried){
   // Création d'un enregistrement pour chaque activité
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
   stravaDb.insert(data,function(error, http_body,http_headers) {
