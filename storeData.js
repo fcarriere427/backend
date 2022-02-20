@@ -47,7 +47,7 @@ function insertDoc(data, stravaDb){
         count = count + 1;
         console.log('count après = ' + count);
         // Quand on est sur le dernier élément, alors seulement on appelle le callback !
-        if(count==data.length-1){
+        if(count==data.length){
           console.log('... OK, BDD mise à jour !');
           resolve();
         }
