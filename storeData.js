@@ -42,7 +42,10 @@ function insertDoc(data, stravaDb){
     for (let i = 0; i < data.length; i++) {
       console.log('Boucle d\'insertDoc, i = ' + i);
       stravaDb.insert(data[i], function(){
+        console.log('count avant = ' + count);
+        console.log('Insertion de ' + i + ' ok');
         count = count + 1;
+        console.log('count après = ' + count);
       })
     }
     // Quand on est sur le dernier élément, alors seulement on appelle le callback !
