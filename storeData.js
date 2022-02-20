@@ -74,8 +74,6 @@ function getDoc(stravaDb, body, i, callback){
     .then((doc) => {
       console.log("...[" + i + "] = " + doc["id"]);
       existingID[i] = doc["id"];
-    })
-    .then(() => {
       console.log('on résout getDoc');
       resolve();
     })
