@@ -58,6 +58,7 @@ function insertDoc(data, stravaDb){
         return console.log('... ok pour la ligne n°' + i + ' = '+ data)
       }
     })
+    console.log('maintenant i = ' + i);
     if(i==data.length){
       console.log('... dernier enregistrement...');
       console.log('... OK, BDD mise à jour !');
