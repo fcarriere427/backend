@@ -44,11 +44,9 @@ function insertDoc(data, stravaDb){
         // Quand on est sur le dernier élément, alors seulement on appelle le callback
         console.log('Boucle d\'insertDoc, i = ' + i);
       })
-      .then(() => {
-        console.log('... OK, BDD mise à jour !');
-        resolve();
-      })
     }
+    console.log('... OK, BDD mise à jour !');
+    resolve();
   })
 }
 
