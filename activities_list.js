@@ -40,18 +40,18 @@ router.get('/', function(req, res) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
     //.then(() => getActivity(6670082920))
-    .then(() => getActivities())
+    .then(() => getActivities(1)) // on commence par la page 1
     .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
     //getActivity(6670082920)
-    getActivities()
+    getActivities(1) // on commence par la page 1
     .then((data) => res.status(200).json(data))
   }
 });
 
 // REQUETE POUR RECUPERER LES ACTIVITES
-function getActivities() {
+function getActivities(page) {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
@@ -59,23 +59,22 @@ function getActivities() {
     var nbPages = 7;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
     // on ne met pas de bloc d'incrémentation dans le for : on le fait dans un then pour forcer la séquentialité
-    for (let page = 1 ; page <= nbPages ; ){
-      console.log('... lancement de la requete Strava pour la page ' + page);
-      var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
-      httpsRequest(options)
-      .then(data => {
-        console.log('... OK, activités de la page ' + page + ' récupérées !')
-        updateDB(data, page)
-        .then((data) => {
-          console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
-          // on passe à la page suivante
-          page = page + 1;
-          // si on est à la dernière page, on s'arrête
-          if (page == nbPages) {resolve(data)};
-        })
+    console.log('... lancement de la requete Strava pour la page ' + page);
+    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+    httpsRequest(options)
+    .then(data => {
+      console.log('... OK, activités de la page ' + page + ' récupérées !')
+      updateDB(data, page)
+      .then((data) => {
+        console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
+        // on passe à la page suivante
+        page = page + 1;
+        getActivities(page);
+        // si on est à la dernière page, on s'arrête
+        if (page == nbPages) {resolve(data)};
       })
-      .catch((err) => console.log(err))
-    }
+    })
+    .catch((err) => console.log(err))
   });
 }
 
