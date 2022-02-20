@@ -69,17 +69,12 @@ function writeArray(stravaDb, callback) {
 }
 
 function getDoc(stravaDb, body, i, callback){
-  return new Promise((resolve,reject) => {
-    console.log("Création d'une ligne dans le tableau des ID Strava...");
-    stravaDb.get(body.rows[i].id)
-    .then((doc) => {
-      console.log("...[" + i + "] = " + doc["id"]);
-      existingID[i] = doc["id"];
-    })
-    .then(() => {
-      console.log('on résout getDoc')
-      resolve())
-    })
+  console.log("Création d'une ligne dans le tableau des ID Strava...");
+  stravaDb.get(body.rows[i].id)
+  .then((doc) => {
+    console.log("...[" + i + "] = " + doc["id"]);
+    existingID[i] = doc["id"];
+    callback();
   })
 }
 
