@@ -18,13 +18,13 @@ function storeData(data) {
   // Récupération des clés pour se connecter à couchDB
   // ********************
   insertDoc(data, stravaDb)
-//  .then(writeArray(stravaDb))
-  .then(() => {
-    console.log("Et voici le tableau des ID Strava : ");
-    for (var i = 0; i < existingID.length; i++) {
-      console.log("i = " + i + " =>" + existingID[i]);
-    }
-  })
+  .then(writeArray(stravaDb))
+  // .then(() => {
+  //   console.log("Et voici le tableau des ID Strava : ");
+  //   for (var i = 0; i < existingID.length; i++) {
+  //     console.log("i = " + i + " =>" + existingID[i]);
+  //   }
+  // })
 }
 
 ///// REPRENDRE ICI : on récupère bien les docs en json, mais on ne sait pas extraire les valeurs qui nous  intéressent (par la clé "ID" de Strava)
@@ -40,12 +40,8 @@ function insertDoc(data, stravaDb){
     console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
     var count = 0;
     for (let i = 0; i < data.length; i++) {
-      console.log('Boucle d\'insertDoc, i = ' + i);
       stravaDb.insert(data[i], function(){
-        console.log('count avant = ' + count);
-        console.log('Insertion de ' + i + ' ok');
         count = count + 1;
-        console.log('count après = ' + count);
         // Quand on est sur le dernier élément, alors seulement on appelle le callback !
         if(count==data.length){
           console.log('... OK, BDD mise à jour !');
