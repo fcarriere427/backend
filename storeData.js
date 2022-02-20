@@ -14,6 +14,8 @@ function storeData(data) {
   //console.log('nano = ' + JSON.stringify(nano));
   var stravaDb = nano.db.use('strava');
 
+  var existingID = [];
+
   // ********************
   insertDoc(data, stravaDb, function(){
     writeArray(stravaDb, function (){
@@ -50,24 +52,24 @@ function insertDoc(data, stravaDb, callback){
 function writeArray(stravaDb, callback) {
   console.log("Création du tableau avec les ID Strava...");
   // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
-  const list = stravaDb.list()
+  stravaDb.list()
   .then((body) => {
-    body.rows.forEach((item) => {
+    body.rows.forEach((item, i) => {
       console.log('Nouvelle ligne : ');
       console.log(item);
-      // stravaDb.get(itembody.rows[i].id, param, function (doc) {
-      //   console.log('et on obtient l\'enregistrement = ' + doc);
-      //   var stravaID = doc["id"];
-      //   console.log('et on récupère l\'ID Strava = ' + stravaID);
-      //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-      //   existingID[i] = doc["id"];
+      stravaDb.get(body.rows[i].id, param, function (doc) {
+        console.log('et on obtient l\'enregistrement = ' + doc);
+        var stravaID = doc["id"];
+        console.log('et on récupère l\'ID Strava = ' + stravaID);
+        console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+        existingID[i] = doc["id"];
       })
   /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
   ///    callback();
+    })
   })
 }
 
-// var existingID = [];
 // stravaDb.list()
 // .then((body) => {
 //   console.log('on va lister les activités de la BDD...')
