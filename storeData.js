@@ -51,12 +51,12 @@ function insertDoc(data, stravaDb){
   console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
   return new Promise(function(resolve, reject) {
     for (var i = 0; i < data.length; i++) {
-      console.log('on va insérer une donnée...');
+      console.log('On va insérer la ligne ' + i + '...');
       stravaDb.insert(data[i],function(error, http_body,http_headers) {
         if(error) { return console.log(error) }
         else {
           console.log(http_body);
-          return console.log('... ok pour la ligne n°' + i + ' = '+ data)
+          return console.log('... ok pour la ligne n°' + i + ' = '+ data.toString())
         }
       })
       console.log('maintenant i = ' + i);
