@@ -82,7 +82,6 @@ function writeArray(stravaDb, callback) {
     })
 /// pas bon, on va l'appeler avant que ce soit fini... il faudrait savoir si c'est le dernier
 ///    callback();
-  });
 }
 
 module.exports = storeData;
