@@ -55,17 +55,17 @@ function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
-    var page = 1;
     var nbActivities = 100;
     var nbPages = 7;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
-    for (let i = 0 ; i < nbPages ; i++){
+    for (let page = 1 ; page <= nbPages ; i++){
       var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
       httpsRequest(options)
       .then(data => {
         console.log('... OK, activités de la page ' + page + ' récupérées !')
-        updateDB(data).
-        then((data) => {
+        updateDB(data, page)
+        .then((data) => {
+          console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
           // on passe à la page suivante
           page = page + 1;
           // si on est à la dernière page, on s'arrête

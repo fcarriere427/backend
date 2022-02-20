@@ -14,17 +14,15 @@ var stravaDb = nano.db.use('strava');
 
 var existingID = [];
 
-function updateDB(data) {
+function updateDB(data, page) {
   return new Promise((resolve, reject) => {
-    console.log('   ... mise à jour de la DB ...');
+    console.log('   ... mise à jour de la DB avec la page ' + page + '...');
     readID(stravaDb)
     .then(() => insertNew(data,stravaDb))
-    .then(() => console.log('... mise à jour DB OK !'))
+    .then(() => console.log('   ... mise à jour DB OK !'))
     .then(() => resolve(data))
   })
 }
-
-//// A TRAITER  : il faut isoler le process de création initiale de la BDD...
 
 function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
