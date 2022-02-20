@@ -69,11 +69,11 @@ function writeArray(stravaDb) {
           console.log('On vient de créer existingID[' + i + '] = ' + existingID[i]);
           count = count + 1;
           console.log('.. et count = ' + count);
+          if(count==body.rows.length){
+            console.log('... tableau des ID Strava créé !');
+            resolve();
+          }
         })
-        if(count==body.rows.length){
-          console.log('... tableau des ID Strava créé !');
-          resolve();
-        }
       });
     })
   })
