@@ -54,8 +54,8 @@ router.get('/', function(req, res) {
 function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
-    // ******************************************** POUR TEST UNIQUEMENT, SINON REPASSER A PLUS :-)
-    var nbActivities = 2;
+    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
+    var nbActivities = 1000;
     var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
     // Lance la requête de récupération des activités
     httpsRequest(options)
