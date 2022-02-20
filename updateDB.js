@@ -44,16 +44,18 @@ function insertNew(data, stravaDb){
     var count = 0;
     var count_insert = 0;
     for (let i = 0; i < data.length; i++) {
-      console.log('existingID = ' + existingID);
       if(!existingID.includes(data[i].id)) {
         stravaDb.insert(data[i], function(){
+          console.log('...on a ajouté une ligne');
           count = count + 1;
           count_insert = count_insert + 1;
         })
       } else {
+        console.log('...on saute la ligne');
         count = count + 1
       }
       // Quand on est sur le dernier élément, alors seulement on appelle le callback !
+      console.log('count = ' + count);
       if(count==data.length){
         console.log('... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         resolve();
