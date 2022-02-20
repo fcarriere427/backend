@@ -55,14 +55,14 @@ function insertDoc(data, stravaDb, callback){
     stravaDb.insert(data[i], function(error, http_body) {
       console.log('On va insérer la ligne ' + i + '...');
       if(!error) {
-        console.log('http_body = '+ http_body);
+        // console.log('http_body = '+ http_body);
         console.log('... ok pour la ligne n°' + i);
       } else {
         console.log(error)
       }
-      callback();
     })
   }
+  callback();
 }
 
 function writeArray(i, stravaDb, body, data) {
