@@ -77,6 +77,7 @@ function readID(stravaDb) {
       else {
         // sinon on remplit le tableau existingID
         body.rows.forEach((item, i) => {
+          console.log("   ... BDD non vide, on va créer le tableau");
           stravaDb.get(body.rows[i].id)
           .then((doc) => {
             existingID[i] = doc["id"];
