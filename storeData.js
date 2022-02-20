@@ -46,6 +46,23 @@ function storeData(data) {
 //// AUTRE problème à traiter, moins urgent : il faut isoler le process de création initiale de la BDD...
 ///// ... sinon on ne sait pas s'il faut commencer par remplir la BDD ou le tableau des ID :-/
 
+function insertDoc(data, stravaDb){
+  // Création d'un enregistrement pour chaque activité
+  console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
+  for (var i = 0; i < data.length; i++) {
+    console.log('on va insérer une donnée...');
+    stravaDb.insert(data[i],function(error, http_body,http_headers) {
+      if(error) { return console.log(error) }
+      console.log('... ok pour la ligne n°' + i + ' = '+ data);
+      //console.log(http_body);
+    })
+    if(i==data.length){
+      console.log('... dernier enregistrement...');
+      console.log('... OK, BDD mise à jour !');
+    }
+  }
+}
+
 function writeArray(i, stravaDb, body, data) {
   console.log("On rentre dans writeArray...");
   var param = "{}";
@@ -61,50 +78,5 @@ function writeArray(i, stravaDb, body, data) {
     })
   })
 }
-
-function insertDoc(data, stravaDb, tried){
-  // Création d'un enregistrement pour chaque activité
-  console.log('Mise à jour de la BDD avec '+ data.length + ' éléments...');
-  for (var i = 0; i < data.length; i++) {
-    console.log('on va insérer une donnée...')
-    stravaDb.insert(data[i],function(error, http_body,http_headers) {
-      if(error) {
-        if(error.message === 'no_db_file'  && tried < 1) {
-          // create database and retry
-          return nano.db.create('strava', function () {
-            insert_doc(doc, tried+1);
-          });
-        }
-        else {
-          return console.log(error); }
-      }
-      console.log('... ok pour la ligne n°' + i + ' = '+ data);
-      console.log(http_body);
-      });
-      if(i==data.length){
-        console.log('... dernier enregistrement...');
-        console.log('... OK, BDD mise à jour !');
-      }
-    }
-  }
-
-//   return new Promise(function(resolve, reject) {
-//     for (var i = 0; i < data.length; i++) {
-//       // ICI : mettre un test : si l'enregistrement existe déjà, on ne l'insert pas !
-//       // ?1 : comment
-//       console.log('on va insérer une donnée...')
-//       stravaDb.insert(data[i])
-//       .then(data => {
-//         console.log('... ok pour la ligne n°' + i + ' = '+ data);
-//         if(i==data.length){
-//           console.log('Dernier enregistrement --> on resolve');
-//           resolve();
-//         }
-//       })
-//       .catch(err => console.log(err))
-//     }
-//     console.log('... OK, BDD mise à jour !');
-//   })
-// }
 
 module.exports = storeData;
