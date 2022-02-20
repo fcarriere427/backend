@@ -9,7 +9,7 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-// Définition de la BDD
+// Fonctions d'accès à la DB
 const updateDB = require('./updateDB');
 
 // Récupération des clés et tokens

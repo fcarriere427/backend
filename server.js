@@ -6,8 +6,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-var activities_list = require('./activities_list');
-app.use('/activities_list', activities_list);
+var list_activities = require('./list_activities');
+app.use('/list_activities', list_activities);
+
+var fetch_activities = require('./fetch_activities');
+app.use('/fetch_activities', fetch_activities);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
