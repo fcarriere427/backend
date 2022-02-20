@@ -69,6 +69,7 @@ function getDoc(stravaDb, body, i, callback){
   stravaDb.get(body.rows[i].id)
   .then((doc) => {
     console.log('Résultat du get :' + doc);
+    console.log('Résultat du stravaID :' + doc["id"]);
   })
   // stravaDb.get(body.rows[i].id, "{}", function(doc){
   //   console.log('et on obtient l\'enregistrement = ' + doc);
