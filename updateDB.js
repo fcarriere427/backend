@@ -77,11 +77,13 @@ function readID(stravaDb) {
       else {
         // sinon on remplit le tableau existingID
         body.rows.forEach((item, i) => {
-          console.log("   ... BDD non vide, on va créer le tableau");
+          console.log("   ... BDD non vide, on remplit le tableau");
           stravaDb.get(body.rows[i].id)
           .then((doc) => {
+            console.log('   ... avec l\'id = ' + doc["id"]);
             existingID[i] = doc["id"];
             count = count + 1;
+            console.log('   ... count = ' + count);
             if(count==body.rows.length){
               console.log('   ... tableau des ID Strava créé !');
               resolve();
