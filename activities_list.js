@@ -152,10 +152,12 @@ function saveData(data, filename) {
   return new Promise(function(resolve, reject) {
     fs.writeFile(filename, data, 'utf-8', (err) => {
         if (err) reject(err);
-        else resolve(data);
+        else {
+          console.log("... OK, tokens sauvegardés !");
+          resolve(data);
+        }
     });
   });
-  console.log("... OK, tokens sauvegardés !");
 }
 
 module.exports = router;
