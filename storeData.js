@@ -57,11 +57,11 @@ function insertDoc(data, stravaDb, callback){
       if(!error) {
         // console.log('http_body = '+ http_body);
         console.log('... ok pour la ligne n°' + i);
+        if(i=data.length){callback()};
       } else {
         console.log(error)
       }
     })
-    if(i=data.length){callback()};
   }
 }
 
