@@ -57,7 +57,7 @@ function insertDoc(data, stravaDb){
         if(error) { return console.log(error) }
         else {
           console.log('http_body = '+ http_body);
-          return console.log('... ok pour la ligne n°' + i + ' = '+ JSON.parse(data.toString()))
+          return console.log('... ok pour la ligne n°' + i);
         }
       })
       //console.log('maintenant i = ' + i);

@@ -55,7 +55,7 @@ function getActivities() {
   console.log("Récupération des activités...");
   return new Promise(function(resolve, reject) {
     // ******************************************** POUR TEST UNIQUEMENT, SINON REPASSER A PLUS :-)
-    var nbActivities = 1;
+    var nbActivities = 2;
     var options = `https://www.strava.com/api/v3/athlete/activities?per_page=`+ nbActivities + `&access_token=${access_token}`;
     // Lance la requête de récupération des activités
     httpsRequest(options)
