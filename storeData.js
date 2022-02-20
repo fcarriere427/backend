@@ -15,7 +15,8 @@ function storeData(data) {
   var stravaDb = nano.db.use('strava');
 
   // ********************
-  insertDoc(data, stravaDb, 0).then(console.log('ok on est dans le then'));
+  insertDoc(data, stravaDb)
+  .then(console.log('/!\ devrait être la dernière instruction !!!'));
 
     // // Récupération de tous les ID d'activités Strava dans un tableau
     // var existingID = [];
@@ -59,7 +60,7 @@ function insertDoc(data, stravaDb){
           return console.log('... ok pour la ligne n°' + i + ' = '+ data.toString())
         }
       })
-      console.log('maintenant i = ' + i);
+      //console.log('maintenant i = ' + i);
       // if(i==data.length-1){
       //   console.log('... OK, BDD mise à jour !');
       // }
