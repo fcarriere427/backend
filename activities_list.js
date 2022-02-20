@@ -63,10 +63,14 @@ function getActivities() {
       var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
       httpsRequest(options)
       .then(data => {
-        updateDB(data);
         console.log('... OK, activités de la page ' + page + ' récupérées !')
-        page = page + 1;
-        if (page == nbPages) {resolve(data)};
+        updateDB(data).
+        then((data) => {
+          // on passe à la page suivante
+          page = page + 1;
+          // si on est à la dernière page, on s'arrête
+          if (page == nbPages) {resolve(data)};
+        })
       })
       .catch((err) => console.log(err))
     }

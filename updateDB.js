@@ -15,10 +15,13 @@ var stravaDb = nano.db.use('strava');
 var existingID = [];
 
 function updateDB(data) {
-  console.log('Début de updateDB...');
-  readID(stravaDb)
-  .then(() => insertNew(data,stravaDb))
-  .then(() => console.log('... updateDB OK !'));
+  return new Promise((resolve, reject) => {
+    console.log('... mise à jour de la DB ...');
+    readID(stravaDb)
+    .then(() => insertNew(data,stravaDb))
+    .then(() => console.log('... mise à jour DB OK !'))
+    .then(() => resolve(data))
+  })
 }
 
 //// A TRAITER  : il faut isoler le process de création initiale de la BDD...
@@ -26,7 +29,7 @@ function updateDB(data) {
 function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   return new Promise((resolve, reject) => {
-    console.log('   Mise à jour de la BDD avec '+ data.length + ' éléments...');
+    console.log('   Mise à jour de la DB avec '+ data.length + ' éléments...');
     var count = 0;
     var count_insert = 0;
     for (let i = 0; i < data.length; i++) {
@@ -35,14 +38,14 @@ function insertNew(data, stravaDb){
           count = count + 1;
           count_insert = count_insert + 1;
           if(count==data.length){
-            console.log('   ... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+            console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
             resolve();
           }
         })
       } else {
         count = count + 1;
         if(count==data.length){
-          console.log('   ... OK, BDD mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+          console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
           resolve();
         }
       }
