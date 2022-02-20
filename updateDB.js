@@ -44,7 +44,7 @@ function insertNew(data, stravaDb){
     var count = 0;
     var count_insert = 0;
     for (let i = 0; i < data.length; i++) {
-      //console.log('data[i].id = ' + data[i].id);
+      console.log('existingID = ' + existingID);
       if(!existingID.includes(data[i].id)) {
         stravaDb.insert(data[i], function(){
           count = count + 1;
@@ -71,11 +71,11 @@ function readID(stravaDb) {
     .then((body) => {
       if (body.rows.length == 0){
         // si la BDD est vide, on ne fait rien
-          console.log("... la BDD est vide");
+        console.log("... pas d\'ID existant, la BDD est vide !");
         resolve();
       }
       else {
-        // si la BDD est vide, on ne fait rien
+        // sinon on remplit le tableau existingID
         body.rows.forEach((item, i) => {
           stravaDb.get(body.rows[i].id)
           .then((doc) => {
