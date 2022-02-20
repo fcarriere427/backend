@@ -66,14 +66,15 @@ function writeArray(stravaDb, callback) {
 }
 
 function getDoc(stravaDb, body, i, callback){
-  stravaDb.get(body.rows[i].id, "{}", function(doc){
-    console.log('et on obtient l\'enregistrement = ' + doc);
-    var stravaID = doc["id"];
-    console.log('et on récupère l\'ID Strava = ' + stravaID);
-    console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
-    existingID[i] = doc["id"];
-    callback();
-  })
+  console.log('Résultat du get :' + stravaDb.get(body.rows[i].id);
+  // stravaDb.get(body.rows[i].id, "{}", function(doc){
+  //   console.log('et on obtient l\'enregistrement = ' + doc);
+  //   var stravaID = doc["id"];
+  //   console.log('et on récupère l\'ID Strava = ' + stravaID);
+  //   console.log("puis on renseigne dans le tableau la valeur [" + i + "] = " + doc["id"]);
+  //   existingID[i] = doc["id"];
+  //   callback();
+  // })
 }
 
 // stravaDb.list()
