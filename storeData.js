@@ -64,6 +64,7 @@ function writeArray(stravaDb) {
         stravaDb.get(body.rows[i].id)
         .then((doc) => {
           existingID[i] = doc["id"];
+          console.log('On vient de créer existingID[' + i + '] = ' + existingID[i]);
         })
       });
     })
