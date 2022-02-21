@@ -7,7 +7,7 @@ const app = express()
 const port = 3000
 var router = express.Router();
 
-router.get('/strava_app', function(req, res, next) {
+router.get('/strava_app/', function(req, res, next) {
   console.log('/strava_app has been called')
   next();
 });
