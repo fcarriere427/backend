@@ -10,7 +10,8 @@ var router = express.Router();
 router.get('/strava_app/', function(req, res, next) {
   console.log('/strava_app has been called')
   var div = document.createElement("div");
-  document.getElementById('div').innerHTML = "on a appelé /strava_app !!!"
+  document.getElementById('div').innerHTML = "on a appelé /strava_app !!!";
+  mainContainer.appendChild(div);
 });
 
 router.get('/strava_app/list_activities', function(req, res, next) {
