@@ -12,8 +12,8 @@ router.get('/strava_app', function(req, res, next) {
   next();
 });
 
-router.get('/list_activities', function(req, res, next) {
-  console.log('/list_activities has been called')
+router.get('/strava_app/list_activities', function(req, res, next) {
+  console.log('/strava_app/list_activities has been called')
   next();
 });
 
