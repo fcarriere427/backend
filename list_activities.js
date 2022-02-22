@@ -9,6 +9,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/', function(req, res) {
+  console.log('on est dans list_activities !');
   res.status(200).send('on est dans list_activities !');
 });
 
