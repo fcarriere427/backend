@@ -13,4 +13,9 @@ router.get('/', function(req, res) {
   res.status(200).send('on est dans list_activities !');
 });
 
+router.get('/strava_app', function(req, res) {
+  console.log('on est dans list_activities MAIS avec strava_app!');
+  res.status(200).send('on est dans list_activities MAIS avec strava_app !');
+});
+
 module.exports = router;
