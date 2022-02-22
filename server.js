@@ -8,20 +8,9 @@ const port = 3000
 var router = express.Router();
 var list_activities = require('./list_activities');
 
-router.get('/', function(req, res, next) {
-  console.log('/ has been called');
-  //list_activities;
-  res.end();
-});
-
 router.get('/strava_app/', function(req, res, next) {
   console.log('/strava_app has been called');
-  //list_activities;
-  res.end();
-});
-
-router.get('/strava_app/list_activities', function(req, res, next) {
-  console.log('/strava_app/list_activities has been called')
+  list_activities;
   res.end();
 });
 
