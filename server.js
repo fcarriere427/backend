@@ -31,6 +31,8 @@ app.use(function timeLog(req, res, next) {
   next();
 });
 
+app.use(router);
+
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
 });
