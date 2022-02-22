@@ -12,4 +12,4 @@ router.get('/', function(req, res) {
   res.status(200).send('on est dans list_activities !');
 });
 
-module.exports = list_activities;
+module.exports = router;
