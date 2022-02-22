@@ -9,7 +9,7 @@ var router = express.Router();
 // });
 
 router.get('/strava_app', function(req, res) {
-  var msg = 'TO DO : lister les activités depuis la DB';
+  var msg = 'TO DO :récupérer les dernières activités';
   console.log(msg);
   res.status(200).send(msg);
 });

@@ -8,12 +8,8 @@ const port = 3000
 var router = express.Router();
 
 var list_activities = require('./list_activities');
-
-// router.get('/strava_app/', function(req, res, next) {
-//   console.log('/strava_app has been called');
-//   list_activities;
-//   res.end();
-// });
+var update_activities = require('./update_activities');
+var reload_activities = require('./reload_activities');
 
 app.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
@@ -22,6 +18,8 @@ app.use(function timeLog(req, res, next) {
 });
 
 app.use(list_activities);
+app.use(update_activities);
+app.use(reload_activities);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
