@@ -6,13 +6,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 var router = express.Router();
+
 var list_activities = require('./list_activities');
 
-router.get('/strava_app/', function(req, res, next) {
-  console.log('/strava_app has been called');
-  list_activities;
-  res.end();
-});
+// router.get('/strava_app/', function(req, res, next) {
+//   console.log('/strava_app has been called');
+//   list_activities;
+//   res.end();
+// });
 
 app.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
@@ -20,7 +21,7 @@ app.use(function timeLog(req, res, next) {
   next();
 });
 
-app.use(router);
+app.use(list_activities);
 
 app.listen(port, () => {
   console.log('Serveur à l\'écoute sur localhost:'+ port);
