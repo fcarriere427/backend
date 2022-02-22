@@ -8,7 +8,7 @@ var router = express.Router();
 //   next();
 // });
 
-router.get('/strava_app', function(req, res) {
+router.get('/strava_app/list', function(req, res) {
   var msg = 'TO DO : lister les activités depuis la DB';
   console.log(msg);
   res.status(200).send(msg);

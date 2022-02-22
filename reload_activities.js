@@ -28,7 +28,7 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-router.get('/', function(req, res) {
+router.get('/strava_app/reload', function(req, res) {
   //Décider si besoin de renouveller les tokens
   current_time = Math.trunc(Date.now()/1000);
   if (current_time > expires_at) {

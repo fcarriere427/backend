@@ -8,7 +8,7 @@ var router = express.Router();
 //   next();
 // });
 
-router.get('/strava_app', function(req, res) {
+router.get('/strava_app.update', function(req, res) {
   var msg = 'TO DO :récupérer les dernières activités';
   console.log(msg);
   res.status(200).send(msg);
