@@ -2,13 +2,13 @@
 const express = require('express');
 var router = express.Router();
 
-// router.use(function timeLog(req, res, next) {
-//   let newDate = new Date(Date.now());
-//   console.log(`***** Appel de list_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
-//   next();
-// });
+router.use(function timeLog(req, res, next) {
+  let newDate = new Date(Date.now());
+  console.log(`Appel de list_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  next();
+});
 
-router.get('/strava_app.update', function(req, res) {
+router.get('/strava_app/update', function(req, res) {
   var msg = 'TO DO :récupérer les dernières activités';
   console.log(msg);
   res.status(200).send(msg);
