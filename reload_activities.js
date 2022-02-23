@@ -51,7 +51,7 @@ router.get('/strava_app/reload', function(req, res) {
 
 // REQUETE POUR RECUPERER LES ACTIVITES
 async function getActivities() {
-  return new Promise(function(resolve, reject) {
+  //return new Promise(function(resolve, reject) {
     var page = 1;
     var nbPages = 2;
     var nbActivities = 100;
@@ -65,7 +65,7 @@ async function getActivities() {
       .then(data => resolve(527)) //FAKE number_activities = 527
       .catch((err) => console.log(err))
     }
-  })
+  //})
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
