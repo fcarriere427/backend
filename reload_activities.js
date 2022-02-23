@@ -65,6 +65,7 @@ async function getActivities() {
       .then(data => resolve(527)) //FAKE number_activities = 527
       .catch((err) => console.log(err))
     }
+  })
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
