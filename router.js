@@ -39,9 +39,26 @@ router.get('/strava_app/list', function(req, res) {
 });
 
 router.get('/strava_app/update', function(req, res) {
-  var msg = 'TO DO : récupérer les dernières activités';
-  console.log(msg);
-  res.status(200).send(msg);
+  // NB : copie de /reload, mais avec nbPages = 1
+  //Décider si besoin de renouveller les tokens
+  current_time = Math.trunc(Date.now()/1000);
+  if (current_time > expires_at) {
+    // Si oui, on renouvelle, et on lance getActivities
+    var nbPages = 1;
+    renewTokens()
+    .then(() => getActivities(nbPages))
+    .then((data) => {
+      console.log("... dernières activités récupérées, OK !");
+      res.status(200).json(data);
+    })
+  } else {
+    // Sinon, on lance getActivities sans renouveller
+    getActivities(nbPages)
+    .then((data) => {
+      console.log("... dernières activités récupérées, OK !");
+      res.status(200).json(data);
+    })
+  }
 });
 
 router.get('/strava_app/reload', function(req, res) {
@@ -49,15 +66,17 @@ router.get('/strava_app/reload', function(req, res) {
   current_time = Math.trunc(Date.now()/1000);
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
+    // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
+    var nbPages = 7;
     renewTokens()
-    .then(() => getActivities())
+    .then(() => getActivities(nbPages))
     .then((data) => {
       console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
     })
   } else {
     // Sinon, on lance getActivities sans renouveller
-    getActivities()
+    getActivities(nbPages)
     .then((data) => {
       console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
@@ -70,11 +89,9 @@ router.get('/strava_app/reload', function(req, res) {
 /////////////////////////////
 
 // REQUETE POUR RECUPERER LES ACTIVITES
-async function getActivities() {
+async function getActivities(nbPages) {
   var page = 1;
-  var nbPages = 2;
   var nbActivities = 100;
-  // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
   // Lance la requête de récupération des activités
   for(let i = 0; i < nbPages; i++){
     console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
