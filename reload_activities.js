@@ -54,7 +54,7 @@ function getActivities(page) {
   return new Promise(function(resolve, reject) {
     var nbActivities = 100;
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-    var nbPages = 7;
+    var nbPages = 1;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
     console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
@@ -67,10 +67,10 @@ function getActivities(page) {
         console.log('nbPages  = ' + nbPages);
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
-          console.log('dernière page, on s\'arrête');
           var number_activities = 527;
           resolve(number_activities);
           return;
+          console.log('dernière page, on s\'arrête');
         };
         // on passe à la page suivante, puis appel récursif
         page = page + 1;
