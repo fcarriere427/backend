@@ -129,21 +129,19 @@ function renewTokens() {
     httpsRequest(options,body)
     // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
     .then((res) => {
+      // On renouvelles les tokens locaux
       access_token = res.access_token;
       expires_at = res.expires_at;
       refresh_token = res.refresh_token;
+      // on les sauvegarde dans le fichier local en asynchrone (besoin d'attendre pour renvoyer la réponse)
+      console.log("... OK, tokens renouvellés !");
       local_keys = JSON.stringify({
         refresh_token: refresh_token,
         access_token: access_token,
         expires_at: expires_at
       })
-      // semble se faire après ??? pas grave, on sauve en asynchrone : pas besoin d'attendre pour renvoyer la réponse...
       saveData(local_keys, './keys/tokens.json');
-      access_token = tokens.access_token;
-      expires_at = tokens.expires_at;
-      refresh_token = tokens.refresh_token;
     })
-    console.log("... OK, tokens renouvellés !");
     resolve();
   })
 }
