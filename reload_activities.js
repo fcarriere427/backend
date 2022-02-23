@@ -65,7 +65,6 @@ function getActivities(page) {
       .then((data) => {
         console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
         // on passe à la page suivante
-        page = page + 1;
         console.log('Page = ' + page);
         console.log('nbPages = ' + nbPages);
         // si on est à la dernière page, on s'arrête
@@ -76,6 +75,7 @@ function getActivities(page) {
           resolve(number_activities)
         };
         // appel récursif :-)
+        page = page + 1;
         getActivities(page);
       })
     })
