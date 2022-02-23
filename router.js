@@ -9,9 +9,6 @@ const fs = require('fs');
 const https = require('https');
 var router = express.Router();
 
-// Fonctions d'accès à la DB
-const updateDB = require('./updateDB');
-
 // Récupération des clés et tokens
 // /!\ Suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
 const keys = require('./keys/strava.json');
@@ -22,10 +19,29 @@ var access_token = tokens.access_token;
 var expires_at = tokens.expires_at;
 var refresh_token = tokens.refresh_token;
 
+// Fonctions d'accès à la DB
+const updateDB = require('./updateDB');
+
+// Log console du router à chaque appel
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
-  console.log(`Appel de reload_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
   next();
+});
+
+/////////////////////////////
+///////// ROUTES ////////////
+/////////////////////////////
+router.get('/strava_app/list', function(req, res) {
+  var msg = 'TO DO : lister les activités depuis la DB';
+  console.log(msg);
+  res.status(200).send(msg);
+});
+
+router.get('/strava_app/update', function(req, res) {
+  var msg = 'TO DO : récupérer les dernières activités';
+  console.log(msg);
+  res.status(200).send(msg);
 });
 
 router.get('/strava_app/reload', function(req, res) {
@@ -48,6 +64,10 @@ router.get('/strava_app/reload', function(req, res) {
     })
   }
 });
+
+/////////////////////////////
+//////// FONCTIONS //////////
+/////////////////////////////
 
 // REQUETE POUR RECUPERER LES ACTIVITES
 async function getActivities() {
