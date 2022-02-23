@@ -67,10 +67,11 @@ function getActivities(page) {
         console.log('nbPages  = ' + nbPages);
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
+          console.log('dernière page, on s\'arrête (avant return)');
           var number_activities = 527;
           resolve(number_activities);
           return;
-          console.log('dernière page, on s\'arrête');
+          console.log('dernière page, on s\'arrête (après return ?)');
         };
         // on passe à la page suivante, puis appel récursif
         page = page + 1;
