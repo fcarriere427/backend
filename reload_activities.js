@@ -71,8 +71,9 @@ function getActivities(page) {
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
           var number_activities = 527;
-          console.log('... OK, récupération des données terminée !')
-          resolve(number_activities)
+          console.log('... OK, récupération des données terminée !');
+          resolve(number_activities);
+          return;
         };
         // appel récursif :-)
         page = page + 1;
