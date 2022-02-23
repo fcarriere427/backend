@@ -62,9 +62,9 @@ async function getActivities() {
       var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
       await httpsRequest(options)
       .then(data => updateDB(data))
-      .then(data => return(527)) //FAKE number_activities = 527
       .catch((err) => console.log(err))
     }
+    return(527);
   //})
 }
 
