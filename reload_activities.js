@@ -44,7 +44,7 @@ router.get('/strava_app/reload', function(req, res) {
     getActivities(1) // on commence par la page 1
     .then((data) => {
       console.log("Toutes activités récupérées, OK !");
-      res.status(200).json(data));
+      res.status(200).json(data);
     })
   }
 });
