@@ -66,6 +66,8 @@ function getActivities(page) {
         console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
         // on passe à la page suivante
         page = page + 1;
+        console.log('Page = ' + page);
+        console.log('nbPages = ' + nbPages);
         // si on est à la dernière page, on s'arrête
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
