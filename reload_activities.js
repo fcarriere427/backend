@@ -36,14 +36,14 @@ router.get('/strava_app/reload', function(req, res) {
     renewTokens()
     .then(() => getActivities(1)) // on commence par la page 1
     .then((data) => {
-      console.log("Toutes activités récupérées, OK !");
+      console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
     })
   } else {
     // Sinon, on lance getActivities sans renouveller
     getActivities(1) // on commence par la page 1
     .then((data) => {
-      console.log("Toutes activités récupérées, OK !");
+      console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
     })
   }
@@ -52,30 +52,24 @@ router.get('/strava_app/reload', function(req, res) {
 // REQUETE POUR RECUPERER LES ACTIVITES
 function getActivities(page) {
   return new Promise(function(resolve, reject) {
-    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava)
+    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> on met 10 pages pour être sûr
     var nbActivities = 100;
-    var nbPages = 1;
+    var nbPages = 10;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
-    console.log('Récupération des activités Strava, pour la page ' + page);
+    console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     httpsRequest(options)
     .then(data => {
-      console.log('... OK, activités de la page ' + page + ' récupérées !')
       updateDB(data, page)
       .then((data) => {
-        console.log('... OK, données de la page ' + page + ' injectées dans la DB !')
-        // on passe à la page suivante
-        console.log('Page = ' + page);
-        console.log('nbPages = ' + nbPages);
-        // si on est à la dernière page, on s'arrête
+        // si on est à la dernière page, on s'arrête - grâce au return !
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
           var number_activities = 527;
-          console.log('... OK, récupération des données terminée !');
           resolve(number_activities);
           return;
         };
-        // appel récursif :-)
+        // on passe à la page suivante, puis appel récursif
         page = page + 1;
         getActivities(page);
       })
