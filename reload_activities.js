@@ -63,8 +63,11 @@ function getActivities(page) {
       updateDB(data, page)
       .then((data) => {
         // si on est à la dernière page, on s'arrête - grâce au return !
+        console.log('page = ' + page);
+        console.log('nbPages  = ' + nbPages);
         if (page == nbPages) {
 //// TO DO : récupérer le nb d'activités dans la DB // fake for now
+          console.log('dernière page, on s\'arrête');
           var number_activities = 527;
           resolve(number_activities);
           return;
