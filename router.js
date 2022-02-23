@@ -143,7 +143,7 @@ function renewTokens() {
       saveData(local_keys, './keys/tokens.json');
     })
     .then(() => resolve())
-    .catch(err ==> console.log('Error: ' + err))
+    .catch(err => console.log('Error: ' + err))
   })
 }
 
