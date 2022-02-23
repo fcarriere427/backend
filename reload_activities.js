@@ -34,14 +34,14 @@ router.get('/strava_app/reload', function(req, res) {
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
     renewTokens()
-    .then(() => getActivities(1)) // on commence par la page 1
+    .then(() => getActivities())
     .then((data) => {
       console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
     })
   } else {
     // Sinon, on lance getActivities sans renouveller
-    getActivities(1) // on commence par la page 1
+    getActivities()
     .then((data) => {
       console.log("... toutes activités récupérées, OK !");
       res.status(200).json(data);
@@ -50,37 +50,21 @@ router.get('/strava_app/reload', function(req, res) {
 });
 
 // REQUETE POUR RECUPERER LES ACTIVITES
-function getActivities(page) {
+async function getActivities() {
   return new Promise(function(resolve, reject) {
+    var page = 1;
+    var nbPages = 2;
     var nbActivities = 100;
     // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-    var nbPages = 2;
-    // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
-    console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
-    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
-    httpsRequest(options)
-    .then(data => {
-      updateDB(data, page)
-      .then((data) => {
-        // si on est à la dernière page, on s'arrête - grâce au return !
-        console.log('page = ' + page);
-        console.log('nbPages  = ' + nbPages);
-        if (page == nbPages) {
-//// TO DO : récupérer le nb d'activités dans la DB // fake for now
-          console.log('dernière page, on s\'arrête (avant return)');
-          var number_activities = 527;
-          resolve(number_activities);
-          console.log('dernière page, on s\'arrête (entre resolve et return)');
-          return;
-          console.log('dernière page, on s\'arrête (après return ?)');
-        };
-        // on passe à la page suivante, puis appel récursif
-        page = page + 1;
-        getActivities(page);
-      })
-    })
-    .catch((err) => console.log(err))
-  });
+    // Lance la requête de récupération des activités
+    for(let i = 0; i < nbPages; i++){
+      console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
+      var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+      await httpsRequest(options)
+      .then(data => updateDB(data))
+      .then(data => resolve(527)) //FAKE number_activities = 527
+      .catch((err) => console.log(err))
+    }
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN

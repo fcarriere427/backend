@@ -14,7 +14,7 @@ var stravaDb = nano.db.use('strava');
 
 var existingID = [];
 
-function updateDB(data, page) {
+function updateDB(data) {
   return new Promise((resolve, reject) => {
     //console.log('   ... mise à jour de la DB avec la page ' + page + '...');
     readID(stravaDb)
