@@ -52,9 +52,9 @@ router.get('/strava_app/reload', function(req, res) {
 // REQUETE POUR RECUPERER LES ACTIVITES
 function getActivities(page) {
   return new Promise(function(resolve, reject) {
-    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> on met 10 pages pour être sûr
     var nbActivities = 100;
-    var nbPages = 10;
+    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
+    var nbPages = 7;
     // Lance la requête de récupération des activités : attention limite par page... --> obligé de faire une boucle
     console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
