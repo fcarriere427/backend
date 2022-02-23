@@ -39,7 +39,6 @@ router.get('/strava_app/reload', function(req, res) {
     .then((data) => res.status(200).json(data))
   } else {
     // Sinon, on lance getActivities sans renouveller
-//TO DO : supprimer / récréer la DB ? --> fonction à créer dans updateDB
     getActivities(1) // on commence par la page 1
     .then((data) => res.status(200).json(data))
   }

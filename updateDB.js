@@ -19,7 +19,7 @@ function updateDB(data, page) {
     //console.log('   ... mise à jour de la DB avec la page ' + page + '...');
     readID(stravaDb)
     .then(() => insertNew(data,stravaDb))
-    .then(() => resolve(data))
+    .then((data) => resolve(data))
   })
 }
 
@@ -36,14 +36,14 @@ function insertNew(data, stravaDb){
           count_insert = count_insert + 1;
           if(count==data.length){
             //console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-            resolve();
+            resolve(count_insert);
           }
         })
       } else {
         count = count + 1;
         if(count==data.length){
           //console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-          resolve();
+          resolve(count_insert);
         }
       }
     }
