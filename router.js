@@ -40,11 +40,11 @@ router.get('/strava_app/list', function(req, res) {
 
 router.get('/strava_app/update', function(req, res) {
   // NB : copie de /reload, mais avec nbPages = 1
+  var nbPages = 1;
   //Décider si besoin de renouveller les tokens
   current_time = Math.trunc(Date.now()/1000);
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
-    var nbPages = 1;
     renewTokens()
     .then(() => getActivities(nbPages))
     .then((data) => {
@@ -62,12 +62,12 @@ router.get('/strava_app/update', function(req, res) {
 });
 
 router.get('/strava_app/reload', function(req, res) {
+  // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
+  var nbPages = 7;
   //Décider si besoin de renouveller les tokens
   current_time = Math.trunc(Date.now()/1000);
   if (current_time > expires_at) {
     // Si oui, on renouvelle, et on lance getActivities
-    // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-    var nbPages = 7;
     renewTokens()
     .then(() => getActivities(nbPages))
     .then((data) => {
