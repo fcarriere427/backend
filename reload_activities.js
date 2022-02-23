@@ -51,21 +51,20 @@ router.get('/strava_app/reload', function(req, res) {
 
 // REQUETE POUR RECUPERER LES ACTIVITES
 async function getActivities() {
-  //return new Promise(function(resolve, reject) {
-    var page = 1;
-    var nbPages = 2;
-    var nbActivities = 100;
-    // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-    // Lance la requête de récupération des activités
-    for(let i = 0; i < nbPages; i++){
-      console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
-      var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
-      await httpsRequest(options)
-      .then(data => updateDB(data))
-      .catch((err) => console.log(err))
-    }
-    return(527);
-  //})
+  var page = 1;
+  var nbPages = 2;
+  var nbActivities = 100;
+  // nbActivities = 614 le 20/02/22 (lu sur le dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
+  // Lance la requête de récupération des activités
+  for(let i = 0; i < nbPages; i++){
+    console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
+    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+    await httpsRequest(options)
+    .then(data => updateDB(data))
+    .catch((err) => console.log(err))
+  }
+  // fake return!!! Renvoyer le nb de données récupérées = la taille de la DB
+  return(527);
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN

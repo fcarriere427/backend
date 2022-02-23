@@ -4,7 +4,7 @@ var router = express.Router();
 
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
-  console.log(`Appel de reload_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  console.log(`Appel de update_activities : ${newDate.toDateString()} ${newDate.toTimeString()}`);
   next();
 });
 
