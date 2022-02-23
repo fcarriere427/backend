@@ -70,6 +70,7 @@ function getActivities(page) {
           console.log('dernière page, on s\'arrête (avant return)');
           var number_activities = 527;
           resolve(number_activities);
+          console.log('dernière page, on s\'arrête (entre resolve et return)');
           return;
           console.log('dernière page, on s\'arrête (après return ?)');
         };
