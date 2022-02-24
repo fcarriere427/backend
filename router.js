@@ -21,6 +21,7 @@ var refresh_token = tokens.refresh_token;
 
 // Fonctions d'accès à la DB
 const updateDB = require('./updateDB');
+const readDB = require('./readDB');
 
 // Log console du router à chaque appel
 router.use(function timeLog(req, res, next) {
@@ -33,7 +34,14 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 router.get('/strava_app/list', function(req, res) {
-  var msg = 'TO DO : lister les activités depuis la DB';
+  readDB()
+  .then((data) => {
+    console.log("... et voici la liste des activités, OK !");
+    res.status(200).json(data);
+  })
+
+
+
   console.log(msg);
   res.status(200).send(msg);
 });
