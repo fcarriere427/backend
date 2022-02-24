@@ -127,7 +127,7 @@ async function renewTokens() {
   } else {
     console.log("Tokens valides, pas de renouvellement");
   }
-  return();
+  return(0);
 }
 
 function httpsRequest(params, postData) {
