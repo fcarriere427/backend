@@ -16,7 +16,7 @@ function readDB() {
   return new Promise((resolve, reject) => {
     stravaDb.list()
     .then((body) => {
-      console.log('body = ' + body.stringify());
+      console.log('body.rows = ' + body.rows);
       resolve(body);
     })
   })
