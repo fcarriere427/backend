@@ -39,11 +39,6 @@ router.get('/strava_app/list', function(req, res) {
     console.log("... et voici la liste des activités, OK !");
     res.status(200).json(data);
   })
-
-
-
-  console.log(msg);
-  res.status(200).send(msg);
 });
 
 router.get('/strava_app/update', function(req, res) {

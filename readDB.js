@@ -12,7 +12,7 @@ const nano = require ('nano')(url);
 //console.log('nano = ' + JSON.stringify(nano));
 var stravaDb = nano.db.use('strava');
 
-function readDB(stravaDb) {
+function readDB() {
   return new Promise((resolve, reject) => {
     stravaDb.list()
     .then((body) => {
