@@ -40,7 +40,7 @@ router.get('/strava_app/list', function(req, res) {
 
 router.get('/strava_app/update', function(req, res) {
   // NB : copie de /reload, mais avec nbPages = 1
-  var nbPages = 7;
+  var nbPages = 1;
   renewTokens()
   .then(() => getActivities(nbPages))
   .then((data) => {
@@ -123,11 +123,11 @@ async function renewTokens() {
       })
       saveData(local_keys, './keys/tokens.json');
     })
-    .then(() => resolve())
+    .then(() => return())
     .catch(err => console.log('Error: ' + err))
   } else {
     console.log("Tokens valides, pas de renouvellement");
-    resolve();
+    return();
   }
 }
 
