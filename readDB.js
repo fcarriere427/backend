@@ -17,7 +17,7 @@ function readDB() {
     stravaDb.list()
     .then((body) => {
       console.log('body.rows = ' + body.rows);
-      resolve(body.rows);
+      resolve(body.rows[1]);
     })
   })
 }
