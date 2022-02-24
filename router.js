@@ -39,12 +39,11 @@ router.get('/strava_app/list', function(req, res) {
 });
 
 router.get('/strava_app/update', function(req, res) {
-  // NB : copie de /reload, mais avec nbPages = 1
+  // récupération des 100 dernières activities
   var nbPages = 1;
-  renewTokens()
-  .then(() => getActivities(nbPages))
+  getActivities(nbPages)
   .then((data) => {
-    console.log("... toutes activités récupérées, OK !");
+    console.log("... dernières activités récupérées, OK !");
     res.status(200).json(data);
   })
 });
@@ -52,10 +51,9 @@ router.get('/strava_app/update', function(req, res) {
 router.get('/strava_app/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
   var nbPages = 7;
-  renewTokens()
-  .then(() => getActivities(nbPages))
+  getActivities(nbPages)
   .then((data) => {
-    console.log("... toutes activités récupérées, OK !");
+    console.log("... dernières activités récupérées, OK !");
     res.status(200).json(data);
   })
 });
@@ -71,14 +69,17 @@ router.get('/strava_app/reload', function(req, res) {
 async function getActivities(nbPages) {
   var page = 1;
   var nbActivities = 100;
-  // Lance la requête de récupération des activités
-  for(let i = 0; i < nbPages; i++){
-    console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
-    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
-    await httpsRequest(options)
-    .then(data => updateDB(data))
-    .catch((err) => console.log(err))
-  }
+  renewTokens()
+  .then(() => {
+    // Lance la requête de récupération des activités
+    for(let i = 0; i < nbPages; i++){
+      console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
+      var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+      await httpsRequest(options)
+      .then(data => updateDB(data))
+      .catch((err) => console.log(err))
+    }
+  })
   // fake return!!! Renvoyer le nb de données récupérées = la taille de la DB
   return(527);
 }
