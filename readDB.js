@@ -15,9 +15,8 @@ var stravaDb = nano.db.use('strava');
 function readDB() {
   return new Promise((resolve, reject) => {
     stravaDb.list()
-    .then(res => res.json())
     .then((body) => {
-      console.log('body = ' + body);
+      console.log('body = ' + body.stringify());
       resolve(body);
     })
   })
