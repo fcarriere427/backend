@@ -40,53 +40,32 @@ router.get('/strava_app/list', function(req, res) {
 
 router.get('/strava_app/update', function(req, res) {
   // NB : copie de /reload, mais avec nbPages = 1
-  var nbPages = 1;
-  //Décider si besoin de renouveller les tokens
-  current_time = Math.trunc(Date.now()/1000);
-  if (current_time > expires_at) {
-    // Si oui, on renouvelle, et on lance getActivities
-    renewTokens()
-    .then(() => getActivities(nbPages))
-    .then((data) => {
-      console.log("... dernières activités récupérées, OK !");
-      res.status(200).json(data);
-    })
-  } else {
-    // Sinon, on lance getActivities sans renouveller
-    getActivities(nbPages)
-    .then((data) => {
-      console.log("... dernières activités récupérées, OK !");
-      res.status(200).json(data);
-    })
-  }
+  var nbPages = 7;
+  renewTokens()
+  .then(() => getActivities(nbPages))
+  .then((data) => {
+    console.log("... toutes activités récupérées, OK !");
+    res.status(200).json(data);
+  })
 });
 
 router.get('/strava_app/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
   var nbPages = 7;
-  //Décider si besoin de renouveller les tokens
-  current_time = Math.trunc(Date.now()/1000);
-  if (current_time > expires_at) {
-    // Si oui, on renouvelle, et on lance getActivities
-    renewTokens()
-    .then(() => getActivities(nbPages))
-    .then((data) => {
-      console.log("... toutes activités récupérées, OK !");
-      res.status(200).json(data);
-    })
-  } else {
-    // Sinon, on lance getActivities sans renouveller
-    getActivities(nbPages)
-    .then((data) => {
-      console.log("... toutes activités récupérées, OK !");
-      res.status(200).json(data);
-    })
-  }
+  renewTokens()
+  .then(() => getActivities(nbPages))
+  .then((data) => {
+    console.log("... toutes activités récupérées, OK !");
+    res.status(200).json(data);
+  })
 });
 
 /////////////////////////////
 //////// FONCTIONS //////////
 /////////////////////////////
+
+// REQUETE POUR RECUPERER LES ACTIVITES
+
 
 // REQUETE POUR RECUPERER LES ACTIVITES
 async function getActivities(nbPages) {
@@ -105,10 +84,12 @@ async function getActivities(nbPages) {
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
-function renewTokens() {
-  console.log("Renouvellement des tokens...");
-  return new Promise(function(resolve, reject) {
-    // Prépare des variables passées à la  requête
+async function renewTokens() {
+  current_time = Math.trunc(Date.now()/1000);
+  //Décider si besoin de renouveller les tokens
+  if (current_time > expires_at) {
+    console.log("Renouvellement des tokens...");
+      // Prépare des variables passées à la  requête
     var body = JSON.stringify({
       client_id: client_id,
       client_secret: client_secret,
@@ -126,7 +107,7 @@ function renewTokens() {
       }
     }
     // Lance la requête de renouvellement de l'access_token
-    httpsRequest(options,body)
+    await httpsRequest(options,body)
     // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
     .then((res) => {
       // On renouvelles les tokens locaux
@@ -144,7 +125,10 @@ function renewTokens() {
     })
     .then(() => resolve())
     .catch(err => console.log('Error: ' + err))
-  })
+  } else {
+    console.log("Tokens valides, pas de renouvellement");
+    resolve();
+  }
 }
 
 function httpsRequest(params, postData) {
