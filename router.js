@@ -123,12 +123,11 @@ async function renewTokens() {
       })
       saveData(local_keys, './keys/tokens.json');
     })
-    .then(() => return())
     .catch(err => console.log('Error: ' + err))
   } else {
     console.log("Tokens valides, pas de renouvellement");
-    return();
   }
+  return();
 }
 
 function httpsRequest(params, postData) {
