@@ -71,6 +71,7 @@ async function getActivities(nbPages) {
   var nbActivities = 100;
   renewTokens()
   .then(() => async function () {
+    console.log('on rentre dans l\'async function de la boucle for');
     // Lance la requête de récupération des activités
     for(let i = 0; i < nbPages; i++){
       console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
