@@ -18,14 +18,12 @@ function readDB() {
       if (err) {
         await createViewDB();
         console.log('creation de la view...')
-      } else {
-        console.log('view déjà existante...')
-        stravaDb.list()
-        .then((body) => {
-          console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
-          resolve(body.rows);
-        })
       }
+      stravaDb.list()
+      .then((body) => {
+        console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
+        resolve(body.rows);
+      })
     })
   });
 }
