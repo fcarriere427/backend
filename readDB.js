@@ -18,7 +18,7 @@ function readDB() {
       await createViewDB();
     } else {
       return new Promise((resolve, reject) => {
-        stravaDb.list())
+        stravaDb.list()
         .then((body) => {
           console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
           resolve(body.rows);
