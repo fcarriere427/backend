@@ -16,13 +16,15 @@ function readDB() {
   return new Promise((resolve, reject) => {
     stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
       if (err) {
-        await createViewDB();
         console.log('creation de la view...')
+        await createViewDB();
+        console.log('...view créée, OK !')
       }
 ////////// UTILISER LA VIEW !!!
+      console.log('on va appeler la view !')
       stravaDb.view('_design/strava', function(err,body) {
         resolve(body.rows);
-      })
+      });
     })
   });
 }
