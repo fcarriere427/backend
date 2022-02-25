@@ -23,7 +23,7 @@ function createViewDB() {
         //   {"map": function (doc) { emit (doc.distance, doc); } }
         // }
       }, '_design/strava', function (error, response) {
-        console.log('OK, design created!');
+        console.log('OK, design created! response = ' + response + ' + error = ' + error);
     })
   })
 }
