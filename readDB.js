@@ -13,18 +13,18 @@ const nano = require ('nano')(url);
 var stravaDb = nano.db.use('strava');
 
 function readDB() {
-  stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
-    if (err) {
-      await createViewDB();
-    } else {
-      return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+    stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
+      if (err) {
+        await createViewDB();
+      } else {
         stravaDb.list()
         .then((body) => {
           console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
           resolve(body.rows);
         })
-      })
-    }
+      }
+    })
   });
 }
 
