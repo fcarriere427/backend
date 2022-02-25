@@ -23,7 +23,11 @@ function readDB() {
 ////////// UTILISER LA VIEW !!!
       console.log('on va appeler la view !')
       stravaDb.view('strava', '_design/strava', function(err,body) {
-        resolve(body.rows);
+        if (!err) {
+          resolve(body.rows);
+        } else {
+          console.log('error = ' + error);
+        }
       });
     })
   });
