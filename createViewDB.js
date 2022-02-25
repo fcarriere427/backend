@@ -12,10 +12,22 @@ const nano = require ('nano')(url);
 //console.log('nano = ' + JSON.stringify(nano));
 var stravaDb = nano.db.use('strava');
 
-function readDB() {
+var views = require('./views.json')
+
+function createViewDB() {
   return new Promise((resolve, reject) => {
-    createViewDB()
-    .then(() => stravaDb.list())
+    db.insert(
+      {"views": {
+        "activities_by_date": {
+          "map": "function (doc) { emit (doc.start_date, doc); }"
+        }
+        "activities_by_distance": {
+          "map": "function (doc) { emit (doc.distance, doc); }"
+        }
+      }
+      }, '_design/strava', function (error, response) {
+        console.log('OK, design created!');
+    });
     .then((body) => {
       console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
       resolve(body.rows);
@@ -23,4 +35,4 @@ function readDB() {
   })
 }
 
-module.exports = readDB;
+module.exports = createViewDB;
