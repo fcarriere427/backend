@@ -12,6 +12,7 @@ const nano = require ('nano')(url);
 //console.log('nano = ' + JSON.stringify(nano));
 var stravaDb = nano.db.use('strava');
 
+// tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
 function updateDB(data) {
