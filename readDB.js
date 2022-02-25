@@ -43,8 +43,10 @@ function createViewDB() {
     function (error, response) {
       if (!error){
         console.log('OK, design created! Response = ' + response);
+        resolve();
       } else {
         console.log('ERROR, design not created! Error = ' + error);
+        reject();
       }
     })
   })
