@@ -42,7 +42,7 @@ function createViewDB() {
     '_design/strava',
     function (error, response) {
       if (!error){
-        console.log('OK, design created! Response = ' + response);
+        console.log('OK, design created! Response = ' + response.toString());
         resolve();
       } else {
         console.log('ERROR, design not created! Error = ' + error);
