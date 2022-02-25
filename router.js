@@ -41,7 +41,7 @@ router.get('/strava_app/list', function(req, res) {
     //console.log("... et voici la liste des activités !");
     //res.status(200).json(data);
     //res.status(200).send(data);
-    res.status(200).json(data.id);
+    res.status(200).json(data);
   })
 });
 
