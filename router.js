@@ -40,7 +40,8 @@ router.get('/strava_app/list', function(req, res) {
     console.log(" data.id = " + data.id);
     //console.log("... et voici la liste des activités !");
     //res.status(200).json(data);
-    res.status(200).send(data);
+    //res.status(200).send(data);
+    res.status(200).send("salut");
   })
 });
 
