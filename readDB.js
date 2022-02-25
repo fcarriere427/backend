@@ -19,9 +19,8 @@ function readDB() {
         await createViewDB();
         console.log('creation de la view...')
       }
-      stravaDb.list()
-      .then((body) => {
-        console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
+////////// UTILISER LA VIEW !!!
+      stravaDb.view('_design/strava', function(err,body) {
         resolve(body.rows);
       })
     })
@@ -29,26 +28,22 @@ function readDB() {
 }
 
 function createViewDB() {
-  return new Promise((resolve, reject) => {
-    stravaDb.insert(
-    {"views":
-      {"activities_by_date":
-        {"map": function (doc) { emit (doc.start_date, doc); } }
-      }
-      // {"activities_by_distance":
-      //   {"map": function (doc) { emit (doc.distance, doc); } }
-      // }
-    },
-    '_design/strava',
-    function (error, response) {
-      if (!error){
-        console.log('OK, design created! Response = ' + response.toString());
-        resolve();
-      } else {
-        console.log('ERROR, design not created! Error = ' + error);
-        reject();
-      }
-    })
+  stravaDb.insert(
+  {"views":
+    {"activities_by_date":
+      {"map": function (doc) { emit (doc.start_date, doc); } }
+    }
+    // {"activities_by_distance":
+    //   {"map": function (doc) { emit (doc.distance, doc); } }
+    // }
+  },
+  '_design/strava',
+  function (error, response) {
+    if (!error){
+      console.log('OK, design created!');
+    } else {
+      console.log('ERROR, design not created! Error = ' + error);
+    }
   })
 }
 
