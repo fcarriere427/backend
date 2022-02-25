@@ -49,7 +49,6 @@ router.get('/strava_app/update', function(req, res) {
   .then(() => getActivities(nbPages))
   .then((data) => {
     console.log("... dernières activités récupérées, OK !");
-    console.log("data dans le router = " + data);
     res.status(200).json(data);
   })
 });
