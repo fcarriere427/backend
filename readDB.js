@@ -14,15 +14,21 @@ var stravaDb = nano.db.use('strava');
 
 const createViewDB = require('./createViewDB');
 
-function readDB() {
-  return new Promise((resolve, reject) => {
-    createViewDB()
-    .then(() => stravaDb.list())
-    .then((body) => {
-      console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
-      resolve(body.rows);
-    })
-  })
+async function readDB() {
+
+  stravaDb.get('_design/strava', { revs_info: true }, function(err, body) {
+    if (err) {
+      await createViewDB();
+    } else {
+      return new Promise((resolve, reject) => {
+        stravaDb.list())
+        .then((body) => {
+          console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
+          resolve(body.rows);
+        })
+      })  
+    }
+  });
 }
 
 module.exports = readDB;
