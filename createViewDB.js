@@ -26,7 +26,7 @@ function createViewDB() {
         // }
       }, '_design/strava', function (error, response) {
         console.log('OK, design created!');
-    });
+    })
     .then((body) => {
       console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
       resolve(body.rows);
