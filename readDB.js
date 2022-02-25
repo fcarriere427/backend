@@ -26,7 +26,7 @@ function readDB() {
         if (!err) {
           resolve(body.rows);
         } else {
-          console.log('error = ' + error);
+          console.log('error = ' + err);
         }
       });
     })
