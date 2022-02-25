@@ -12,8 +12,8 @@ const nano = require ('nano')(url);
 //console.log('nano = ' + JSON.stringify(nano));
 var stravaDb = nano.db.use('strava');
 
-async function readDB() {
-  stravaDb.get('_design/strava', { revs_info: true }, function(err, body) {
+function readDB() {
+  stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
     if (err) {
       await createViewDB();
     } else {
