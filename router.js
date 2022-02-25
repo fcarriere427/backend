@@ -37,6 +37,7 @@ router.get('/strava_app/list', function(req, res) {
   readDB()
   .then((data) => {
     console.log("JSON.stringify(data) dans le router = " + JSON.stringify(data));
+    console.log("JSON.stringify(data).id dans le router = " + JSON.stringify(data).id);
     console.log("... et voici la liste des activités !");
     //res.status(200).json(data);
     res.status(200).send(data);
