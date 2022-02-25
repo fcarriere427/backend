@@ -1,5 +1,3 @@
-//*** Lecture des données dans la BDD
-
 // Récupération des clés pour se connecter à couchDB
 const couchKeys = require('./keys/couchDB.json');
 var user = couchKeys.user;

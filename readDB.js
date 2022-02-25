@@ -12,7 +12,7 @@ const nano = require ('nano')(url);
 //console.log('nano = ' + JSON.stringify(nano));
 var stravaDb = nano.db.use('strava');
 
-const https = require('./createViewDB');
+const createViewDB = require('./createViewDB');
 
 function readDB() {
   return new Promise((resolve, reject) => {
