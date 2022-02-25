@@ -17,7 +17,9 @@ function readDB() {
     stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
       if (err) {
         await createViewDB();
+        console.log('creation de la view...')
       } else {
+        console.log('view déjà existante...')
         stravaDb.list()
         .then((body) => {
           console.log('body.rows[1] = ' + JSON.stringify(body.rows[1]));
