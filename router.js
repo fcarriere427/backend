@@ -36,11 +36,7 @@ router.use(function timeLog(req, res, next) {
 router.get('/strava_app/list', function(req, res) {
   readDB()
   .then((data) => {
-    console.log("JSON.stringify(data) dans le router = " + JSON.stringify(data));
-    console.log(" data.id = " + data.id);
-    //console.log("... et voici la liste des activités !");
-    //res.status(200).json(data);
-    //res.status(200).send(data);
+    console.log("... et voici la liste des activités !");
     res.status(200).json(data);
   })
 });
