@@ -14,7 +14,7 @@ var stravaDb = nano.db.use('strava');
 
 function createViewDB() {
   return new Promise((resolve, reject) => {
-    db.insert(
+    stravaDb.insert(
       {"views":
         {"activities_by_date":
           {"map": function (doc) { emit (doc.start_date, doc); } }
