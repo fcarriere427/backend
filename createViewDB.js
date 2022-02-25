@@ -21,9 +21,9 @@ function createViewDB() {
         {"activities_by_date":
           {"map": function (doc) { emit (doc.start_date, doc); } }
         }
-        {"activities_by_distance":
-          {"map": function (doc) { emit (doc.distance, doc); } }
-        }
+        // {"activities_by_distance":
+        //   {"map": function (doc) { emit (doc.distance, doc); } }
+        // }
       }, '_design/strava', function (error, response) {
         console.log('OK, design created!');
     });
