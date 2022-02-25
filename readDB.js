@@ -16,7 +16,7 @@ const createViewDB = require('./createViewDB');
 
 async function readDB() {
   stravaDb.get('_design/strava', { revs_info: true }, function(err, body) {
-    async if (err) {
+    if (err) {
       await createViewDB();
     } else {
       return new Promise((resolve, reject) => {
