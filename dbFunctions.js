@@ -98,7 +98,7 @@ async function renewDB() {
 
 function readDB() {
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{include_docs: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         resolve(body.rows);
       } else {
