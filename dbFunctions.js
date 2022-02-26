@@ -39,14 +39,14 @@ function updateDB(data, page) {
 
 function readID(stravaDb) {
   return new Promise((resolve, reject) => {
-    console.log("      ... mise à jour du tableau des ID Strava, à partir de la BDD existante...");
+    //console.log("      ... mise à jour du tableau des ID Strava, à partir de la BDD existante...");
     var count = 0;
     // pour chaque ligne de la BDD, on va écrire un élément dans le tableau existingID
     stravaDb.list()
     .then((body) => {
       if (body.rows.length == 0){
         // si la BDD est vide, on ne fait rien
-        console.log("      ... pas d\'ID existant, la BDD est vide !");
+        //console.log("      ... pas d\'ID existant, la BDD est vide !");
         resolve();
       }
       else {
@@ -58,7 +58,7 @@ function readID(stravaDb) {
             count = count + 1;
             // console.log('   ... count = ' + count);
             if(count==body.rows.length){
-              console.log('      ... tableau des ID Strava mis à jour !');
+              //console.log('      ... tableau des ID Strava mis à jour !');
               resolve();
             }
           })
