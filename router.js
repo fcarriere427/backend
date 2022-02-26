@@ -74,16 +74,18 @@ router.get('/strava_app/reload', function(req, res) {
 async function getActivities(nbPages) {
   var page = 1;
   var nbActivities = 100;
+  var count = 0;
   // Lance la requête de récupération des activités
   for(let i = 0; i < nbPages; i++){
     console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + (i+1) + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     await httpsRequest(options)
     .then(data => dbFun.updateDB(data, i))
+    .then(data => count = count + data)
     .catch((err) => console.log(err))
   }
   // fake return!!! Renvoyer le nb de données récupérées = la taille de la DB
-  return(527);
+  return(count);
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
