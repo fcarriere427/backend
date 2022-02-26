@@ -71,7 +71,7 @@ function readID(stravaDb) {
 function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   return new Promise((resolve, reject) => {
-    console.log('  ... Mise à jour de la DB avec '+ data.length + ' éléments...');
+    console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
     var count = 0;
     var count_insert = 0;
     for (let i = 0; i < data.length; i++) {
@@ -80,7 +80,7 @@ function insertNew(data, stravaDb){
           count = count + 1;
           count_insert = count_insert + 1;
           if(count==data.length){
-            console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+            console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
             resolve(count_insert);
           }
         })
