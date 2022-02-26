@@ -77,7 +77,7 @@ async function getActivities(nbPages) {
   // Lance la requête de récupération des activités
   for(let i = 0; i < nbPages; i++){
     console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
-    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
+    var options = `https://www.strava.com/api/v3/athlete/activities?page=` + (i+1) + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     await httpsRequest(options)
     .then(data => dbFun.updateDB(data, i))
     .catch((err) => console.log(err))
