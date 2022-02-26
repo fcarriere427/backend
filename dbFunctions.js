@@ -91,6 +91,9 @@ async function renewDB() {
   }
   await nano.db.create(DBNAME);
   console.log('... DB recréee, OK !');
+  console.log('Création de vue...');
+  await createViewDB();
+  console.log('... vue créee, OK !');
 }
 
 function readDB() {
