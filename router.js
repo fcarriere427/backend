@@ -20,8 +20,8 @@ var expires_at = tokens.expires_at;
 var refresh_token = tokens.refresh_token;
 
 // Fonctions d'accès à la DB
-const updateDB = require('./updateDB');
-const readDB = require('./readDB');
+const dbFun = require('./dbFunctions');
+
 
 // Log console du router à chaque appel
 router.use(function timeLog(req, res, next) {
@@ -34,7 +34,7 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 router.get('/strava_app/list', function(req, res) {
-  readDB()
+  dbFun.readDB()
   .then((data) => {
     console.log("... liste des activités renvoyée, OK !");
     res.status(200).json(data);
@@ -55,7 +55,7 @@ router.get('/strava_app/update', function(req, res) {
 router.get('/strava_app/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
   var nbPages = 7;
-  renewDB()
+  dbFun.renewDB()
   .then(() => renewTokens())
   .then(() => getActivities(nbPages))
   .then((data) => {
@@ -80,7 +80,7 @@ async function getActivities(nbPages) {
     console.log('Récupération des activités Strava, pour la page ' + (i+1) + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     await httpsRequest(options)
-    .then(data => updateDB(data))
+    .then(data => dbFun.updateDB(data))
     .catch((err) => console.log(err))
   }
   // fake return!!! Renvoyer le nb de données récupérées = la taille de la DB
