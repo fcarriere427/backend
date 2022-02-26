@@ -20,7 +20,7 @@ function readDB() {
         await createViewDB();
         console.log('...view créée, OK !')
       }
-      stravaDb.view('strava', 'activities_by_date', function(err,body) {
+      stravaDb.view('strava', 'activities_by_date',{include_docs: true}, function(err,body) {
         if (!err) {
           resolve(body.rows);
         } else {
