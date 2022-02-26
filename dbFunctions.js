@@ -91,5 +91,47 @@ async function renewDB() {
   await nano.db.create(DBNAME)
 }
 
-module.exports = updateDB;
-module.exports = renewDB;
+function readDB() {
+  return new Promise((resolve, reject) => {
+    stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
+      if (err) {
+        console.log('creation de la view...')
+        await createViewDB();
+        console.log('...view créée, OK !')
+      }
+      stravaDb.view('strava', 'activities_by_date',{include_docs: true}, function(err,body) {
+        if (!err) {
+          resolve(body.rows);
+        } else {
+          console.log('error = ' + err);
+        }
+      });
+    })
+  });
+}
+
+function createViewDB() {
+  stravaDb.insert(
+  {"views":
+    {"activities_by_date":
+      {"map": function (doc) { emit (doc.start_date, doc); } }
+    }
+    // {"activities_by_distance":
+    //   {"map": function (doc) { emit (doc.distance, doc); } }
+    // }
+  },
+  '_design/strava',
+  function (error, response) {
+    if (!error){
+      console.log('OK, design created!');
+    } else {
+      console.log('ERROR, design not created! Error = ' + error);
+    }
+  })
+}
+
+module.exports = {
+   updateDB,
+   renewDB,
+   readDB
+ }
