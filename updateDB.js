@@ -10,7 +10,7 @@ var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
 // Ouverture de la BDD
 const nano = require ('nano')(url);
 const DBNAME = 'strava'
-var stravaDb = nano.db.use(DNBAME);
+var stravaDb = nano.db.use(DBNAME);
 
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
