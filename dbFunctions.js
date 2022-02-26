@@ -98,21 +98,14 @@ async function renewDB() {
 
 function readDB() {
   return new Promise((resolve, reject) => {
-    stravaDb.get('_design/strava', { revs_info: true }, async function(err, body) {
-      if (err) {
-        console.log('creation de la view...')
-        await createViewDB();
-        console.log('...view créée, OK !')
+    stravaDb.view('strava', 'activities_by_date',{include_docs: true}, function(err,body) {
+      if (!err) {
+        resolve(body.rows);
+      } else {
+        console.log('error = ' + err);
       }
-      stravaDb.view('strava', 'activities_by_date',{include_docs: true}, function(err,body) {
-        if (!err) {
-          resolve(body.rows);
-        } else {
-          console.log('error = ' + err);
-        }
-      });
-    })
-  });
+    });
+  })
 }
 
 function createViewDB() {
