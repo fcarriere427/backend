@@ -84,11 +84,13 @@ function readID(stravaDb) {
 
 async function renewDB() {
   try {
-    await nano.db.destroy(DBNAME)
+    await nano.db.destroy(DBNAME);
+    console.log('DB détruite...');
   } catch (e) {
-    console.log('DB does not exist!')
+    console.log('DB does not exist!');
   }
-  await nano.db.create(DBNAME)
+  await nano.db.create(DBNAME);
+  console.log('... DB recréee, OK !');
 }
 
 function readDB() {
