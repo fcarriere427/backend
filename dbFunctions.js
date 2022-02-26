@@ -28,6 +28,7 @@ function readDB() {
 }
 
 function updateDB(data, page) {
+  existingID = [];
   return new Promise((resolve, reject) => {
     console.log('   ... mise à jour de la DB avec la page ' + page + '...');
     readID(stravaDb)
