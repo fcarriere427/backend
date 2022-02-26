@@ -55,7 +55,7 @@ function readID(stravaDb) {
           .then((doc) => {
             existingID[i] = doc["id"];
             count = count + 1;
-            console.log('   ... count = ' + count);
+            // console.log('   ... count = ' + count);
             if(count==body.rows.length){
               console.log('      ... tableau des ID Strava mis à jour !');
               resolve();
