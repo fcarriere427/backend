@@ -21,8 +21,7 @@ function readDB() {
         console.log('...view créée, OK !')
       }
 ////////// UTILISER LA VIEW !!!
-      console.log('on va appeler la view !')
-      stravaDb.view('strava', '_design/strava', function(err,body) {
+      stravaDb.view('strava', 'activities_by_date', function(err,body) {
         if (!err) {
           resolve(body.rows);
         } else {
