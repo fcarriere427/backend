@@ -9,8 +9,8 @@ var port = couchKeys.port;
 var url = 'http://' + user + ':' + pwd + '@' + host + ':' + port;
 // Ouverture de la BDD
 const nano = require ('nano')(url);
-//console.log('nano = ' + JSON.stringify(nano));
-var stravaDb = nano.db.use('strava');
+const DBNAME = 'strava'
+var stravaDb = nano.db.use(DNBAME);
 
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
@@ -82,4 +82,14 @@ function readID(stravaDb) {
   })
 }
 
+async function renewDB() => {
+  try {
+    await nano.db.destroy(DBNAME)
+  } catch (e) {
+    console.log('DB does not exist!')
+  }
+  await nano.db.create(DBNAME)
+}
+
 module.exports = updateDB;
+module.exports = renewDB;
