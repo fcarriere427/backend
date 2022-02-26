@@ -111,8 +111,10 @@ function readDB() {
 function createViewDB() {
   stravaDb.insert(
   {"views":
-    {"activities_by_date":
-      {"map": function (doc) { emit (doc.start_date, doc); } }
+    { "activities_by_date":
+      {"map": function (doc) { emit (doc.start_date, doc); } },
+      "activities_by_distance":
+      {"map": function (doc) { emit (doc.distance, doc); } }
     }
     // {"activities_by_distance":
     //   {"map": function (doc) { emit (doc.distance, doc); } }
