@@ -82,7 +82,7 @@ function readID(stravaDb) {
   })
 }
 
-async function renewDB() => {
+async function renewDB() {
   try {
     await nano.db.destroy(DBNAME)
   } catch (e) {
