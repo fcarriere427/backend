@@ -49,7 +49,6 @@ router.get('/strava_app', function(req, res) {
   console.log("appel de la route strava_app !");
   strava();
   res.status(200);
-  })
 });
 
 
