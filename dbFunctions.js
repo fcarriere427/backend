@@ -15,6 +15,19 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
+// TO DO
+// function readRec(id) {
+//   return new Promise((resolve, reject) => {
+//     stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
+//       if (!err) {
+//         resolve(body.rows);
+//       } else {
+//         console.log('error = ' + err);
+//       }
+//     });
+//   })
+// }
+
 function readDB() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
