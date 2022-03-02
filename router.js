@@ -33,6 +33,16 @@ router.use(function timeLog(req, res, next) {
 /////////////////////////////
 ///////// ROUTES ////////////
 /////////////////////////////
+
+// TO DO
+// router.get('/strava_app/activity', function(req, res) {
+//   dbFun.readRec(req.query.id)
+//   .then((data) => {
+//     console.log('... enregistrement ' + req + ' renvoyé, OK !');
+//     res.status(200).json(data);
+//   })
+// });
+
 router.get('/strava_app/list', function(req, res) {
   dbFun.readDB()
   .then((data) => {
