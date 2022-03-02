@@ -23,7 +23,7 @@ var refresh_token = tokens.refresh_token;
 const dbFun = require('./dbFunctions');
 
 // webapp strava
-const strava_app = require('./strava_app');
+//const strava_app = require('./strava_app');
 
 // Log console du router à chaque appel
 router.use(function timeLog(req, res, next) {
@@ -47,10 +47,14 @@ router.use(function timeLog(req, res, next) {
 
 router.get('/strava_app', function(req, res) {
   console.log("appel de la route strava_app !");
-  strava_app.test();
+  test();
   res.status(200);
 });
 
+function test() {
+  var doc = document.implementation.createHTMLDocument();
+  doc.body.append('page principale de ma web app Strava !');
+}
 
 router.get('/strava_app/list', function(req, res) {
   dbFun.readDB()
