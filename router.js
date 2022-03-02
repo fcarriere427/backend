@@ -47,7 +47,7 @@ router.use(function timeLog(req, res, next) {
 
 router.get('/strava_app', function(req, res) {
   console.log("appel de la route strava_app !");
-  strava_app.main();
+  strava_app.test();
   res.status(200);
 });
 
