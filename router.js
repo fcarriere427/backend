@@ -51,11 +51,6 @@ router.get('/strava_app', function(req, res) {
   res.status(200);
 });
 
-function test() {
-  var doc = document.implementation.createHTMLDocument();
-  doc.body.append('page principale de ma web app Strava !');
-}
-
 router.get('/strava_app/list', function(req, res) {
   dbFun.readDB()
   .then((data) => {
