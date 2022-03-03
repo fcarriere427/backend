@@ -16,17 +16,18 @@ var stravaDb = nano.db.use(DBNAME);
 var existingID = [];
 
 // TO DO
-// function readRec(id) {
-//   return new Promise((resolve, reject) => {
-//     stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
-//       if (!err) {
-//         resolve(body.rows);
-//       } else {
-//         console.log('error = ' + err);
-//       }
-//     });
-//   })
-// }
+function readRec(id) {
+  console.log('dans readRec, id = ' + id);
+  return new Promise((resolve, reject) => {
+    stravaDb.get(xxxxxxx, function(err,body) {
+      if (!err) {
+        resolve(body.rows);
+      } else {
+        console.log('error = ' + err);
+      }
+    });
+  })
+}
 
 function readDB() {
   return new Promise((resolve, reject) => {
@@ -81,7 +82,7 @@ function readID(stravaDb) {
   })
 }
 
-function insertNew(data, stravaDb){
+async function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   return new Promise((resolve, reject) => {
     console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
@@ -99,7 +100,15 @@ function insertNew(data, stravaDb){
         })
       } else {
         count = count + 1;
+        // si on est au dernier enregistrement...
         if(count==data.length){
+          //...  on crée l'index sur l'id Strava
+            const stravaIDIndexDef = {
+            index: { fields: ['id'] },
+            name: 'stravaIdIndex'
+          };
+          const response = await stravaDb.createIndex(stravaIDIndexDef)
+          //... et on renvoie le nb d'enregistrements créés
           console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
           resolve(count_insert);
         }

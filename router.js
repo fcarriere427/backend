@@ -37,19 +37,20 @@ router.use(function timeLog(req, res, next) {
 /////////////////////////////
 
 // TO DO
-// router.get('/strava_app/activity', function(req, res) {
-//   dbFun.readRec(req.query.id)
-//   .then((data) => {
-//     console.log('... enregistrement ' + req + ' renvoyé, OK !');
-//     res.status(200).json(data);
-//   })
-// });
-
-router.get('/strava_app', function(req, res) {
-  console.log("appel de la route strava_app !");
-  //test();
-  res.status(200);
+router.get('/strava_app/activity', function(req, res) {
+  dbFun.readRec(req.query.id)
+  .then((data) => {
+    console.log('... enregistrement ' + req + ' renvoyé, OK !');
+    res.status(200).json(data);
+  })
 });
+
+// TEST A REGARDER PLUS TARD : COMMENT FAIRE POUR AVOIR UNE VRAIE WEBAPP ? (et pas des pages blabla.html)
+// router.get('/strava_app', function(req, res) {
+//   console.log("appel de la route strava_app !");
+//   //test();
+//   res.status(200);
+// });
 
 router.get('/strava_app/list', function(req, res) {
   dbFun.readDB()
