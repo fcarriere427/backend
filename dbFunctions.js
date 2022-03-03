@@ -84,37 +84,35 @@ function readID(stravaDb) {
 
 async function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
-  return new Promise((resolve, reject) => {
-    console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
-    var count = 0;
-    var count_insert = 0;
-    for (let i = 0; i < data.length; i++) {
-      if(!existingID.includes(data[i].id)) {
-        stravaDb.insert(data[i], function(){
-          count = count + 1;
-          count_insert = count_insert + 1;
-          if(count==data.length){
-            console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-            resolve(count_insert);
-          }
-        })
-      } else {
+  console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
+  var count = 0;
+  var count_insert = 0;
+  for (let i = 0; i < data.length; i++) {
+    if(!existingID.includes(data[i].id)) {
+      stravaDb.insert(data[i], function(){
         count = count + 1;
-        // si on est au dernier enregistrement...
+        count_insert = count_insert + 1;
         if(count==data.length){
-          //...  on crée l'index sur l'id Strava
-            const stravaIDIndexDef = {
-            index: { fields: ['id'] },
-            name: 'stravaIdIndex'
-          };
-          const response = await stravaDb.createIndex(stravaIDIndexDef)
-          //... et on renvoie le nb d'enregistrements créés
-          console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-          resolve(count_insert);
+          console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+          return(count_insert);
         }
-      }
+      })
+    } else {
+      // sinon, si l'ID existait déjà, on ne fait rien...
+      count = count + 1;
+      // .sauf si  on est au dernier enregistrement...
+      if(count==data.length){
+        //...  où on crée l'index sur l'id Strava
+          const stravaIDIndexDef = {
+          index: { fields: ['id'] },
+          name: 'stravaIdIndex'
+        const response = await stravaDb.createIndex(stravaIDIndexDef)
+        //... et où on renvoie le nb d'enregistrements créés
+        console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+        return(count_insert);
+      };
     }
-  })
+  }
 }
 
 async function renewDB() {
