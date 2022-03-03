@@ -16,17 +16,15 @@ var stravaDb = nano.db.use(DBNAME);
 var existingID = [];
 
 // TO DO
-function readRec(id) {
+async function readRec(id) {
   console.log('dans readRec, id = ' + id);
-  return new Promise((resolve, reject) => {
-    stravaDb.get(xxxxxxx, function(err,body) {
-      if (!err) {
-        resolve(body.rows);
-      } else {
-        console.log('error = ' + err);
-      }
-    });
-  })
+  await stravaDb.get(dbID, function(err,body) {
+    if (!err) {
+      return(body.rows);
+    } else {
+      console.log('error = ' + err);
+    }
+  });
 }
 
 function readDB() {
@@ -108,6 +106,7 @@ async function insertNew(data, stravaDb){
           name: 'stravaIdIndex'
         };
         const response = await stravaDb.createIndex(stravaIDIndexDef);
+        console.log('      ... index sur ID Strava créé');
         //... et où on renvoie le nb d'enregistrements créés
         console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         return(count_insert);
@@ -138,9 +137,6 @@ function createViewDB() {
       "activities_by_distance":
       {"map": function (doc) { emit (doc.distance, doc); } }
     }
-    // {"activities_by_distance":
-    //   {"map": function (doc) { emit (doc.distance, doc); } }
-    // }
   },
   '_design/strava',
   function (error, response) {

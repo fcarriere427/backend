@@ -22,9 +22,6 @@ var refresh_token = tokens.refresh_token;
 // Fonctions d'accès à la DB
 const dbFun = require('./dbFunctions');
 
-// webapp strava
-//const strava_app = require('./strava_app');
-
 // Log console du router à chaque appel
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
@@ -36,7 +33,7 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 
-// TO DO
+//*********  EN COURS ICI ************ //
 router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then((data) => {
@@ -44,13 +41,6 @@ router.get('/strava_app/activity', function(req, res) {
     res.status(200).json(data);
   })
 });
-
-// TEST A REGARDER PLUS TARD : COMMENT FAIRE POUR AVOIR UNE VRAIE WEBAPP ? (et pas des pages blabla.html)
-// router.get('/strava_app', function(req, res) {
-//   console.log("appel de la route strava_app !");
-//   //test();
-//   res.status(200);
-// });
 
 router.get('/strava_app/list', function(req, res) {
   dbFun.readDB()
@@ -87,9 +77,6 @@ router.get('/strava_app/reload', function(req, res) {
 /////////////////////////////
 
 // REQUETE POUR RECUPERER LES ACTIVITES
-
-
-// REQUETE POUR RECUPERER LES ACTIVITES
 async function getActivities(nbPages) {
   var page = 1;
   var nbActivities = 100;
@@ -104,7 +91,7 @@ async function getActivities(nbPages) {
     .then(data => count = count + data)
     .catch((err) => console.log(err))
   }
-  // fake return!!! Renvoyer le nb de données récupérées = la taille de la DB
+  // on renvoie le nb total d'activités créées
   return(count);
 }
 
