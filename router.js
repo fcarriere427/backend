@@ -38,6 +38,7 @@ router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then((data) => {
     console.log('... enregistrement ' + req + ' renvoyé, OK !');
+    console.log('...data = ' + data);
     res.status(200).json(data);
   })
 });

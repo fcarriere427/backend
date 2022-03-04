@@ -15,9 +15,9 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
-// TO DO
 async function readRec(id) {
   console.log('dans readRec, id = ' + id);
+  // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava
   await stravaDb.get(id, function(err,body) {
     if (!err) {
       return(body.rows);
