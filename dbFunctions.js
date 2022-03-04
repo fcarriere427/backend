@@ -18,6 +18,7 @@ var existingID = [];
 async function readRec(id) {
   console.log('dans readRec, id = ' + id);
 // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
+// ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new
   await stravaDb.get(id, function(err,body) {
     if (!err) {
       return(body.rows);
@@ -83,9 +84,12 @@ function readID(stravaDb) {
 async function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
+  // count = longueur du tableau = tous les enregistrements qu'on a va essayer d'insérer
+  // count_insert = nb d'enregistrements qu'on aura vraimenté insérés ici
   var count = 0;
   var count_insert = 0;
   for (let i = 0; i < data.length; i++) {
+    // si l'ID n'existe pas déjà, on ajoute l'enregistrement
     if(!existingID.includes(data[i].id)) {
       stravaDb.insert(data[i], function(){
         count = count + 1;
