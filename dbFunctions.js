@@ -151,5 +151,6 @@ function createViewDB() {
 module.exports = {
    updateDB,
    renewDB,
-   readDB
+   readDB,
+   readRec
  }
