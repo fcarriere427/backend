@@ -22,7 +22,7 @@ async function readRec(id) {
     if (!err) {
       return(body.rows);
     } else {
-      console.log('error = ' + err);
+      console.log('error readRec = ' + err);
     }
   });
 }
@@ -33,7 +33,7 @@ function readDB() {
       if (!err) {
         resolve(body.rows);
       } else {
-        console.log('error = ' + err);
+        console.log('error readDB = ' + err);
       }
     });
   })
@@ -143,7 +143,7 @@ function createViewDB() {
     if (!error){
       console.log('OK, design created!');
     } else {
-      console.log('ERROR, design not created! Error = ' + error);
+      console.log('Error, design not created! Error = ' + error);
     }
   })
 }
