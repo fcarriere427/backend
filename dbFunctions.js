@@ -18,7 +18,7 @@ var existingID = [];
 // TO DO
 async function readRec(id) {
   console.log('dans readRec, id = ' + id);
-  await stravaDb.get(dbID, function(err,body) {
+  await stravaDb.get(id, function(err,body) {
     if (!err) {
       return(body.rows);
     } else {
