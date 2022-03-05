@@ -26,6 +26,7 @@ async function readRec(id) {
   };
   await stravaDb.find(query, function(err,body) {
     if (!err) {
+      console.log('body.rows = ' + body.rows);
       return(body.rows);
     } else {
       console.log('error readRec = ' + err);
