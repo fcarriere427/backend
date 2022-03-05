@@ -16,12 +16,12 @@ var stravaDb = nano.db.use(DBNAME);
 var existingID = [];
 
 async function readRec(id) {
-  console.log('dans readRec, id = ' + id);
-// ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
-// ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new
+  // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
+  // ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new ?
   const query = {
     selector: {
-      id : { "$eq": id}
+      //id : { "$eq": id }
+      distance : { "$gt" : 10}
     },
   };
   await stravaDb.find(query, function(err,body) {
