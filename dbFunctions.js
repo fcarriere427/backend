@@ -19,7 +19,12 @@ async function readRec(id) {
   console.log('dans readRec, id = ' + id);
 // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
 // ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new
-  await stravaDb.get(id, function(err,body) {
+  const query = {
+    selector: {
+      id : { "$eq": id}
+    },
+  };
+  await stravaDb.find(query, function(err,body) {
     if (!err) {
       return(body.rows);
     } else {
