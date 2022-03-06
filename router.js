@@ -34,6 +34,7 @@ router.use(function timeLog(req, res, next) {
 /////////////////////////////
 
 router.get('/strava_app/updateView', function(req, res) {
+  console.log('appel de updateView');
   dbFun.createViewDB()
   .then(data => {
     res.status(200).json(data);
