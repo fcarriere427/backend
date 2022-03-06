@@ -45,8 +45,7 @@ router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then(data => {
 //*********  EN COURS ICI ************ //
-    console.log('... enregistrement avec id = ' + req.query.id + ' renvoyé, OK !');
-    console.log('...data = ' + data[1].distance);
+    console.log('...data = ' + data.distance);
     res.status(200).json(data);
   })
 });
