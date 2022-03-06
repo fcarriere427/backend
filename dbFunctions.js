@@ -20,7 +20,8 @@ function readRec(id) {
     // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
     // ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new ?
     console.log('récupération du doc avec id = ' + id);
-    stravaDb.view('strava', 'activities_by_id',{key: [id], include_docs: true}, function(err,body) {
+    var id_str = id.toString();
+    stravaDb.view('strava', 'activities_by_id',{key: id_str, include_docs: true}, function(err,body) {
       if (!err) {
         console.log('on récupère : ' + JSON.stringify(body));
         resolve(body);
@@ -134,11 +135,11 @@ function createViewDB() {
   stravaDb.insert(
   {"views":
     { "activities_by_date":
-      {"map": function (doc) { emit (doc.start_date, doc); } },
+      {"map": function (doc) { emit (doc.start_date, doc.id); } },
       "activities_by_distance":
-      {"map": function (doc) { emit (doc.distance, doc); } },
+      {"map": function (doc) { emit (doc.distance, doc.id); } },
       "activities_by_id":
-      {"map": function (doc) { emit (doc.id, doc); } },
+      {"map": function (doc) { emit (doc.id, doc.id); } },
     }
   },
   '_design/strava',
