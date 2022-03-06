@@ -15,23 +15,19 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
-async function readRec(id) {
-  // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
-  // ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new ?
-  const query = {
-    selector: {
-      //id : { "$eq": id }
-      distance : { "$gt" : 10}
-    },
-  };
-  await stravaDb.find(query, function(err,body) {
-    if (!err) {
-      console.log('body.rows = ' + body.rows);
-      return(body.rows);
-    } else {
-      console.log('error readRec = ' + err);
-    }
-  });
+function readRec(id) {
+  return new Promise((resolve, reject) => {
+    // ******* REPRENDRE ICI : comment récupérer le bon doc, avec l'ID Strava ?
+    // ******* COMMENT UTILISER L'INDEX qu'on a créé dans insert_new ?
+    console.log('récupération du doc avec id = : ' + id);
+    stravaDb.view('strava', 'activities_by_id',{key: id, include_docs: true}, function(err,body) {
+      if (!err) {
+        resolve(body.rows);
+      } else {
+        console.log('error readDB = ' + err);
+      }
+    });
+  })
 }
 
 function readDB() {
@@ -111,11 +107,11 @@ async function insertNew(data, stravaDb){
       // .sauf si  on est au dernier enregistrement...
       if(count==data.length){
         //...  où on crée l'index sur l'id Strava
-        const stravaIDIndexDef = {
-          index: { fields: ['id'] },
-          name: 'stravaIdIndex'
-        };
-        const response = await stravaDb.createIndex(stravaIDIndexDef);
+        // const stravaIDIndexDef = {
+        //   index: { fields: ['id'] },
+        //   name: 'stravaIdIndex'
+        // };
+        // const response = await stravaDb.createIndex(stravaIDIndexDef);
         console.log('      ... index sur ID Strava créé');
         //... et où on renvoie le nb d'enregistrements créés
         console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
@@ -145,7 +141,9 @@ function createViewDB() {
     { "activities_by_date":
       {"map": function (doc) { emit (doc.start_date, doc); } },
       "activities_by_distance":
-      {"map": function (doc) { emit (doc.distance, doc); } }
+      {"map": function (doc) { emit (doc.distance, doc); } },
+      "activities_by_id":
+      {"map": function (doc) { emit (doc.id, doc); } },
     }
   },
   '_design/strava',
