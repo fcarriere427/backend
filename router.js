@@ -35,7 +35,8 @@ router.use(function timeLog(req, res, next) {
 
 router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
-  .then((data) => {
+  .then(data => data.json())
+  .then(data => {
 //*********  EN COURS ICI ************ //
     console.log('... enregistrement avec id = ' + req.query.id + ' renvoyé, OK !');
     console.log('...data = ' + data.distance);
