@@ -107,15 +107,6 @@ async function insertNew(data, stravaDb){
       // .sauf si  on est au dernier enregistrement...
       if(count==data.length){
 
-        // TMP ???
-        //...  où on crée l'index sur l'id Strava
-        // const stravaIDIndexDef = {
-        //   index: { fields: ['id'] },
-        //   name: 'stravaIdIndex'
-        // };
-        // const response = await stravaDb.createIndex(stravaIDIndexDef);
-        //console.log('      ... index sur ID Strava créé');
-
         //... et où on renvoie le nb d'enregistrements créés
         console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         return(count_insert);
@@ -153,7 +144,6 @@ function createViewDB() {
   function (error, response) {
     if (!error){
       console.log('OK, design created!');
-      return('DB views updated');
     } else {
       console.log('Error, design not created! Error = ' + error);
     }
@@ -164,6 +154,5 @@ module.exports = {
    updateDB,
    renewDB,
    readDB,
-   readRec,
-   createViewDB
+   readRec
  }

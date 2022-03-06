@@ -71,7 +71,9 @@ router.get('/strava_app/update', function(req, res) {
 
 router.get('/strava_app/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-  var nbPages = 7;
+  //var nbPages = 7;
+//***  TEST pour limiter...
+  var nbPages = 1;
   dbFun.renewDB()
   .then(() => renewTokens())
   .then(() => getActivities(nbPages))
