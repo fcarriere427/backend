@@ -34,7 +34,7 @@ router.use(function timeLog(req, res, next) {
 /////////////////////////////
 
 router.get('/strava_app/activity', function(req, res) {
-  await dbFun.readRec(req.query.id)
+  dbFun.readRec(req.query.id)
   .then((data) => {
 //*********  EN COURS ICI ************ //
     console.log('... enregistrement avec id = ' + req.query.id + ' renvoyé, OK !');
