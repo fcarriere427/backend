@@ -164,5 +164,6 @@ module.exports = {
    updateDB,
    renewDB,
    readDB,
-   readRec
+   readRec,
+   createViewDB
  }
