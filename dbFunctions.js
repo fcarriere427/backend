@@ -106,13 +106,16 @@ async function insertNew(data, stravaDb){
       count = count + 1;
       // .sauf si  on est au dernier enregistrement...
       if(count==data.length){
+
+        // TMP ???
         //...  où on crée l'index sur l'id Strava
         // const stravaIDIndexDef = {
         //   index: { fields: ['id'] },
         //   name: 'stravaIdIndex'
         // };
         // const response = await stravaDb.createIndex(stravaIDIndexDef);
-        console.log('      ... index sur ID Strava créé');
+        //console.log('      ... index sur ID Strava créé');
+
         //... et où on renvoie le nb d'enregistrements créés
         console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         return(count_insert);
