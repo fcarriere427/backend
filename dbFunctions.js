@@ -22,15 +22,20 @@ function readRec(id) {
     console.log('id_key = ' + id_key);
 
 // ******* REPRENDRE ICI : comment passer l'id dans la key ???
+    // stravaDb.view('strava', 'activities_by_id', { key: ('"'+ id +'"'), include_docs: true }, function(err,body) {
+    //   if (!err) {
+    //     console.log('on récupère : ' + JSON.stringify(body));
+    //     resolve(body);
+    //   } else {
+    //     console.log('error readDB = ' + err);
+    //   }
+    // });
 
-    stravaDb.view('strava', 'activities_by_id', { key: ('"'+ id + '"'), include_docs: true }, function(err,body) {
-      if (!err) {
-        console.log('on récupère : ' + JSON.stringify(body));
+
+    const query = { selector: { id: { "$eq": id } } }
+    stravaDb.find(query, function(err,body) {
         resolve(body);
-      } else {
-        console.log('error readDB = ' + err);
-      }
-    });
+    })
   })
 }
 
