@@ -153,6 +153,7 @@ function createViewDB() {
   function (error, response) {
     if (!error){
       console.log('OK, design created!');
+      return('DB views updated');
     } else {
       console.log('Error, design not created! Error = ' + error);
     }

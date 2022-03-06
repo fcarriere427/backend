@@ -33,6 +33,13 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 
+router.get('/strava_app/updateView', function(req, res) {
+  dbFun.createViewDB()
+  .then(data => {
+    res.status(200).json(data);
+  })
+});
+
 router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then(data => {
