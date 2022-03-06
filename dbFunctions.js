@@ -22,7 +22,7 @@ function readRec(id) {
     console.log('récupération du doc avec id = ' + id);
     var id_key = '"' + id + '"';
     console.log('id_key = ' + id_key);
-    stravaDb.view('strava', 'activities_by_id', {key: id_key, include_docs: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_id', {key: :id, include_docs: true}, function(err,body) {
       if (!err) {
         console.log('on récupère : ' + JSON.stringify(body));
         resolve(body);
