@@ -25,10 +25,10 @@ function readRec(id) {
       include_docs: true,
     }, function(err,body) {
       if (!err) {
+        // for each... mais il n'y a qu'une ligne normalement !
         body.rows.forEach((doc) => {
-           console.log(doc.doc)
+          resolve(doc.doc)
         })
-        //resolve(body.rows);
       } else {
         console.log('error readRec = ' + JSON.stringify(err));
       }

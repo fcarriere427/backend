@@ -33,19 +33,11 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 
-router.get('/strava_app/updateView', function(req, res) {
-  console.log('appel de updateView');
-  dbFun.createViewDB()
-  .then(data => {
-    res.status(200).json(data);
-  })
-});
-
 router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then(data => {
 //*********  EN COURS ICI ************ //
-    console.log('...data = ' + data.rows[1].distance);
+    console.log('On récupère data.distance = ' + data.distance);
     res.status(200).json(data);
   })
 });
