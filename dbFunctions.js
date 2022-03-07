@@ -19,23 +19,23 @@ function readRec(id) {
   return new Promise((resolve, reject) => {
 
 // ******* REPRENDRE ICI : comment passer l'id dans la key ???
-  // console.log('récupération du doc avec id = ' + id);
-  // var id_key = '"' + id + '"';
-  // console.log('id_key = ' + id_key);
-// stravaDb.view('strava', 'activities_by_id', { key: ('"'+ id +'"'), include_docs: true }, function(err,body) {
-    //   if (!err) {
-    //     console.log('on récupère : ' + JSON.stringify(body));
-    //     resolve(body);
-    //   } else {
-    //     console.log('error readDB = ' + err);
-    //   }
-    // });
+  console.log('récupération du doc avec id = ' + id);
+  stravaDb.view('strava', 'activities_by_id', { key: [id], include_docs: true }, function(err,body) {
+      if (!err) {
+        console.log('on récupère : ' + JSON.stringify(body));
+        resolve(body);
+      } else {
+        console.log('error readDB = ' + err);
+      }
+    });
 
-    const query = { selector: { id: { "$eq": id } } }
-    stravaDb.find(query, function(err,body) {
-      console.log('on récupère : ' + JSON.stringify(body));
-      resolve(body);
-    })
+// ******* TEST AVEC QUERY : KO...
+    // const query = { selector: { id: { "$eq": id } } }
+    // stravaDb.find(query, function(err,body) {
+    //   console.log('on récupère : ' + JSON.stringify(body));
+    //   resolve(body);
+    // })
+
   })
 }
 
