@@ -31,7 +31,7 @@ function readRec(id) {
         })
         //resolve(body.rows);
       } else {
-        console.log('error readDB = ' + err);
+        console.log('error readRec = ' + err);
       }
     });
   })
