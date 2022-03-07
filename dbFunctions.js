@@ -20,13 +20,13 @@ function readRec(id) {
     console.log('récupération du doc avec id = ' + id);
     stravaDb.view('strava', 'activities_by_id', {
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
-      //key: [id.toString()],
+    // l'encapsulation entre crochets ou guillemets ne fonctionne pas
       key: 6739485649,
       include_docs: true,
     }, function(err,body) {
       if (!err) {
-        console.log('on récupère : ' + JSON.stringify(body));
-        resolve(body);
+        console.log('on récupère body.rows : ' + JSON.stringify(body.rows));
+        resolve(body.rows);
       } else {
         console.log('error readDB = ' + err);
       }
