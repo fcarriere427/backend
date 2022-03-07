@@ -18,16 +18,19 @@ var existingID = [];
 function readRec(id) {
   return new Promise((resolve, reject) => {
 
-// ******* REPRENDRE ICI : comment passer l'id dans la key ???
   console.log('récupération du doc avec id = ' + id);
-  stravaDb.view('strava', 'activities_by_id', { key: [("'" + id + "'")], include_docs: true }, function(err,body) {
+  stravaDb.view('strava', 'activities_by_id', {
+    // ******* REPRENDRE ICI : comment passer l'id dans la key ???
+    key: [("'" + id + "'")],
+    include_docs: true
+  }, function(err,body) {
       if (!err) {
         console.log('on récupère : ' + JSON.stringify(body));
         resolve(body);
       } else {
         console.log('error readDB = ' + err);
       }
-    });
+  });
 
 // ******* TEST AVEC QUERY : KO...
     // const query = { selector: { id: { "$eq": id } } }
