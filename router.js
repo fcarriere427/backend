@@ -36,8 +36,7 @@ router.use(function timeLog(req, res, next) {
 router.get('/strava_app/activity', function(req, res) {
   dbFun.readRec(req.query.id)
   .then(data => {
-//*********  EN COURS ICI ************ //
-    console.log('On récupère data.distance = ' + data.distance);
+    console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
     res.status(200).json(data);
   })
 });
@@ -62,9 +61,7 @@ router.get('/strava_app/update', function(req, res) {
 
 router.get('/strava_app/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-  //var nbPages = 7;
-//***  TEST pour limiter...
-  var nbPages = 1;
+  var nbPages = 7;
   dbFun.renewDB()
   .then(() => renewTokens())
   .then(() => getActivities(nbPages))
