@@ -26,9 +26,9 @@ function readRec(id) {
     }, function(err,body) {
       if (!err) {
         console.log('on récupère body.rows.doc.id : ' + JSON.stringify(body.rows.doc.id));
-        body.rows.forEach((doc) => {
-          console.log(doc.value)
-        })
+        // body.rows.forEach((doc) => {
+        //   console.log(doc.value)
+        // })
         //resolve(body.rows);
       } else {
         console.log('error readRec = ' + JSON.stringify(err));
