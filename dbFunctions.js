@@ -25,8 +25,8 @@ function readRec(id) {
       include_docs: true,
     }, function(err,body) {
       if (!err) {
-        console.log('on récupère body.rows : ' + JSON.stringify(body.rows));
-        resolve(body.rows);
+        console.log('on récupère body.rows[1] : ' + JSON.stringify(body.rows[1]));
+        resolve(body.rows[1]);
       } else {
         console.log('error readDB = ' + err);
       }
