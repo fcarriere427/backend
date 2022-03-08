@@ -27,6 +27,7 @@ function readRec(id) {
       console.log('on est dans le callback !');
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
+        console.log('pas d`\'erreur !');
         body.rows.forEach((doc) => {
           console.log('on va renvoyer qq chose !');
           resolve(doc.doc);
