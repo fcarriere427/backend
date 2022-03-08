@@ -18,12 +18,10 @@ var existingID = [];
 function readRec(id) {
   return new Promise((resolve, reject) => {
     console.log('récupération du doc avec id = ' + id);
-    stravaDb.view('strava', 'activities_by_id', {
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
-      key: 6739485649,
-      include_docs: true,
-    }, function(err,body) {
+    const opts = {"key" : id, "include_docs" : "true"};
+    stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
         body.rows.forEach((doc) => {
