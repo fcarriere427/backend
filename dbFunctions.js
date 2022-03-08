@@ -20,7 +20,7 @@ function readRec(id) {
     console.log('récupération du doc avec id = ' + id);
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
-    const opts = {key: id, include_docs: true};
+    const opts = "{key: id, include_docs: true}";
     console.log('opts = ' + opts);
     stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
     //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
