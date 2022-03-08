@@ -24,6 +24,7 @@ function readRec(id) {
     console.log('opts = ' + opts);
     stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
     //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
+      console.log('on est dans le callback !');
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
         body.rows.forEach((doc) => {
