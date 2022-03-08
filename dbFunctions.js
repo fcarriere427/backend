@@ -28,8 +28,9 @@ function readRec(id) {
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
         console.log('pas d`\'erreur !');
+        const i = 1;
         body.rows.forEach((doc) => {
-          console.log('on renvoie : ' + doc.doc);
+          console.log('on renvoie la ligne ' + i + ' = ' doc);
           //resolve(doc.doc);
         })
       } else {
