@@ -22,8 +22,8 @@ function readRec(id) {
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
     const opts = "{key:" + id + ", include_docs: true}";
     console.log('opts = ' + opts);
-    stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
-    //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
+    //stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
+    stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
       console.log('on est dans le callback !');
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
