@@ -21,7 +21,7 @@ function readRec(id) {
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
     const opts = {"key" : id, "include_docs" : "true"};
-    console.log('opts = ' + opts);
+    console.log('opts = ' + JSON.stringify(opts));
     stravaDb.view('strava', 'activities_by_id', opts, function(err,body) {
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
