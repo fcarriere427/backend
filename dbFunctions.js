@@ -21,6 +21,9 @@ function readRec(id) {
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
     opts = id.split();
+    console.log('typeof opts : ' + typeof(opts));
+    console.log('opts : ' + opts);
+
     stravaDb.view('strava', 'activities_by_id', {key: opts, include_docs: true}, function(err,body) {
     //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
       if (!err) {
