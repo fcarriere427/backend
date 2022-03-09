@@ -32,8 +32,8 @@ function readRec(id) {
         body.rows.forEach((doc) => {
           console.log('on renvoie = ' + JSON.stringify(doc));
           //   i = i + 1;
-        //   console.log('on renvoie la ligne ' + i) //+ ' = ' + JSON.stringify(doc));
-        //   //resolve(doc.doc);
+          //   console.log('on renvoie la ligne ' + i) //+ ' = ' + JSON.stringify(doc));
+          resolve(doc.doc);
         })
       } else {
         console.log('error readRec = ' + JSON.stringify(err));
