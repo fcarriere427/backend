@@ -29,8 +29,9 @@ function readRec(id) {
         // for each... mais il n'y a qu'une ligne normalement !
         console.log('pas d`\'erreur !');
         // const i = 0;
-        // body.rows.forEach((doc) => {
-        //   i = i + 1;
+        body.rows.forEach((doc) => {
+          console.log('on renvoie = ' + JSON.stringify(doc));
+          //   i = i + 1;
         //   console.log('on renvoie la ligne ' + i) //+ ' = ' + JSON.stringify(doc));
         //   //resolve(doc.doc);
         // })
