@@ -34,7 +34,7 @@ function readRec(id) {
           //   i = i + 1;
         //   console.log('on renvoie la ligne ' + i) //+ ' = ' + JSON.stringify(doc));
         //   //resolve(doc.doc);
-        // })
+        })
       } else {
         console.log('error readRec = ' + JSON.stringify(err));
       }
