@@ -20,7 +20,7 @@ function readRec(id) {
     console.log('récupération du doc avec id = ' + id);
     // ******* REPRENDRE ICI : comment passer l'id dans la key ???
     // l'encapsulation entre crochets ou guillemets ne fonctionne pas
-    opts = "[" + id.split() + "]";
+    opts = ("[" + id + "]").split();
     console.log('typeof opts : ' + typeof(opts));
     console.log('opts : ' + opts);
 
