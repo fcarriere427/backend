@@ -17,25 +17,12 @@ var existingID = [];
 
 function readRec(id) {
   return new Promise((resolve, reject) => {
-    console.log('récupération du doc avec id = ' + id);
-    // ******* REPRENDRE ICI : comment passer l'id dans la key ???
-    // l'encapsulation entre crochets ou guillemets ne fonctionne pas
-    // opts = ("[" + id + "]").split();
-    const opts = parseInt(id);
-    console.log('typeof opts : ' + typeof(opts));
-    console.log('opts : ' + opts);
-
-    stravaDb.view('strava', 'activities_by_id', {key: opts, include_docs: true}, function(err,body) {
+    const idNum = parseInt(id);
+    stravaDb.view('strava', 'activities_by_id', {key: idNum, include_docs: true}, function(err,body) {
     //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
-        console.log('nb de lignes = ' + body.rows.length);
-        body.rows.forEach((doc) => {
-          console.log('on renvoie = ' + JSON.stringify(doc));
-          //   i = i + 1;
-          //   console.log('on renvoie la ligne ' + i) //+ ' = ' + JSON.stringify(doc));
-          resolve(doc.doc);
-        })
+        body.rows.forEach(doc => { resolve(doc.doc) })
       } else {
         console.log('error readRec = ' + JSON.stringify(err));
       }
