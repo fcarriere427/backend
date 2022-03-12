@@ -32,7 +32,7 @@ function readRec(id) {
 
 function readDB() {
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_year',{key: 2022, include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         resolve(body.rows);
       } else {
@@ -138,6 +138,12 @@ function createViewDB() {
       {"map": function (doc) { emit (doc.distance, null); } },
       "activities_by_id":
       {"map": function (doc) { emit (doc.id, null); } },
+      "activities_by_year":
+      {"map": function (doc) {
+          let key = doc.start_date.getFullYear();
+          emit (key, null);
+        }
+      }
     }
   },
   '_design/strava',
