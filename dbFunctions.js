@@ -143,7 +143,7 @@ function createViewDB() {
             const [year, month, day] = date.split("-");
             emit([year, month, day], doc.distance);
           }
-        }
+        },
         "reduce":"_sum";
       },
       "activities_by_distance": {
