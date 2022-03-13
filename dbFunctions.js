@@ -15,8 +15,7 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
-function readMonthTotal(period) {
-  const [year, month] = period.split('-');
+function readMonthTotal() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
       if (!err) {
