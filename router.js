@@ -23,11 +23,11 @@ var refresh_token = tokens.refresh_token;
 const dbFun = require('./dbFunctions');
 
 // Log console du router à chaque appel
-router.use(function timeLog(req, res, next) {
-  let newDate = new Date(Date.now());
-  console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
-  next();
-});
+// router.use(function timeLog(req, res, next) {
+//   let newDate = new Date(Date.now());
+//   console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+//   next();
+// });
 
 /////////////////////////////
 ///////// ROUTES ////////////
@@ -75,7 +75,7 @@ router.get('/strava_app/reload', function(req, res) {
 router.get('/strava_app/month_distance', function(req, res) {
   dbFun.readMonthTotal(req.query.id) // format AAAA-MM
   .then((data) => {
-    console.log('... on renvoie la distance du mois' + req.query.id +', OK !');
+    console.log('... renvoi de la distance du mois' + req.query.id +', OK !');
     res.status(200).json(data);
   })
 });
@@ -106,9 +106,7 @@ async function getActivities(nbPages) {
 
 // REQUETE POUR RECUPERER
 // Nécessaire pour avoir tout le détail, notamment la ville...
-function getDetailedActivity(id){
-
-}
+// function getDetailedActivity(id){}
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN
 async function renewTokens() {
