@@ -15,11 +15,23 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
+function readMonthTotal(period) {
+  const [year, month] = period.split('-');
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'activities_by_date', {reduce: true, group: true}, function(err,body) {
+      if (!err) {
+        resolve(body);
+      } else {
+        console.log('error readMonthTotal = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
 function readRec(id) {
   return new Promise((resolve, reject) => {
-    const idNum = parseInt(id);
+    const idNum = parseInt(id); /// des heures pour trouver ça... :-(
     stravaDb.view('strava', 'activities_by_id', {key: idNum, include_docs: true}, function(err,body) {
-    //stravaDb.view('strava', 'activities_by_id', {key: 6739485649, include_docs: true}, function(err,body) {
       if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
         body.rows.forEach(doc => { resolve(doc.doc) })
@@ -139,7 +151,7 @@ function createViewDB() {
       "activities_by_date": {
         "map": function (doc) {
           if(doc.type == 'Run') {
-            const [date, time] = document.start_date.split("T");
+            const [date, time] = doc.start_date.split("T");
             const [year, month, day] = date.split("-");
             emit([year, month, day], doc.distance);
           }
@@ -168,5 +180,6 @@ module.exports = {
    updateDB,
    renewDB,
    readDB,
-   readRec
+   readRec,
+   readMonthTotal
  }
