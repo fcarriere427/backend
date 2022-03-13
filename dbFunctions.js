@@ -108,7 +108,6 @@ async function insertNew(data, stravaDb){
       count = count + 1;
       // .sauf si  on est au dernier enregistrement...
       if(count==data.length){
-
         //... et où on renvoie le nb d'enregistrements créés
         console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
         return(count_insert);
