@@ -134,14 +134,24 @@ async function renewDB() {
 }
 
 function createViewDB() {
-  stravaDb.insert(
-  {"views":
-    { "activities_by_date":
-      {"map": function (doc) { if(doc.type == 'Run') emit (doc.start_date, null); } },
-      "activities_by_distance":
-      {"map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); } },
-      "activities_by_id":
-      {"map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); } },
+  stravaDb.insert({
+    "views":{
+      "activities_by_date": {
+        "map": function (doc) {
+          if(doc.type == 'Run') {
+            const [date, time] = document.start_date.split("T");
+            const [year, month, day] = date.split("-");
+            emit([year, month, day], doc.distance);
+          }
+        }
+        "reduce":"_sum";
+      },
+      "activities_by_distance": {
+        "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
+      },
+      "activities_by_id": {
+        "map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); }
+      },
     }
   },
   '_design/strava',
