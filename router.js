@@ -76,6 +76,7 @@ router.get('/strava_app/reload', function(req, res) {
 /////////////////////////////
 
 // REQUETE POUR RECUPERER LE SOMMAIRE DES ACTIVITES (https://developers.strava.com/docs/reference/#api-models-SummaryActivity)
+// NB : parfois besoin des activités détaillées (https://developers.strava.com/docs/reference/#api-models-DetailedActivity) --> pas fait ici
 async function getActivities(nbPages) {
   var page = 1;
   var nbActivities = 100;
@@ -92,6 +93,12 @@ async function getActivities(nbPages) {
   }
   // on renvoie le nb total d'activités créées
   return(count);
+}
+
+// REQUETE POUR RECUPERER
+// Nécessaire pour avoir tout le détail, notamment la ville...
+function getDetailedActivity(id){
+
 }
 
 // REQUETE POUR RENOUVELLER LE REFRESH_TOKEN

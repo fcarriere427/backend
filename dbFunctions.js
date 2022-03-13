@@ -54,6 +54,7 @@ function updateDB(data, page) {
   })
 }
 
+
 function readID(stravaDb) {
   return new Promise((resolve, reject) => {
     //console.log("      ... mise à jour du tableau des ID Strava, à partir de la BDD existante...");
