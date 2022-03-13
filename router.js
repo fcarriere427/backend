@@ -87,7 +87,10 @@ async function getActivities(nbPages) {
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
     await httpsRequest(options)
     .then(data => dbFun.updateDB(data, page))
-    .then(data => count = count + data)
+    .then(data => {
+      count = count + data;
+      console.log('count = ' + count);
+    })
     .catch((err) => console.log(err))
   }
   // on renvoie le nb total d'activités créées
