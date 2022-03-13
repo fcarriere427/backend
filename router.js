@@ -89,6 +89,7 @@ async function getActivities(nbPages) {
     .then(data => dbFun.updateDB(data, page))
     .then(data => {
       console.log('count avant = ' + count);
+      console.log('data = ' + data);
       count = count + data;
       console.log('count après = ' + count);
     })
