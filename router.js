@@ -91,6 +91,7 @@ async function getActivities(nbPages) {
     .catch((err) => console.log(err))
   }
   // on renvoie le nb total d'activités créées
+  console.log('getActivities renvoie ' + count + 'lignes');
   return(count);
 }
 
