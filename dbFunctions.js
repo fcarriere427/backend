@@ -88,35 +88,37 @@ function readID(stravaDb) {
   })
 }
 
-async function insertNew(data, stravaDb){
+function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
-  // count = longueur du tableau = tous les enregistrements qu'on a va essayer d'insérer
-  // count_insert = nb d'enregistrements qu'on aura vraimenté insérés ici
-  var count = 0;
-  var count_insert = 0;
-  for (let i = 0; i < data.length; i++) {
-    // si l'ID n'existe pas déjà, on ajoute l'enregistrement
-    if(!existingID.includes(data[i].id)) {
-      stravaDb.insert(data[i], function(){
+  return new Promise((resolve, reject) => {
+    // count = longueur du tableau = tous les enregistrements qu'on a va essayer d'insérer
+    // count_insert = nb d'enregistrements qu'on aura vraimenté insérés ici
+    var count = 0;
+    var count_insert = 0;
+    for (let i = 0; i < data.length; i++) {
+      // si l'ID n'existe pas déjà, on ajoute l'enregistrement
+      if(!existingID.includes(data[i].id)) {
+        stravaDb.insert(data[i], function(){
+          count = count + 1;
+          count_insert = count_insert + 1;
+          if(count==data.length){
+            console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+            resolve(count_insert);
+          }
+        })
+      } else {
+        // sinon, si l'ID existait déjà, on ne fait rien...
         count = count + 1;
-        count_insert = count_insert + 1;
+        // .sauf si  on est au dernier enregistrement...
         if(count==data.length){
-          console.log('   ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-          return(count_insert);
-        }
-      })
-    } else {
-      // sinon, si l'ID existait déjà, on ne fait rien...
-      count = count + 1;
-      // .sauf si  on est au dernier enregistrement...
-      if(count==data.length){
-        //... et où on renvoie le nb d'enregistrements créés
-        console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
-        return(count_insert);
-      };
+          //... et où on renvoie le nb d'enregistrements créés
+          console.log('      ... OK, DB mise à jour avec ' + count_insert + ' élements (sur les ' + data.length + ' initiaux)');
+          resolve(count_insert);
+        };
+      }
     }
-  }
+  })
 }
 
 async function renewDB() {
