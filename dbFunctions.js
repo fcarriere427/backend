@@ -50,10 +50,7 @@ function updateDB(data, page) {
     console.log('   ... mise à jour de la DB avec la page ' + page + '...');
     readID(stravaDb)
     .then(() => insertNew(data,stravaDb))
-    .then(data => {
-      console.log('updateDB renvoie : ' + data);
-      resolve(data);
-    })
+    .then(data => resolve(data))
   })
 }
 
