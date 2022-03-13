@@ -18,7 +18,7 @@ var existingID = [];
 function readMonthTotal(period) {
   const [year, month] = period.split('-');
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date', {reduce: true, group: true}, function(err,body) {
+    stravaDb.view('strava', 'group_by_month', {reduce: true, group: true}, function(err,body) {
       if (!err) {
         resolve(body);
       } else {
