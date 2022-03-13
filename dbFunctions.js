@@ -30,9 +30,11 @@ function readRec(id) {
   })
 }
 
-function readDB() {
+function readDB(year) {
+  let s_key = year + "-12-31T23:59:59Z";
+  let e_key = year + "-01-01T00:00:00Z";
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{startkey: "2023-01-01T00:00:00Z", endkey: "2022-01-01T00:00:00Z",include_docs: true, descending: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key,include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         resolve(body.rows);
       } else {
