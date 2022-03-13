@@ -9,11 +9,11 @@ var router = express.Router();
 
 var router_js = require('./router');
 
-app.use(function timeLog(req, res, next) {
-  let newDate = new Date(Date.now());
-  console.log(`***** App use: ${newDate.toDateString()} ${newDate.toTimeString()}`);
-  next();
-});
+// app.use(function timeLog(req, res, next) {
+//   let newDate = new Date(Date.now());
+//   console.log(`***** App use: ${newDate.toDateString()} ${newDate.toTimeString()}`);
+//   next();
+// });
 
 app.use(router_js);
 
