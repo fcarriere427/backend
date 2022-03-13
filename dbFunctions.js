@@ -17,7 +17,6 @@ var existingID = [];
 
 function readMonthTotal(period) {
   const [year, month] = period.split('-');
-  console.log('dans readMonthTotal, on a year = ' + year + ' et month = ' + month);
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group: true}, function(err,body) {
       if (!err) {
