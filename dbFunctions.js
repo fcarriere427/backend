@@ -135,9 +135,9 @@ function createViewDB() {
   stravaDb.insert(
   {"views":
     { "activities_by_date":
-      {"map": function (doc) { emit (doc.start_date, null); } },
+      {"map": function (doc) { if(doc.type == 'Run') emit (doc.start_date, null); } },
       "activities_by_distance":
-      {"map": function (doc) { emit (doc.distance, null); } },
+      {"map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); } },
       "activities_by_id":
       {"map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); } },
     }
