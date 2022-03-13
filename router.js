@@ -34,7 +34,7 @@ router.use(function timeLog(req, res, next) {
 /////////////////////////////
 
 router.get('/strava_app/activity', function(req, res) {
-  dbFun.readRec(req.query.id)
+  dbFun.readRec(req.query.id) // id de l'activité
   .then(data => {
     console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
     res.status(200).json(data);
@@ -42,7 +42,7 @@ router.get('/strava_app/activity', function(req, res) {
 });
 
 router.get('/strava_app/list', function(req, res) {
-  dbFun.readDB()
+  dbFun.readDB(req.query.id) // année pour filtrer
   .then((data) => {
     console.log("... liste des activités renvoyée, OK !");
     res.status(200).json(data);
