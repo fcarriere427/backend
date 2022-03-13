@@ -144,7 +144,7 @@ function createViewDB() {
             emit([year, month, day], doc.distance);
           }
         },
-        "reduce":"_sum";
+        "reduce":"_sum"
       },
       "activities_by_distance": {
         "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
