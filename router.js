@@ -88,8 +88,9 @@ async function getActivities(nbPages) {
     await httpsRequest(options)
     .then(data => dbFun.updateDB(data, page))
     .then(data => {
+      console.log('count avant = ' + count);
       count = count + data;
-      console.log('count = ' + count);
+      console.log('count après = ' + count);
     })
     .catch((err) => console.log(err))
   }
