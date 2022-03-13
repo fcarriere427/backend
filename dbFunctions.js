@@ -31,10 +31,10 @@ function readRec(id) {
 }
 
 function readDB(year) {
-  let s_key = year + "-12-31T23:59:59Z";
+  let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
   let e_key = year + "-01-01T00:00:00Z";
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key,include_docs: true, descending: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key, include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         resolve(body.rows);
       } else {
@@ -139,7 +139,11 @@ function createViewDB() {
       "activities_by_distance":
       {"map": function (doc) { emit (doc.distance, null); } },
       "activities_by_id":
-      {"map": function (doc) { emit (doc.id, null); } }
+      {"map": function (doc) {
+        if(doc.type == 'Run') {
+          emit (doc.id, null);
+        }
+      }
     }
   },
   '_design/strava',
