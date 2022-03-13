@@ -149,6 +149,15 @@ function createViewDB() {
   stravaDb.insert({
     "views":{
       "activities_by_date": {
+        "map": function (doc) { if(doc.type == 'Run') emit(doc.start_date, doc.distance) }
+      },
+      "activities_by_distance": {
+        "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
+      },
+      "activities_by_id": {
+        "map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); }
+      },
+      "group_by_month": {
         "map": function (doc) {
           if(doc.type == 'Run') {
             const [date, time] = doc.start_date.split("T");
@@ -157,13 +166,7 @@ function createViewDB() {
           }
         },
         "reduce":"_sum"
-      },
-      "activities_by_distance": {
-        "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
-      },
-      "activities_by_id": {
-        "map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); }
-      },
+      }
     }
   },
   '_design/strava',
