@@ -139,11 +139,7 @@ function createViewDB() {
       "activities_by_distance":
       {"map": function (doc) { emit (doc.distance, null); } },
       "activities_by_id":
-      {"map": function (doc) {
-        if(doc.type == 'Run') {
-          emit (doc.id, null);
-        }
-      }
+      {"map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); }
     }
   },
   '_design/strava',
