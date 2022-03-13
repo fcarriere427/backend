@@ -71,7 +71,6 @@ router.get('/strava_app/reload', function(req, res) {
   })
 });
 
-
 router.get('/strava_app/month_distance', function(req, res) {
   dbFun.readMonthTotal()
   .then((data) => {
