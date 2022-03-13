@@ -75,7 +75,7 @@ router.get('/strava_app/reload', function(req, res) {
 //////// FONCTIONS //////////
 /////////////////////////////
 
-// REQUETE POUR RECUPERER LES ACTIVITES
+// REQUETE POUR RECUPERER LE SOMMAIRE DES ACTIVITES (https://developers.strava.com/docs/reference/#api-models-SummaryActivity)
 async function getActivities(nbPages) {
   var page = 1;
   var nbActivities = 100;
