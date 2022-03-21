@@ -33,7 +33,7 @@ const dbFun = require('./dbFunctions');
 ///////// ROUTES ////////////
 /////////////////////////////
 
-router.get('/strava_app/activity', function(req, res) {
+router.get('/strava_old/activity', function(req, res) {
   dbFun.readRec(req.query.id) // id de l'activité
   .then(data => {
     console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
@@ -41,7 +41,7 @@ router.get('/strava_app/activity', function(req, res) {
   })
 });
 
-router.get('/strava_app/list', function(req, res) {
+router.get('/strava_old/list', function(req, res) {
   dbFun.readDB(req.query.id) // année pour filtrer
   .then((data) => {
     console.log("... liste des activités renvoyée, OK !");
@@ -49,7 +49,7 @@ router.get('/strava_app/list', function(req, res) {
   })
 });
 
-router.get('/strava_app/update', function(req, res) {
+router.get('/strava_old/update', function(req, res) {
   var nbPages = 1;
   renewTokens()
   .then(() => getActivities(nbPages))
@@ -59,7 +59,7 @@ router.get('/strava_app/update', function(req, res) {
   })
 });
 
-router.get('/strava_app/reload', function(req, res) {
+router.get('/strava_old/reload', function(req, res) {
   // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
   var nbPages = 7;
   dbFun.renewDB()
@@ -71,7 +71,7 @@ router.get('/strava_app/reload', function(req, res) {
   })
 });
 
-router.get('/strava_app/month_distance', function(req, res) {
+router.get('/strava_old/month_distance', function(req, res) {
   dbFun.readMonthTotal()
   .then((data) => {
     console.log('... renvoi des distances par mois, OK !');
