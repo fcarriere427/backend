@@ -34,6 +34,7 @@ const dbFun = require('./dbFunctions');
 /////////////////////////////
 
 router.get('/strava_old/testAPI', function(req, res) {
+  console.log('appel de testAPI !');
   res.status(200).send(427);
 });
 
