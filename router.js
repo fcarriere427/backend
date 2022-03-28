@@ -33,6 +33,10 @@ const dbFun = require('./dbFunctions');
 ///////// ROUTES ////////////
 /////////////////////////////
 
+router.get('/strava/testAPI', function(req, res) {
+  res.status(200).json(427);
+});
+
 router.get('/strava_old/activity', function(req, res) {
   dbFun.readRec(req.query.id) // id de l'activité
   .then(data => {
