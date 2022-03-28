@@ -33,10 +33,10 @@ router.use(function timeLog(req, res, next) {
 ///////// ROUTES ////////////
 /////////////////////////////
 
-// router.get('/strava_old/testAPI', function(req, res) {
-//   console.log('appel de testAPI !');
-//   res.status(200).send(427);
-// });
+router.get('/strava_old/testAPI', function(req, res) {
+  console.log('appel de testAPI !');
+  res.status(200).send(427);
+});
 
 router.get('/strava_old/activity', function(req, res) {
   dbFun.readRec(req.query.id) // id de l'activité
