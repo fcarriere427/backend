@@ -34,7 +34,7 @@ const dbFun = require('./dbFunctions');
 /////////////////////////////
 
 router.get('/strava_old/testAPI', function(req, res) {
-  res.status(200).json(427);
+  res.status(200).json({data: 427});
 });
 
 router.get('/strava_old/activity', function(req, res) {
