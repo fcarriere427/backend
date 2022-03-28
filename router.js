@@ -22,12 +22,12 @@ var refresh_token = tokens.refresh_token;
 // Fonctions d'accès à la DB
 const dbFun = require('./dbFunctions');
 
-// Log console du router à chaque appel
-// router.use(function timeLog(req, res, next) {
-//   let newDate = new Date(Date.now());
-//   console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
-//   next();
-// });
+Log console du router à chaque appel
+router.use(function timeLog(req, res, next) {
+  let newDate = new Date(Date.now());
+  console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  next();
+});
 
 /////////////////////////////
 ///////// ROUTES ////////////
