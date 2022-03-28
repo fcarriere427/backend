@@ -33,7 +33,7 @@ const dbFun = require('./dbFunctions');
 ///////// ROUTES ////////////
 /////////////////////////////
 
-router.get('/strava/testAPI', function(req, res) {
+router.get('/strava_old/testAPI', function(req, res) {
   res.status(200).json(427);
 });
 
