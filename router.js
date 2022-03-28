@@ -35,7 +35,8 @@ router.use(function timeLog(req, res, next) {
 
 router.get('/strava_old/testAPI', function(req, res) {
   console.log('appel de testAPI !');
-  res.sendStatus(200).json(427);
+  res.json(427);
+  res.sendStatus(200);
 });
 
 router.get('/strava_old/activity', function(req, res) {
