@@ -26,6 +26,8 @@ const dbFun = require('./dbFunctions');
 router.use(function timeLog(req, res, next) {
   let newDate = new Date(Date.now());
   console.log(`Appel de router : ${newDate.toDateString()} ${newDate.toTimeString()}`);
+  res.header("Access-Control-Allow-Origin", "letsq.xyz"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
