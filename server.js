@@ -4,31 +4,32 @@
 // Prérequis NGINX : définir la route (reverse proxy) dans le fichier de conf nginx (dans /etc/nginx/sites-available/letsq.xyz)
 // ***********************
 
+//// Require
 const express = require('express')
 const fs = require('fs');
 const https = require('https');
+// Fonctions d'accès à la DB
+const dbFun = require('./dbFunctions');
+// /!\ Clés Strava: suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
+const keys = require('./keys/strava.json');
+const tokens =  require('./keys/tokens.json');
 
+// Definition
 const app = express()
 const port = 3001
 
-// Récupération des clés et tokens
-// /!\ Suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
-const keys = require('./keys/strava.json');
-const tokens =  require('./keys/tokens.json');
+// Récupération des clés et tokens Strava
 var client_id = keys.client_id;
 var client_secret = keys.client_secret;
 var access_token = tokens.access_token;
 var expires_at = tokens.expires_at;
 var refresh_token = tokens.refresh_token;
 
-// Fonctions d'accès à la DB
-const dbFun = require('./dbFunctions');
-
-// app.use(function timeLog(req, res, next) {
-//   let newDate = new Date(Date.now());
-//   console.log(`***** App use: ${newDate.toDateString()} ${newDate.toTimeString()}`);
-//   next();
-// });
+// création et lancement du serveur
+require("./routes")(app);
+app.listen(port, () =>
+    console.log(`App listening at http://localhost:${port}`)
+);
 
 //Log console à chaque appel
 app.use(function timeLog(req, res, next) {
@@ -38,61 +39,6 @@ app.use(function timeLog(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
-
-/////////////////////////////
-///////// ROUTES ////////////
-/////////////////////////////
-
-app.get('/strava_old/testAPI', function(req, res) {
-  console.log('appel de testAPI !');
-  res.status(200).json({ cumulAnnuel: '427' });
-});
-
-app.get('/strava_old/activity', function(req, res) {
-  dbFun.readRec(req.query.id) // id de l'activité
-  .then(data => {
-    console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
-    res.status(200).json(data);
-  })
-});
-
-app.get('/strava_old/list', function(req, res) {
-  dbFun.readDB(req.query.id) // année pour filtrer
-  .then((data) => {
-    console.log("... liste des activités renvoyée, OK !");
-    res.status(200).json(data);
-  })
-});
-
-app.get('/strava_old/update', function(req, res) {
-  var nbPages = 1;
-  renewTokens()
-  .then(() => getActivities(nbPages))
-  .then((data) => {
-    console.log("... dernières activités récupérées, OK !");
-    res.status(200).json(data);
-  })
-});
-
-app.get('/strava_old/reload', function(req, res) {
-  // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-  var nbPages = 7;
-  dbFun.renewDB()
-  .then(() => renewTokens())
-  .then(() => getActivities(nbPages))
-  .then((data) => {
-    console.log("... toutes activités récupérées, OK !");
-    res.status(200).json(data);
-  })
-});
-
-app.get('/strava_old/month_distance', function(req, res) {
-  dbFun.readMonthTotal()
-  .then((data) => {
-    console.log('... renvoi des distances par mois, OK !');
-    res.status(200).json(data);
-  })
 });
 
 /////////////////////////////
