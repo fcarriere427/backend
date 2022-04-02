@@ -10,6 +10,7 @@ const fs = require('fs');
 const https = require('https');
 // Fonctions d'accès à la DB
 const dbFun = require('./dbFunctions');
+const utils = require('./utils');
 // /!\ Clés Strava: suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
 const keys = require('./keys/strava.json');
 const tokens =  require('./keys/tokens.json');
@@ -56,7 +57,7 @@ async function getActivities(nbPages) {
     var page = i+1;
     console.log('Récupération des activités Strava, pour la page ' + page + ' sur ' + nbPages + '...');
     var options = `https://www.strava.com/api/v3/athlete/activities?page=` + page + `&per_page=`+ nbActivities + `&access_token=${access_token}`;
-    await httpsRequest(options)
+    await utils.httpsRequest(options)
     .then(data => dbFun.updateDB(data, page))
     .then(data => count = count + data)
     .catch((err) => console.log(err))
@@ -93,7 +94,7 @@ async function renewTokens() {
       }
     }
     // Lance la requête de renouvellement de l'access_token
-    await httpsRequest(options,body)
+    await utils.httpsRequest(options,body)
     // Met à jours les clés Strava (dans le fichier ./keys/strava_keys.json)
     .then((res) => {
       // On renouvelles les tokens locaux
@@ -107,58 +108,13 @@ async function renewTokens() {
         access_token: access_token,
         expires_at: expires_at
       })
-      saveData(local_keys, './keys/tokens.json');
+      utils.saveData(local_keys, './keys/tokens.json');
     })
     .catch(err => console.log('Error: ' + err))
   } else {
     console.log("Tokens valides, pas de renouvellement");
   }
   return(0);
-}
-
-function httpsRequest(params, postData) {
-    //console.log("Requête http... avec : " + params);
-    return new Promise(function(resolve, reject) {
-      var req = https.request(params, function(res) {
-          // cumulate data
-          var body = [];
-          res.on('data', function(chunk) {
-              body.push(chunk);
-          });
-          // resolve on end
-          res.on('end', function() {
-              try {
-                body = JSON.parse(Buffer.concat(body).toString()); // --> renvoie un tableau
-              }
-              catch(e) {
-                reject(e);
-              }
-              resolve(body);
-          });
-      });
-      if (postData) {
-          req.write(postData);
-      }
-      req.on('error', error => {
-        console.log("Erreur httpsRequest");
-        console.error(error);
-      })
-      // IMPORTANT
-      req.end();
-  });
-}
-
-function saveData(data, filename) {
-  console.log("Sauvegarde des nouveaux tokens...");
-  return new Promise(function(resolve, reject) {
-    fs.writeFile(filename, data, 'utf-8', (err) => {
-        if (err) reject(err);
-        else {
-          console.log("... OK, tokens sauvegardés !");
-          resolve(data);
-        }
-    });
-  });
 }
 
 module.exports = app;
