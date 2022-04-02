@@ -220,5 +220,6 @@ module.exports = {
    readDB,
    readRec,
    readMonthTotal,
-   readLastActivityDate
+   readLastActivityDate,
+   readYearDistance
  }
