@@ -1,1 +1,0 @@
-curl http://admin:Boubou13@192.168.1.35:5984/strava/_design/strava/_view/activities_by_id
