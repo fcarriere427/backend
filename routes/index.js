@@ -1,4 +1,3 @@
-const snakeCase = require("lodash/snakeCase");
 const express = require("express");
 module.exports = (app) => {
     require("fs")
@@ -11,7 +10,7 @@ module.exports = (app) => {
                 routeModule.path ||
                 "/" +
                     (file !== "root.js"
-                        ? snakeCase(file.replace(".js", ""))
+                        ? file.replace(".js", "")
                         : "");
             const route = routeModule.config
                 ? routeModule.config(router)
