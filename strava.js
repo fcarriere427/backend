@@ -1,5 +1,5 @@
-const dbFun = require('../dbFunctions');
-const utils = require('../utils');
+const dbFun = require('./dbFunctions');
+const utils = require('./utils');
 
 // REQUETE POUR RECUPERER LE SOMMAIRE DES ACTIVITES (https://developers.strava.com/docs/reference/#api-models-SummaryActivity)
 // NB : parfois besoin des activités détaillées (https://developers.strava.com/docs/reference/#api-models-DetailedActivity) --> pas fait ici
