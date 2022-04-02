@@ -201,11 +201,14 @@ function readLastActivityDate() {
 
 // Renvoie le nb de km de l'année passée en paramètre
 function readYearDistance(year) {
-  year = 2022;
+  ley year_distance = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
-        body.rows.forEach(doc => { year_distance[doc.key] = doc.value });
+        body.rows.forEach(doc => {
+          console.log("doc.key = " + doc.key + " & doc.value = " + doc.value);
+          year_distance[doc.key] = doc.value;
+        });
         let distance = year_distance[year];
         resolve(distance);
       } else {
