@@ -190,9 +190,10 @@ function readLastActivityDate() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'activities_by_date',{limit: 1, include_docs: true, descending: true}, function(err,body) {
       if (!err) {
-        resolve(body.rows);
+          // for each... mais il n'y a qu'une ligne normalement !
+          body.rows.forEach(doc => { resolve(doc.doc.start_date) })
       } else {
-        console.log('error readDB = ' + err);
+          console.log('error readLastActivityDate = ' + JSON.stringify(err));
       }
     });
   })

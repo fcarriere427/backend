@@ -6,8 +6,8 @@ module.exports = {
         router
             .get("/", (req, res) => {
               dbFun.readLastActivityDate()
-              .then(data => {
-                console.log("... date de la dernière activité renvoyée !");
+              .then(date => {
+                console.log("... date de la dernière activité renvoyée ! = " + date);
                 res.status(200).json(data);
               })
             })
