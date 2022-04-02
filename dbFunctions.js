@@ -15,6 +15,7 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
+// ???  Description
 function readMonthTotal() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
@@ -27,6 +28,7 @@ function readMonthTotal() {
   })
 }
 
+// ???  Description
 function readRec(id) {
   return new Promise((resolve, reject) => {
     const idNum = parseInt(id); /// des heures pour trouver ça... :-(
@@ -41,6 +43,7 @@ function readRec(id) {
   })
 }
 
+// ???  Description
 function readDB(year) {
   let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
   let e_key = year + "-01-01T00:00:00Z";
@@ -55,6 +58,7 @@ function readDB(year) {
   })
 }
 
+// ???  Description
 function updateDB(data, page) {
   existingID = [];
   return new Promise((resolve, reject) => {
@@ -65,7 +69,7 @@ function updateDB(data, page) {
   })
 }
 
-
+// ???  Description
 function readID(stravaDb) {
   return new Promise((resolve, reject) => {
     //console.log("      ... mise à jour du tableau des ID Strava, à partir de la BDD existante...");
@@ -97,6 +101,7 @@ function readID(stravaDb) {
   })
 }
 
+// ???  Description
 function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
@@ -130,6 +135,7 @@ function insertNew(data, stravaDb){
   })
 }
 
+// ???  Description
 async function renewDB() {
   try {
     await nano.db.destroy(DBNAME);
@@ -144,6 +150,7 @@ async function renewDB() {
   console.log('... vue créee, OK !');
 }
 
+// ???  Description
 function createViewDB() {
   stravaDb.insert({
     "views":{
@@ -178,10 +185,24 @@ function createViewDB() {
   })
 }
 
+// Renvoie la date de la dernière activité
+function readLastActivityDate() {
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
+      if (!err) {
+        resolve(body.rows);
+      } else {
+        console.log('error readDB = ' + err);
+      }
+    });
+  })
+}
+
 module.exports = {
    updateDB,
    renewDB,
    readDB,
    readRec,
-   readMonthTotal
+   readMonthTotal,
+   readLastActivityDate
  }

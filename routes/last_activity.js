@@ -5,7 +5,8 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-
+              dbFunctions.readLastActivityDate()
+              .then(data => {
                 console.log("... date de la dernière activité renvoyée !");
                 res.status(200).json(data);
               })
