@@ -188,7 +188,7 @@ function createViewDB() {
 // Renvoie la date de la dernière activité
 function readLastActivityDate() {
   return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{include_docs: true, descending: true}, function(err,body) {
+    stravaDb.view('strava', 'activities_by_date',{limit: 1, include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         resolve(body.rows);
       } else {
