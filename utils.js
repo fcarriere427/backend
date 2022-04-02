@@ -1,3 +1,6 @@
+const https = require('https');
+const fs = require('fs');
+
 function httpsRequest(params, postData) {
     //console.log("Requête http... avec : " + params);
     return new Promise(function(resolve, reject) {

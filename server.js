@@ -6,8 +6,6 @@
 
 //// Require
 const express = require('express')
-const fs = require('fs');
-const https = require('https');
 // Fonctions d'accès à la DB
 const dbFun = require('./dbFunctions');
 const utils = require('./utils');
