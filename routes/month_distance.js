@@ -1,4 +1,4 @@
-const dbFun = require('./dbFunctions');
+const dbFun = require('../dbFunctions');
 
 module.exports = {
     path: "/month_distance",
