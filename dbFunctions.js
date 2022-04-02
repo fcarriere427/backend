@@ -185,7 +185,7 @@ function createViewDB() {
   })
 }
 
-// Renvoie la date de la dernière activité
+// Renvoie la date de la dernière activité, au  format "2022-04-02T07:43:20Z" (UTC)
 function readLastActivityDate() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'activities_by_date',{limit: 1, include_docs: true, descending: true}, function(err,body) {
@@ -198,6 +198,32 @@ function readLastActivityDate() {
     });
   })
 }
+
+// Renvoie la date de la dernière activité, au  format "2022-04-02T07:43:20Z" (UTC)
+function readYearDistance(year) {
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
+      if (!err) {
+        body.rows.forEach(doc => { year_distance[doc.key] = doc.value });
+        let distance = year_distance[year];
+        resolve(distance);
+      } else {
+        console.log('error readYearDistance = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
+
+.then(response => response.json())
+.then(data => {
+  data.rows.forEach(doc => {
+    reduce[doc.key] = doc.value;
+  })
+})
+.then(data => resolve(reduce));
+
+
 
 module.exports = {
    updateDB,
