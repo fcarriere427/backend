@@ -5,7 +5,6 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-              console.log("année d'appel : " + req.query.id);
               dbFun.readYearDistance(req.query.id) // année pour filtrer
               .then((data) => {
                 console.log("... Envoi de la distance de l'année " + req.query.id + " (= " + data + ")");
