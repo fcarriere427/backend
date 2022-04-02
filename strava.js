@@ -1,6 +1,16 @@
 const dbFun = require('./dbFunctions');
 const utils = require('./utils');
 
+// /!\ Clés Strava: suppose qu'on a fait les premières opérations d'authentification (on a un refresh_token, même obsolète --> cf. doc API Strava + postman)
+const keys = require('./keys/strava.json');
+const tokens =  require('./keys/tokens.json');
+// Récupération des clés et tokens Strava
+var client_id = keys.client_id;
+var client_secret = keys.client_secret;
+var access_token = tokens.access_token;
+var expires_at = tokens.expires_at;
+var refresh_token = tokens.refresh_token;
+
 // REQUETE POUR RECUPERER LE SOMMAIRE DES ACTIVITES (https://developers.strava.com/docs/reference/#api-models-SummaryActivity)
 // NB : parfois besoin des activités détaillées (https://developers.strava.com/docs/reference/#api-models-DetailedActivity) --> pas fait ici
 async function getActivities(nbPages) {
