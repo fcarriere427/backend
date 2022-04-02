@@ -214,17 +214,6 @@ function readYearDistance(year) {
   })
 }
 
-
-.then(response => response.json())
-.then(data => {
-  data.rows.forEach(doc => {
-    reduce[doc.key] = doc.value;
-  })
-})
-.then(data => resolve(reduce));
-
-
-
 module.exports = {
    updateDB,
    renewDB,
