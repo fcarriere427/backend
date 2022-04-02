@@ -1,4 +1,4 @@
-const dbFun = require('../dbFunctions');
+const strava = require('../strava');
 
 module.exports = {
     path: "/strava/update",
@@ -6,8 +6,8 @@ module.exports = {
         router
             .get("/", (req, res) => {
               var nbPages = 1;
-              renewTokens()
-              .then(() => getActivities(nbPages))
+              strava.renewTokens()
+              .then(() => strava.getActivities(nbPages))
               .then((data) => {
                 console.log("... dernières activités récupérées, OK !");
                 res.status(200).json(data);
