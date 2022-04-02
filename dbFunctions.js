@@ -209,7 +209,8 @@ function readYearDistance(year) {
           console.log("doc.key = " + doc.key + " & doc.value = " + doc.value);
           year_distance[doc.key] = doc.value;
         });
-        let distance = year_distance[year];
+        let distance = year_distance[year]; // en mètres
+        distance = Math.round(distance/1000*10)/10;; // div par 1000 pour passer en km, puis arrondi au dixième
         resolve(distance);
       } else {
         console.log('error readYearDistance = ' + JSON.stringify(err));
