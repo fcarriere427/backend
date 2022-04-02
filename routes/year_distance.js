@@ -5,9 +5,9 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-              dbFun.readYearDistance(req.query.id) // année pour filtrer
+              dbFun.readYearDistance(req.query.year) // année pour filtrer
               .then((data) => {
-                console.log("... Envoi de la distance de l'année " + req.query.id + " (= " + data + ")");
+                console.log("... Envoi de la distance de l'année " + req.query.year + " (= " + data + ")");
                 res.status(200).json(data);
               })
             })

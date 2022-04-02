@@ -206,7 +206,6 @@ function readYearDistance(year) {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          console.log("doc.key = " + doc.key + " & doc.value = " + doc.value);
           year_distance[doc.key] = doc.value;
         });
         let distance = year_distance[year]; // en mètres
