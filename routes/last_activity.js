@@ -8,7 +8,7 @@ module.exports = {
               dbFun.readLastActivityDate()
               .then(date => {
                 console.log("... date de la dernière activité renvoyée ! = " + date);
-                res.status(200).json(data);
+                res.status(200).json(date);
               })
             })
             .post("/", (req, res) => res.send("No POST here!"));
