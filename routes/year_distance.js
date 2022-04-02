@@ -8,7 +8,7 @@ module.exports = {
               dbFun.readYearDistance(req.query.year) // année pour filtrer
               .then((data) => {
                 console.log("... Envoi de la distance de l'année " + req.query.year + " (= " + data + ")");
-                res.status(200).json(data);
+                res.status(200).json({ year_distance: data });
               })
             })
             .post("/", (req, res) => res.send("No POST here!"));
