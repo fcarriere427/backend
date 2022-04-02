@@ -161,8 +161,4 @@ function saveData(data, filename) {
   });
 }
 
-app.listen(port, () => {
-  console.log('Serveur à l\'écoute sur localhost:'+ port);
-});
-
 module.exports = app;
