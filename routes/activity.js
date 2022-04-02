@@ -1,7 +1,7 @@
 const dbFun = require('../dbFunctions');
 
 module.exports = {
-    path: "/activity",
+    path: "/strava/activity",
     config: (router) => {
         router
             .get("/", (req, res) => {

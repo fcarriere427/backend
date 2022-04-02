@@ -1,7 +1,7 @@
 const dbFun = require('../dbFunctions');
 
 module.exports = {
-    path: "/reload",
+    path: "/strava/reload",
     config: (router) => {
         router
             .get("/", (req, res) => {

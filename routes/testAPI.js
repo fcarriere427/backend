@@ -1,5 +1,5 @@
 module.exports = {
-    path: "/testAPI",
+    path: "/strava/testAPI",
     config: (router) => {
         router
             .get("/", (req, res) => {
