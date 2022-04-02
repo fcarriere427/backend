@@ -199,8 +199,8 @@ function readLastActivityDate() {
   })
 }
 
-// Renvoie la date de la dernière activité, au  format "2022-04-02T07:43:20Z" (UTC)
-function readYearDistance(year) {
+// Renvoie le nb de km de l'année passée en paramètre
+function readYearDistance('2022') {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
