@@ -241,7 +241,7 @@ function monthDistances() {
   })
 }
 
-// ???  Description
+// Renvoie la liste des activités d'une année donnée (?year=xxxx), au format JSON (cle = id de l'activité // valeur = activité avec tous ses champs )
 function activitiesList(year) {
   let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
   let e_key = year + "-01-01T00:00:00Z";
