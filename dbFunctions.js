@@ -202,7 +202,7 @@ function readLastActivityDate() {
 }
 
 // Renvoie le nb de km de l'année passée en paramètre
-function readYearDistance(year) {
+function yearDistance(year) {
   let year_distance = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
@@ -214,14 +214,14 @@ function readYearDistance(year) {
         distance = Math.round(distance/1000*10)/10;; // div par 1000 pour passer en km, puis arrondi au dixième
         resolve(distance);
       } else {
-        console.log('error readYearDistance = ' + JSON.stringify(err));
+        console.log('error yearDistance = ' + JSON.stringify(err));
       }
     });
   })
 }
 
 // Renvoie un json avec les distances (km) pour toutes les années
-function readAllYearDistances() {
+function yearDistances() {
   let year_distances = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
@@ -235,14 +235,14 @@ function readAllYearDistances() {
         resolve(response);
         // resolve(body);
       } else {
-        console.log('error readAllYearDistances = ' + JSON.stringify(err));
+        console.log('error yearDistances = ' + JSON.stringify(err));
       }
     });
   })
 }
 
 // Renvoie un json avec les distances (km) pour tous les mois de toutes les années
-function readAllMonthDistances() {
+function monthDistances() {
   let month_distances = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
@@ -256,7 +256,7 @@ function readAllMonthDistances() {
         resolve(response);
         // resolve(body);
       } else {
-        console.log('error readAllMonthDistances = ' + JSON.stringify(err));
+        console.log('error monthDistances = ' + JSON.stringify(err));
       }
     });
   })
@@ -270,7 +270,7 @@ module.exports = {
    readRec,
    readMonthTotal,
    readLastActivityDate,
-   readYearDistance,
-   readAllYearDistances,
-   readAllMonthDistances
+   yearDistance,
+   yearDistances,
+   monthDistances
  }
