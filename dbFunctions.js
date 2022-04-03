@@ -227,9 +227,9 @@ function readAllYearDistance() {
         body.rows.forEach(doc => {
           year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
         });
-        resolve(year_distance);
+        resolve(JSON.Stringify(year_distance));
       } else {
-        console.log('error readYearDistance = ' + JSON.stringify(err));
+        console.log('error readAllYearDistance = ' + JSON.stringify(err));
       }
     });
   })
