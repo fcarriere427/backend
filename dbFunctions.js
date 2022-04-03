@@ -250,12 +250,11 @@ function activitiesList(year) {
     stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key, include_docs: true, descending: true}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          let id = doc.id;
+          let id = doc.doc.id;
           console.log("id = " + id);
-          let activity = doc.doc;
-          console.log("activity = " + activity);
           let activity_distance = doc.doc.distance;
-          console.log("activity = " + activity_distance);
+          console.log("activity_distance = " + activity_distance);
+          let activity = doc.doc;
           activities[`${id}`] = `${activity}`;
         });
         let response = JSON.stringify(Object.assign({}, activities));

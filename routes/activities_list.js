@@ -8,6 +8,7 @@ module.exports = {
               dbFun.activitiesList(req.query.year) // année pour filtrer
               .then((data) => {
                 console.log("... liste des activités renvoyée, OK !");
+                res.setHeader('content-type', 'application/json');
                 res.status(200).json(data);
               })
             })
