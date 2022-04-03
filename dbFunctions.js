@@ -230,10 +230,9 @@ function readAllYearDistance() {
           let key = doc.key;
           let distance = Math.round(doc.value/1000*10)/10;
           year_distance[i] = {key, distance};
-          console.log("year_distance[" + i + "] = " + year_distance[i]);
-          console.log("year_distance.length = " + year_distance.length);
           i++;
         });
+        console.log("year_distance = " + JSON.stringify(year_distance));
         resolve(JSON.stringify(year_distance));
         // resolve(body);
       } else {
