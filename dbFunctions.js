@@ -228,7 +228,7 @@ function readAllYearDistance() {
         body.rows.forEach(doc => {
           let year = doc.key.toString();
           let distance = Math.round(doc.value/1000*10)/10;
-          year_distance[`${year}`] = distance;
+          year_distance[`${year}`] = `${distance}`;
         });
         let response = JSON.stringify(Object.assign({}, year_distance));
         resolve(response);
