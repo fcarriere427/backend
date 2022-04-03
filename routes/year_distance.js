@@ -8,7 +8,7 @@ module.exports = {
             dbFun.readAllYearDistance() // récup du json avec toutes les années
             .then((data) => {
               console.log("... Envoi du json avec les distances par année");
-              res.status(200).json(data);
+              res.status(200).send(data);
             })
           })
           .post("/", (req, res) => res.send("No POST here!"));
