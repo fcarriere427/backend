@@ -248,7 +248,7 @@ function readAllMonthDistances() {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          let test = doc.key;
+          let test = doc.key.toString();
           console.log("test = " + test);
           console.log("typeof(test) = " + typeof(test));
           let new_test = test.replace(",", "-");
