@@ -251,7 +251,7 @@ function activitiesList(year) {
       if (!err) {
         body.rows.forEach(doc => {
           let id = doc.doc.id;
-          let activity = doc.doc;
+          let activity = JSON.stringify(doc.doc);
           activities[`${id}`] = `${activity}`;
         });
         let response = JSON.stringify(Object.assign({}, activities));
