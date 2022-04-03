@@ -250,6 +250,7 @@ function readAllMonthDistances() {
         body.rows.forEach(doc => {
           let test = doc.key;
           console.log("test = " + test);
+          console.log("typeof(test) = " + typeof(test));
           let new_test = test.replace(",", "-");
           console.log("new_test = " + new_test);
 
