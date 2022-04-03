@@ -251,14 +251,6 @@ function readAllMonthDistances() {
           let month = doc.key.toString().replace(",", "-");
           let distance = Math.round(doc.value/1000*10)/10;
           month_distances[`${month}`] = `${distance}`;
-
-          // enchainement actuel = ...
-          // reduce[doc.key] = doc.value; // ici, reduce['2015,07'] renvoie la bonne valeur
-          // let month = (i+1).toString(); if (month.length<2) { month = '0' + month };
-          // let key = year + ',' + month;
-          // if(reduce[key]) {
-          //   cel.innerHTML = Math.round(reduce[key]/1000*10)/10;; // div par 1000 pour passer en km, puis arrondi au dixième
-          // }
         });
         let response = JSON.stringify(Object.assign({}, month_distances));
         resolve(response);
