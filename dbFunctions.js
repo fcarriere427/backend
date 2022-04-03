@@ -201,25 +201,6 @@ function readLastActivityDate() {
   })
 }
 
-// Renvoie le nb de km de l'année passée en paramètre
-// function yearDistance(year) {
-//   let year_distance = [];
-//   return new Promise((resolve, reject) => {
-//     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
-//       if (!err) {
-//         body.rows.forEach(doc => {
-//           year_distance[doc.key] = doc.value;
-//         });
-//         let distance = year_distance[year]; // en mètres
-//         distance = Math.round(distance/1000*10)/10;; // div par 1000 pour passer en km, puis arrondi au dixième
-//         resolve(distance);
-//       } else {
-//         console.log('error yearDistance = ' + JSON.stringify(err));
-//       }
-//     });
-//   })
-// }
-
 // Renvoie un json avec les distances (km) pour toutes les années
 function yearDistances() {
   let year_distances = [];
