@@ -221,15 +221,16 @@ function readYearDistance(year) {
 // Renvoie un json avec les distances (km) pour toutes les années
 function readAllYearDistance() {
   let year_distance = [];
+  console.log("INIT // year_distance.length = " + year_distance.length);
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
           console.log("doc = " + doc);
           if (doc != null) {
+            year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
             console.log("year_distance[" + doc.key + "] = " + Math.round(doc.value/1000*10)/10);
             console.log("year_distance.length = " + year_distance.length);
-            year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
           }
         });
         resolve(JSON.stringify(year_distance));
