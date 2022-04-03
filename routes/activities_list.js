@@ -5,7 +5,7 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-              dbFun.readDB(req.query.year) // année pour filtrer
+              dbFun.activitiesList(req.query.year) // année pour filtrer
               .then((data) => {
                 console.log("... liste des activités renvoyée, OK !");
                 res.status(200).json(data);

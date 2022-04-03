@@ -214,7 +214,6 @@ function yearDistances() {
         });
         let response = JSON.stringify(Object.assign({}, year_distances));
         resolve(response);
-        // resolve(body);
       } else {
         console.log('error yearDistances = ' + JSON.stringify(err));
       }
@@ -235,9 +234,34 @@ function monthDistances() {
         });
         let response = JSON.stringify(Object.assign({}, month_distances));
         resolve(response);
-        // resolve(body);
       } else {
         console.log('error monthDistances = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
+// ???  Description
+function activitiesList(year) {
+  let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
+  let e_key = year + "-01-01T00:00:00Z";
+  let activities = [];
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key, include_docs: true, descending: true}, function(err,body) {
+      if (!err) {
+        body.rows.forEach(doc => {
+          let id = doc.id;
+          console.log("id = " + id);
+          let activity = doc.doc;
+          console.log("activity = " + activity);
+          let activity_distance = doc.doc.distance;
+          console.log("activity = " + activity_distance);
+          activities[`${id}`] = `${activity}`;
+        });
+        let response = JSON.stringify(Object.assign({}, activities));
+        resolve(response);
+      } else {
+        console.log('error activitiesList = ' + err);
       }
     });
   })
@@ -253,5 +277,6 @@ module.exports = {
    readLastActivityDate,
    //yearDistance,
    yearDistances,
-   monthDistances
+   monthDistances,
+   activitiesList
  }
