@@ -224,12 +224,14 @@ function readAllYearDistance() {
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
-        // body.rows.forEach(doc => {
-        //   console.log("year_distance[" + doc.key + "] = " + Math.round(doc.value/1000*10)/10);
-        //   year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
-        // });
-        // resolve(JSON.stringify(year_distance));
-        resolve(body);
+        body.rows.forEach(doc => {
+          if (doc) {
+            console.log("year_distance[" + doc.key + "] = " + Math.round(doc.value/1000*10)/10);
+            year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
+          }
+        });
+        resolve(JSON.stringify(year_distance));
+        // resolve(body);
       } else {
         console.log('error readAllYearDistance = ' + JSON.stringify(err));
       }
