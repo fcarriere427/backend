@@ -227,6 +227,7 @@ function readAllYearDistance() {
       if (!err) {
         body.rows.forEach(doc => {
           let key = parseInt(doc.key);
+          console.log("typeof(key) = " + typeof(key));
           let distance = Math.round(doc.value/1000*10)/10;
           year_distance[key] = distance;
           console.log("year_distance[" + key + "] = " + distance);
