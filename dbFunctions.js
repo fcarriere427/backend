@@ -265,5 +265,6 @@ module.exports = {
    readMonthTotal,
    readLastActivityDate,
    readYearDistance,
-   readAllYearDistance
+   readAllYearDistance,
+   readAllMonthDistances
  }
