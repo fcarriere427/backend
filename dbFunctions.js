@@ -226,7 +226,7 @@ function readAllYearDistance() {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          let key = doc.key.toString();
+          let key = "" + doc.key;
           let distance = Math.round(doc.value/1000*10)/10;
           year_distance[key] = distance;
           console.log("year_distance[" + key + "] = " + distance);
