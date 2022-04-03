@@ -232,8 +232,8 @@ function readAllYearDistance() {
           year_distance[i] = {year, distance};
           i++;
         });
-        console.log("year_distance = " + JSON.stringify(year_distance));
-        resolve(JSON.stringify(year_distance));
+        console.log("year_distance = " + year_distance);
+        resolve(year_distance);
         // resolve(body);
       } else {
         console.log('error readAllYearDistance = ' + JSON.stringify(err));
