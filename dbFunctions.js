@@ -16,19 +16,6 @@ var stravaDb = nano.db.use(DBNAME);
 var existingID = [];
 
 // ???  Description
-function readMonthTotal() {
-  return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
-      if (!err) {
-        resolve(body);
-      } else {
-        console.log('error readMonthTotal = ' + JSON.stringify(err));
-      }
-    });
-  })
-}
-
-// ???  Description
 function readRec(id) {
   return new Promise((resolve, reject) => {
     const idNum = parseInt(id); /// des heures pour trouver ça... :-(
@@ -185,6 +172,9 @@ function createViewDB() {
   })
 }
 
+
+/////////////////// NEW APIs !!!! /////////////////////
+
 // Renvoie la date de la dernière activité, au  format "2022-04-02T07:43:20Z" (UTC)
 function readLastActivityDate() {
   return new Promise((resolve, reject) => {
@@ -221,7 +211,6 @@ function readYearDistance(year) {
 // Renvoie un json avec les distances (km) pour toutes les années
 function readAllYearDistance() {
   let year_distance = [];
-  console.log("INIT // year_distance.length = " + year_distance.length);
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
@@ -239,6 +228,34 @@ function readAllYearDistance() {
     });
   })
 }
+
+
+// Renvoie un json avec les distances (km) pour tous les mois de toutes les années
+function readMonthTotal() {
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
+      if (!err) {
+        resolve(body);
+      } else {
+        console.log('error readMonthTotal = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
+// Renvoie un json avec les distances (km) pour tous les mois de toutes les années
+function readAllMonthDistances() {
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
+      if (!err) {
+        resolve(JSON.stringify(body));
+      } else {
+        console.log('error readMonthTotal = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
 
 module.exports = {
    updateDB,
