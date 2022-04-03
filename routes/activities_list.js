@@ -9,7 +9,7 @@ module.exports = {
               .then((data) => {
                 console.log("... liste des activités renvoyée, OK !");
                 res.setHeader('content-type', 'application/json');
-                res.status(200).json(data);
+                res.status(200).send(data);
               })
             })
             .post("/", (req, res) => res.send("No POST here!"));
