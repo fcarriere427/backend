@@ -251,9 +251,6 @@ function activitiesList(year) {
       if (!err) {
         body.rows.forEach(doc => {
           let id = doc.doc.id;
-          console.log("id = " + id);
-          let activity_distance = doc.doc.distance;
-          console.log("activity_distance = " + activity_distance);
           let activity = doc.doc;
           activities[`${id}`] = `${activity}`;
         });
