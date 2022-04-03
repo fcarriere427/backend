@@ -172,6 +172,18 @@ function createViewDB() {
   })
 }
 
+// Renvoie un json avec les distances (km) pour tous les mois de toutes les années
+function readMonthTotal() {
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
+      if (!err) {
+        resolve(body);
+      } else {
+        console.log('error readMonthTotal = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
 
 /////////////////// NEW APIs !!!! /////////////////////
 
@@ -209,35 +221,21 @@ function readYearDistance(year) {
 }
 
 // Renvoie un json avec les distances (km) pour toutes les années
-function readAllYearDistance() {
-  let year_distance = [];
+function readAllYearDistances() {
+  let year_distances = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
           let year = doc.key.toString();
           let distance = Math.round(doc.value/1000*10)/10;
-          year_distance[`${year}`] = `${distance}`;
+          year_distances[`${year}`] = `${distance}`;
         });
-        let response = JSON.stringify(Object.assign({}, year_distance));
+        let response = JSON.stringify(Object.assign({}, year_distances));
         resolve(response);
         // resolve(body);
       } else {
-        console.log('error readAllYearDistance = ' + JSON.stringify(err));
-      }
-    });
-  })
-}
-
-
-// Renvoie un json avec les distances (km) pour tous les mois de toutes les années
-function readMonthTotal() {
-  return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
-      if (!err) {
-        resolve(body);
-      } else {
-        console.log('error readMonthTotal = ' + JSON.stringify(err));
+        console.log('error readAllYearDistances = ' + JSON.stringify(err));
       }
     });
   })
@@ -245,12 +243,29 @@ function readMonthTotal() {
 
 // Renvoie un json avec les distances (km) pour tous les mois de toutes les années
 function readAllMonthDistances() {
+  let month_distances = [];
   return new Promise((resolve, reject) => {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
       if (!err) {
-        resolve(JSON.stringify(body));
+        body.rows.forEach(doc => {
+          let month = doc.key.replace(",", "-");
+          console.log("month = " + month);
+          let distance = Math.round(doc.value/1000*10)/10;
+          month_distances[`${month}`] = `${distance}`;
+
+          // enchainement actuel = ...
+          // reduce[doc.key] = doc.value; // ici, reduce['2015,07'] renvoie la bonne valeur
+          // let month = (i+1).toString(); if (month.length<2) { month = '0' + month };
+          // let key = year + ',' + month;
+          // if(reduce[key]) {
+          //   cel.innerHTML = Math.round(reduce[key]/1000*10)/10;; // div par 1000 pour passer en km, puis arrondi au dixième
+          // }
+        });
+        let response = JSON.stringify(Object.assign({}, month_distances));
+        resolve(response);
+        // resolve(body);
       } else {
-        console.log('error readMonthTotal = ' + JSON.stringify(err));
+        console.log('error readAllMonthDistances = ' + JSON.stringify(err));
       }
     });
   })
@@ -265,6 +280,6 @@ module.exports = {
    readMonthTotal,
    readLastActivityDate,
    readYearDistance,
-   readAllYearDistance,
+   readAllYearDistances,
    readAllMonthDistances
  }
