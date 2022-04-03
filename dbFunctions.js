@@ -248,15 +248,7 @@ function readAllMonthDistances() {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 2}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          let test = doc.key.toString();
-          console.log("test = " + test);
-          console.log("typeof(test) = " + typeof(test));
-          let new_test = test.replace(",", "-");
-          console.log("new_test = " + new_test);
-
-          //let month = doc.key.replace(",", "-");
-          let month = "2022-12";
-          //console.log("month = " + month);
+          let month = doc.key.toString().replace(",", "-");
           let distance = Math.round(doc.value/1000*10)/10;
           month_distances[`${month}`] = `${distance}`;
 
