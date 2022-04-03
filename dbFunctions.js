@@ -226,12 +226,11 @@ function readAllYearDistance() {
     stravaDb.view('strava', 'group_by_month', {reduce: true, group_level: 1}, function(err,body) {
       if (!err) {
         body.rows.forEach(doc => {
-          console.log("doc = " + doc);
-          if (doc != null) {
-            year_distance[doc.key] = Math.round(doc.value/1000*10)/10;
-            console.log("year_distance[" + doc.key + "] = " + Math.round(doc.value/1000*10)/10);
-            console.log("year_distance.length = " + year_distance.length);
-          }
+          let key = doc.key.toString();
+          let distance = Math.round(doc.value/1000*10)/10;
+          year_distance[key] = distance;
+          console.log("year_distance[" + key + "] = " + distance;
+          console.log("year_distance.length = " + year_distance.length);
         });
         resolve(JSON.stringify(year_distance));
         // resolve(body);
