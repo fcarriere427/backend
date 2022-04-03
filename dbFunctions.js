@@ -242,5 +242,6 @@ module.exports = {
    readRec,
    readMonthTotal,
    readLastActivityDate,
-   readYearDistance
+   readYearDistance,
+   readAllYearDistance
  }
