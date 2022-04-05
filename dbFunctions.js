@@ -282,5 +282,6 @@ module.exports = {
    //yearDistance,
    yearDistances,
    monthDistances,
-   activitiesList
+   activitiesList,
+   activityDetail
  }
