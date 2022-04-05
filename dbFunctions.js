@@ -278,8 +278,8 @@ module.exports = {
    readDB,
    readRec,
    readMonthTotal,
+   //Au dessus : utile pour la vieille app only
    readLastActivityDate,
-   //yearDistance,
    yearDistances,
    monthDistances,
    activitiesList,
