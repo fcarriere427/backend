@@ -8,6 +8,7 @@ module.exports = {
               dbFun.activityDetail(req.query.id) // id de l'activité
               .then(data => {
                 console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
+                res.setHeader('content-type', 'application/json');
                 res.status(200).json(data);
               })
             })

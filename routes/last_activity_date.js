@@ -10,6 +10,7 @@ module.exports = {
                 let newDate = new Date(date);
                 let date_str = newDate.toLocaleDateString('fr-FR') + ' at ' + newDate.toLocaleTimeString('fr-FR');
                 console.log("... Envoi de la date de la dernière activité (= " + date_str + ")");
+                res.setHeader('content-type', 'application/json');
                 res.status(200).json({ last_activity_date: date_str});
               })
             })
