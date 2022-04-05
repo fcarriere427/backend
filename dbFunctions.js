@@ -241,8 +241,7 @@ function monthDistances() {
   })
 }
 
-// Renvoie la liste des activités d'une année donnée (?year=xxxx), au format JSON (cle = id de l'activité // valeur = activité avec tous ses champs )
-// ???  Description
+// Renvoie la liste des activités d'une année donnée (?year=xxxx), au format JSON
 function activitiesList(year) {
   let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
   let e_key = year + "-01-01T00:00:00Z";
@@ -252,6 +251,21 @@ function activitiesList(year) {
         resolve(body.rows);
       } else {
         console.log('error activitiesList = ' + err);
+      }
+    });
+  })
+}
+
+// Renvoie toutes les infos pour une activité donnée (?id=xxxxxx)
+function activityDetail(id) {
+  return new Promise((resolve, reject) => {
+    const idNum = parseInt(id); /// des heures pour trouver ça... :-(
+    stravaDb.view('strava', 'activities_by_id', {key: idNum, include_docs: true}, function(err,body) {
+      if (!err) {
+        // for each... mais il n'y a qu'une ligne normalement !
+        body.rows.forEach(doc => { resolve(doc.doc) })
+      } else {
+        console.log('error activityDetail = ' + JSON.stringify(err));
       }
     });
   })
