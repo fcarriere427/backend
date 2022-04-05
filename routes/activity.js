@@ -5,7 +5,7 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-              dbFun.readRec(req.query.id) // id de l'activité
+              dbFun.activityDetail(req.query.id) // id de l'activité
               .then(data => {
                 console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
                 res.status(200).json(data);
