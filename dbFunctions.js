@@ -188,7 +188,7 @@ function readMonthTotal() {
 /////////////////// NEW APIs !!!! /////////////////////
 
 // Renvoie la date de la dernière activité, au  format "2022-04-02T07:43:20Z" (UTC)
-export async function readLastActivityDate() {
+async function readLastActivityDate() {
   stravaDb.view('strava', 'activities_by_date',{limit: 1, include_docs: true, descending: true}, function(err,body) {
     if (!err) {
         // for each... mais il n'y a qu'une ligne normalement !
