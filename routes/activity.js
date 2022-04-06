@@ -1,11 +1,11 @@
-const dbFun = require('../dbFunctions');
+const db = require('../db');
 
 module.exports = {
     path: "/strava/activity",
     config: (router) => {
         router
             .get("/", (req, res) => {
-              dbFun.activityDetail(req.query.id) // id de l'activité
+              db.activityDetail(req.query.id) // id de l'activité
               .then(data => {
                 console.log('... activité récupérée, OK !'); // Ex :  data.distance donne bien la distance
                 res.setHeader('content-type', 'application/json');

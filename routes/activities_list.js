@@ -1,11 +1,11 @@
-const dbFun = require('../dbFunctions');
+const db = require('../db');
 
 module.exports = {
     path: "/strava/activities_list",
     config: (router) => {
         router
             .get("/", (req, res) => {
-              dbFun.activitiesList(req.query.year) // année pour filtrer
+              db.activitiesList(req.query.year) // année pour filtrer
               .then((data) => {
                 console.log("... liste des activités renvoyée, OK !");
                 res.setHeader('content-type', 'application/json');

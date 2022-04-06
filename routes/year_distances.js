@@ -1,11 +1,11 @@
-const dbFun = require('../dbFunctions');
+const db = require('../db');
 
 module.exports = {
     path: "/strava/year_distances",
     config: (router) => {
         router
           .get("/", (req, res) => {
-            dbFun.yearDistances() // récup du json avec toutes les années
+            db.yearDistances() // récup du json avec toutes les années
             .then((data) => {
               console.log("... Envoi du json avec les distances par année");
               res.setHeader('content-type', 'application/json');
