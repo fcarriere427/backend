@@ -13,7 +13,7 @@ module.exports = {
                 res.setHeader('content-type', 'application/json');
                 res.status(200).json({ last_activity_date: date_str});
                 })
-              });
+              })
             .post("/", (req, res) => res.send("No POST here!"));
         return router;
     },
