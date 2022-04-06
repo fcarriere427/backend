@@ -12,7 +12,7 @@ module.exports = {
                 let final = date_str.substring(0, date_str.length - 3); // on enlève les secondes
                 console.log("... Envoi de la date de la dernière activité (= " + final + ")");
                 res.setHeader('content-type', 'application/json');
-                res.status(200).json({ last_activity_date: date_str});
+                res.status(200).json({ last_activity_date: final});
                 })
               })
             .post("/", (req, res) => res.send("No POST here!"));
