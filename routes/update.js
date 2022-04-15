@@ -9,7 +9,7 @@ module.exports = {
               strava.renewTokens()
               .then(() => strava.getActivities(nbPages))
               .then((data) => {
-                console.log("... dernières activités récupérées, OK !");
+                console.log("... " + data + "dernière(s) activité(s) récupérée(s), OK !");
                 res.status(200).json(data);
               })
             })
