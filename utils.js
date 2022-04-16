@@ -1,3 +1,5 @@
+// Fonctions utilitaires : requete http, accès fichiers locaux
+
 const https = require('https');
 const fs = require('fs');
 

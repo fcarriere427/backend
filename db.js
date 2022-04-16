@@ -1,4 +1,4 @@
-//*** Intégration des données dans la BDD
+//////// Fonctions nécessaires aux API 
 
 // Récupération des clés pour se connecter à couchDB
 const couchKeys = require('./keys/couchDB.json');

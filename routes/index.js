@@ -1,3 +1,5 @@
+// Create routers defined by all files in the directory
+
 const express = require("express");
 module.exports = (app) => {
     require("fs")

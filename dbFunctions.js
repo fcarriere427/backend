@@ -1,4 +1,4 @@
-//*** Intégration des données dans la BDD
+// Gestion de la BDD : accès (création des activités), RAZ de la BDD
 
 // Récupération des clés pour se connecter à couchDB
 const couchKeys = require('./keys/couchDB.json');
@@ -15,37 +15,7 @@ var stravaDb = nano.db.use(DBNAME);
 // tableau pour la liste des ID existants // global car appelé dans les 2 fonctions
 var existingID = [];
 
-// ???  Description
-function readRec(id) {
-  return new Promise((resolve, reject) => {
-    const idNum = parseInt(id); /// des heures pour trouver ça... :-(
-    stravaDb.view('strava', 'activities_by_id', {key: idNum, include_docs: true}, function(err,body) {
-      if (!err) {
-        // for each... mais il n'y a qu'une ligne normalement !
-        body.rows.forEach(doc => { resolve(doc.doc) })
-      } else {
-        console.log('error readRec = ' + JSON.stringify(err));
-      }
-    });
-  })
-}
-
-// ???  Description
-function readDB(year) {
-  let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
-  let e_key = year + "-01-01T00:00:00Z";
-  return new Promise((resolve, reject) => {
-    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key, include_docs: true, descending: true}, function(err,body) {
-      if (!err) {
-        resolve(body.rows);
-      } else {
-        console.log('error readDB = ' + err);
-      }
-    });
-  })
-}
-
-// ???  Description
+// Met à jour la BDD avec les données fournies (si elles n'existent pas déjà : check par l'ID Strava)
 function updateDB(data, page) {
   existingID = [];
   return new Promise((resolve, reject) => {
@@ -56,7 +26,26 @@ function updateDB(data, page) {
   })
 }
 
-// ???  Description
+// Supprime et recrée la BDD, en créant les vues (cf. createViewDB)
+async function renewDB() {
+  try {
+    await nano.db.destroy(DBNAME);
+    console.log('DB détruite...');
+  } catch (e) {
+    console.log('DB does not exist!');
+  }
+  await nano.db.create(DBNAME);
+  console.log('... DB recréee, OK !');
+  console.log('Création de vue...');
+  await createViewDB();
+  console.log('... vue créee, OK !');
+}
+
+//////////////////////
+// Fonctions locales à ce fichier (pas besoin de les exporter)
+//////////////////////
+
+// Création d'un tableau avec la liste des ID Strava déjà existants dans la BDD
 function readID(stravaDb) {
   return new Promise((resolve, reject) => {
     //console.log("      ... mise à jour du tableau des ID Strava, à partir de la BDD existante...");
@@ -88,7 +77,7 @@ function readID(stravaDb) {
   })
 }
 
-// ???  Description
+// Insertion dans la BDD des activités n'existant pas déjà dans la BDD (check via le tableau crée par readID)
 function insertNew(data, stravaDb){
   // Création d'un enregistrement pour chaque activité
   console.log('   ... mise à jour de la DB avec '+ data.length + ' éléments...');
@@ -122,34 +111,20 @@ function insertNew(data, stravaDb){
   })
 }
 
-// ???  Description
-async function renewDB() {
-  try {
-    await nano.db.destroy(DBNAME);
-    console.log('DB détruite...');
-  } catch (e) {
-    console.log('DB does not exist!');
-  }
-  await nano.db.create(DBNAME);
-  console.log('... DB recréee, OK !');
-  console.log('Création de vue...');
-  await createViewDB();
-  console.log('... vue créee, OK !');
-}
-
-// ???  Description
+// Créee les vues nécessaires dans la BDD
 function createViewDB() {
   stravaDb.insert({
     "views":{
       "activities_by_date": {
         "map": function (doc) { if(doc.type == 'Run') emit(doc.start_date, doc.distance) }
       },
-      "activities_by_distance": {
-        "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
-      },
       "activities_by_id": {
         "map": function (doc) { if(doc.type == 'Run') emit (doc.id, null); }
       },
+      // Comment : pas utilisé pour le moment
+      // "activities_by_distance": {
+      //   "map": function (doc) { if(doc.type == 'Run') emit (doc.distance, null); }
+      // },
       "group_by_month": {
         "map": function (doc) {
           if(doc.type == 'Run') {
@@ -172,6 +147,41 @@ function createViewDB() {
   })
 }
 
+//////////////////////
+// Legacy : fonctions nécessaires pour OLD APP only
+//////////////////////
+
+// ???  Description
+function readRec(id) {
+  return new Promise((resolve, reject) => {
+    const idNum = parseInt(id); /// des heures pour trouver ça... :-(
+    stravaDb.view('strava', 'activities_by_id', {key: idNum, include_docs: true}, function(err,body) {
+      if (!err) {
+        // for each... mais il n'y a qu'une ligne normalement !
+        body.rows.forEach(doc => { resolve(doc.doc) })
+      } else {
+        console.log('error readRec = ' + JSON.stringify(err));
+      }
+    });
+  })
+}
+
+// ???  Description
+function readDB(year) {
+  let s_key = year + "-12-31T23:59:59Z"; // attention, on est en ordre descendant !
+  let e_key = year + "-01-01T00:00:00Z";
+  return new Promise((resolve, reject) => {
+    stravaDb.view('strava', 'activities_by_date',{startkey: s_key, endkey: e_key, include_docs: true, descending: true}, function(err,body) {
+      if (!err) {
+        resolve(body.rows);
+      } else {
+        console.log('error readDB = ' + err);
+      }
+    });
+  })
+}
+
+
 // Renvoie un json avec les distances (km) pour tous les mois de toutes les années
 function readMonthTotal() {
   return new Promise((resolve, reject) => {
@@ -185,9 +195,13 @@ function readMonthTotal() {
   })
 }
 
+
+
+
 module.exports = {
    updateDB,
    renewDB,
+   // en dessous : nécessaire pour OLD APP seulement 
    readDB,
    readRec,
    readMonthTotal

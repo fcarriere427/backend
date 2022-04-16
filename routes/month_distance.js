@@ -1,3 +1,5 @@
+// for OLD APP only !!!
+
 const dbFun = require('../dbFunctions');
 
 module.exports = {

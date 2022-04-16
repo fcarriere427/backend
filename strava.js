@@ -1,3 +1,5 @@
+// Fonctions pour lire des données Strava dans la BDD
+
 const dbFun = require('./dbFunctions');
 const utils = require('./utils');
 
@@ -31,7 +33,7 @@ async function getActivities(nbPages) {
   return(count);
 }
 
-// REQUETE POUR RECUPERER
+// TO DO : REQUETE POUR RECUPERER LE DETAIL COMPLET D'UNE ACTIVITE
 // Nécessaire pour avoir tout le détail, notamment la ville...
 // function getDetailedActivity(id){}
 
