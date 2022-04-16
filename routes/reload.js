@@ -2,7 +2,7 @@ const dbFun = require('../dbFunctions');
 const strava = require('../strava');
 
 module.exports = {
-    path: "/strava/reload",
+    path: "/api/strava/reload",
     config: (router) => {
         router
             .get("/", (req, res) => {

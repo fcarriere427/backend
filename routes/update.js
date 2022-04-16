@@ -1,7 +1,7 @@
 const strava = require('../strava');
 
 module.exports = {
-    path: "/strava/update",
+    path: "/api/strava/update",
     config: (router) => {
         router
             .get("/", (req, res) => {

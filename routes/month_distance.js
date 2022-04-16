@@ -3,7 +3,7 @@
 const dbFun = require('../dbFunctions');
 
 module.exports = {
-    path: "/strava/month_distance",
+    path: "/api/strava/month_distance",
     config: (router) => {
         router
             .get("/", (req, res) => {

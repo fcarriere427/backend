@@ -1,7 +1,7 @@
 const db = require('../db');
 
 module.exports = {
-    path: "/strava/last_activity_date",
+    path: "/api/strava/last_activity_date",
     config: (router) => {
         router
             .get("/", (req, res) => {
