@@ -6,8 +6,8 @@ module.exports = {
     config: (router) => {
         router
             .get("/", (req, res) => {
-              // param de getActivities = nbPages --> ici 7(*100) car 615 activités Strava le 22/02/22 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
-              var nbPages = 8;
+              // param de getActivities = nbPages --> ici 9(*100) car 849 activités Strava le 27/04/24 (cf. dashboard Strava) --> il faut mettre la centaine supérieure, pas plus !
+              var nbPages = 9;
               dbFun.renewDB()
               .then(() => strava.renewTokens())
               .then(() => strava.getActivities(nbPages))
